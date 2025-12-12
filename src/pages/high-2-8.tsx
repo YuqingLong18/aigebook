@@ -1,6 +1,7 @@
 import { Checkpoint } from "../components/Checkpoint";
 import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
+import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
 import { DepthExpressivenessDemo } from "../demos/DepthExpressivenessDemo";
 import { FeatureHierarchyDemo } from "../demos/FeatureHierarchyDemo";
@@ -25,9 +26,25 @@ export function HighLesson2_8({ lang }: LessonProps) {
 
   const t = content[lang];
 
+  const toc = [
+    { id: "learning-objectives", label: isZh ? "学习目标" : "Learning Objectives" },
+    { id: "intro", label: isZh ? "开篇理解" : "Opening Idea" },
+    { id: "dnn", label: isZh ? "1. 深层神经网络" : "1. Deep Neural Networks" },
+    { id: "difficulties", label: isZh ? "2) 训练困难" : "Training Difficulties" },
+    { id: "universal", label: isZh ? "普适逼近定理" : "Universal Approximation" },
+    { id: "pretrain", label: isZh ? "3) 预训练方法" : "Pre-training Method" },
+    { id: "flourish", label: isZh ? "深度学习发展" : "Flourishing Development" },
+    { id: "hierarchy", label: isZh ? "2. 分层特征学习" : "2. Hierarchical Features" },
+    { id: "success", label: isZh ? "成功因素" : "Success Factors" },
+    { id: "summary", label: isZh ? "本节小结" : "Summary" },
+  ];
+
   return (
-    <div className="space-y-6">
-      <SectionBlock title={t.learningObjectivesTitle}>
+    <div className="flex gap-6">
+      <LessonToc lang={lang} items={toc} />
+
+      <div className="flex-1 space-y-6">
+        <SectionBlock id="learning-objectives" title={t.learningObjectivesTitle}>
         <ul className="grid gap-2 text-sm leading-relaxed text-slate-700 md:grid-cols-2">
           {t.learningObjectives.map((obj) => (
             <li key={obj}>{obj}</li>
@@ -35,11 +52,11 @@ export function HighLesson2_8({ lang }: LessonProps) {
         </ul>
       </SectionBlock>
 
-      <SectionBlock title={t.openingTitle} eyebrow={t.openingEyebrow}>
+        <SectionBlock id="intro" title={t.openingTitle} eyebrow={t.openingEyebrow}>
         <p className="text-sm leading-relaxed text-slate-700">{t.openingText}</p>
       </SectionBlock>
 
-      <SectionBlock id="dnn" title={t.dnnTitle} eyebrow={t.dnnEyebrow}>
+        <SectionBlock id="dnn" title={t.dnnTitle} eyebrow={t.dnnEyebrow}>
         <InfoCard title={t.basicConceptsTitle}>
           {t.basicConceptsParas.map((para) => (
             <p key={para}>{para}</p>
@@ -58,7 +75,7 @@ export function HighLesson2_8({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock title={t.difficultiesTitle}>
+        <SectionBlock id="difficulties" title={t.difficultiesTitle}>
         <p className="text-sm leading-relaxed text-slate-700">{t.difficultiesText}</p>
         <LossLandscapeDemo lang={lang} />
         <GuidedSteps title={ui.guidedTitle} steps={t.diffSteps} />
@@ -72,7 +89,7 @@ export function HighLesson2_8({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock title={t.universalTitle}>
+        <SectionBlock id="universal" title={t.universalTitle}>
         <InfoCard title={isZh ? "关键思想" : "Key Idea"}>
           <p>{t.universalKeyIdea}</p>
         </InfoCard>
@@ -88,7 +105,7 @@ export function HighLesson2_8({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock title={t.pretrainTitle}>
+        <SectionBlock id="pretrain" title={t.pretrainTitle}>
         <p className="text-sm leading-relaxed text-slate-700">{t.pretrainText}</p>
         <InfoCard title={t.rbmInfoTitle}>
           <p>{t.rbmInfoText}</p>
@@ -105,7 +122,7 @@ export function HighLesson2_8({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock title={t.flourishTitle}>
+        <SectionBlock id="flourish" title={t.flourishTitle}>
         <p className="text-sm leading-relaxed text-slate-700">{t.flourishText}</p>
         <Checkpoint
           tagLabel={ui.checkpointTag}
@@ -117,7 +134,7 @@ export function HighLesson2_8({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock id="hierarchy" title={t.hierarchyTitle} eyebrow={t.hierarchyEyebrow}>
+        <SectionBlock id="hierarchy" title={t.hierarchyTitle} eyebrow={t.hierarchyEyebrow}>
         <InfoCard title={t.highLevelTitle}>
           <p>{t.highLevelText}</p>
         </InfoCard>
@@ -144,18 +161,19 @@ export function HighLesson2_8({ lang }: LessonProps) {
         </InfoCard>
       </SectionBlock>
 
-      <SectionBlock title={t.successTitle}>
+        <SectionBlock id="success" title={t.successTitle}>
         <p className="text-sm leading-relaxed text-slate-700">{t.successText}</p>
         <SuccessFactorsDemo lang={lang} />
       </SectionBlock>
 
-      <SectionBlock title={t.summaryTitle} eyebrow={t.summaryEyebrow}>
+        <SectionBlock id="summary" title={t.summaryTitle} eyebrow={t.summaryEyebrow}>
         <ul className="space-y-2 text-sm leading-relaxed text-slate-700">
           {t.summaryPoints.map((point) => (
             <li key={point}>{point}</li>
           ))}
         </ul>
       </SectionBlock>
+      </div>
     </div>
   );
 }

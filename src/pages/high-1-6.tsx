@@ -1,6 +1,7 @@
 import { Checkpoint } from "../components/Checkpoint";
 import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
+import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
 
 type LessonProps = {
@@ -18,9 +19,20 @@ export function HighLesson1_6({ lang }: LessonProps) {
   };
   const t = content[lang];
 
+  const toc = [
+    { id: "learning-objectives", label: isZh ? "学习目标" : "Learning Objectives" },
+    { id: "intro", label: isZh ? "火种被点燃" : "The spark ignites" },
+    { id: "rise", label: isZh ? "1. 崛起" : "1. The Rise" },
+    { id: "dartmouth", label: isZh ? "2. 达特茅斯会议" : "2. Dartmouth Conference" },
+    { id: "summary", label: isZh ? "本节小结" : "Summary" },
+  ];
+
   return (
-    <div className="space-y-6">
-      <SectionBlock title={t.learningObjectivesTitle}>
+    <div className="flex gap-6">
+      <LessonToc lang={lang} items={toc} />
+
+      <div className="flex-1 space-y-6">
+        <SectionBlock id="learning-objectives" title={t.learningObjectivesTitle}>
         <ul className="space-y-2 text-sm leading-relaxed text-slate-700">
           {t.learningObjectives.map((obj) => (
             <li key={obj}>{obj}</li>
@@ -28,11 +40,11 @@ export function HighLesson1_6({ lang }: LessonProps) {
         </ul>
       </SectionBlock>
 
-      <SectionBlock title={t.introTitle} eyebrow={t.introEyebrow}>
+        <SectionBlock id="intro" title={t.introTitle} eyebrow={t.introEyebrow}>
         <p className="text-sm leading-relaxed text-slate-700">{t.intro}</p>
       </SectionBlock>
 
-      <SectionBlock title={t.riseTitle} eyebrow={t.riseEyebrow}>
+        <SectionBlock id="rise" title={t.riseTitle} eyebrow={t.riseEyebrow}>
         <InfoCard title={t.riseCardTitle}>
           {t.riseParas.map((para) => (
             <p key={para}>{para}</p>
@@ -50,7 +62,7 @@ export function HighLesson1_6({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock title={t.dartmouthTitle} eyebrow={t.dartmouthEyebrow}>
+        <SectionBlock id="dartmouth" title={t.dartmouthTitle} eyebrow={t.dartmouthEyebrow}>
         {t.dartmouthParas.map((para) => (
           <p key={para} className="text-sm leading-relaxed text-slate-700">
             {para}
@@ -68,13 +80,14 @@ export function HighLesson1_6({ lang }: LessonProps) {
         />
       </SectionBlock>
 
-      <SectionBlock title={t.summaryTitle} eyebrow={t.summaryEyebrow}>
+        <SectionBlock id="summary" title={t.summaryTitle} eyebrow={t.summaryEyebrow}>
         <ul className="space-y-2 text-sm leading-relaxed text-slate-700">
           {t.summaryPoints.map((pt) => (
             <li key={pt}>{pt}</li>
           ))}
         </ul>
       </SectionBlock>
+      </div>
     </div>
   );
 }

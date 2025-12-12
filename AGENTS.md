@@ -192,6 +192,13 @@ For each book section provided:
 - Source text files: `source_text/<level>-<chapter>-<lesson>.txt`.
 - Navigation labels can say “Unit” or “Chapter,” but filenames stay numeric for clarity and grepability.
 
+## Lesson Navigation (TOC)
+- Each lesson page should include a left-side fixed or sticky table of contents with anchor links to main sections/subsections.
+- TOC should be collapsible to maximize content area (e.g., “Hide/Show” control), default open on desktop.
+- When collapsed, the TOC footprint should shrink horizontally (not just hide text) so lesson cards expand to use the extra width.
+- Section cards should include stable `id`s to enable intra-page navigation (e.g., `#dnn`, `#pretrain`, `#summary`).
+- TOC labels should mirror the lesson headings/subheadings in both languages; clicking jumps to the corresponding section.
+
 ---
 
 ## “Do Not Do” List
