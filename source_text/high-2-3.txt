@@ -1,0 +1,91 @@
+2.3 The Basic Workflow of Machine Learning
+Learning Objectives
+	Understand the four main steps in building a machine learning system: model design, model training, model testing, and model selection.
+	Understand the “No Free Lunch” theorem and recognize how to choose appropriate models based on specific tasks and data characteristics.
+	Master the basic methods of model training, understand the role of the loss function, and learn the principles and optimization process of gradient descent.
+	Understand the importance of model testing, distinguish between training sets and test sets, and grasp the concepts and causes of overfitting and underfitting.
+	Master the basic principles of model selection, understand Occam’s Razor, and learn how to balance model performance and complexity.
+
+This section introduces the basic workflow of machine learning (Figure 2-16) to help readers understand how to construct a machine learning system to solve a specific AI task.
+
+Overall, building a machine learning system involves four stages:
+	Model Design: Design the model based on the actual needs of the target task, and understand the principle of “No Free Lunch.”
+	Model Training: Collect training data and train the machine learning model. The optimization process is illustrated through the example of gradient descent.
+	Model Testing: Evaluate model performance on a test set independent of the training set and understand the causes of overfitting.
+	Model Selection: Choose the optimal model based on Occam’s Razor.
+
+After readingThrough this section, youreaders will learknown how to designbuild a machine learning system from scratch and develop a scientific approach to solving real-world problems.
+
+1.Model Design
+	The “No Free Lunch” Theorem
+For a machine learning task, —such as distinguishing between apples and oranges, —we need to design a model to perform this classification. The first step in model design is to extract significant features from the data that make the task easier. For example, apples and oranges can be distinguished by size and color. “Size” and “color” are the “features” used for classification (see Figure 2-17).
+
+Once the features are identified, an appropriate model structure must be chosen. There are many types of models in machine learning. Which one should we picHow can we determine which one to usek? Studies have shown that every model has its own applicable domain. Without a clearly defined application scenario, no model can consistently outperform all others. This is known as the “No Free Lunch” theorem, proposed by David Wolpert in 1996. The theorem states that, across all possible functions, the average performance of any optimization algorithm is the same. In other words, no single algorithm outperforms all others in every possible situation. If an algorithm performs well in one class of problems, it may perform poorly in another.
+
+The “No Free Lunch” theorem illustratesteaches us that discussing which model is “better” is meaningless without understanding the specific task. Model design must be grounded in a deep understanding of the task scenario to produce a model that fits the context.
+	Factors to Consider in Model Design
+Based onInspired by the “No Free Lunch” theorem, model design should consider multiple factors:
+	Data format and quantity: Is the data continuous (e.g., speech) or discrete (e.g., text)? One-dimensional (e.g., speech) or two-dimensional (e.g., images)? Structured (e.g., product records in a database) or unstructured (e.g., seismic waveforms)? Is the data large-scale (e.g., massive internet data) or small-scale (e.g., radiation curves from a nuclear reactor leak)?
+	Data distribution: Is the data evenly distributed or clustered in certain regions? Is it unimodal (one peak) or multimodal (multiple peaks)?
+	Memory and computational cost: How much memory does the model require during training and testing? How long does it take to run?
+	Acceptable error rate: Different applications have different tolerance levels for errors. For example, banking systems require extremely low error rates, while some entertainment applications can tolerate higher errors.
+In short, effectively solving real-world problems requires a comprehensive consideration of these factors, so that one might chooseing the appropriate model based on task demands and data characteristics.
+
+2.Model Training
+	Defining the Objective Function
+Once the model is designed, the next step is to teach it how to complete its the task. This process is called “model training.” During training, the machine automatically adjusts the model’s parameters to produce a more accurate predictionbetter predictions.
+For example, we want to train a model that distinguishes between apples and oranges. We can design a simple linear model:
+
+  Y = A × Color + B × Size + C
+
+Here, A, B, and C are parameters that define the model’s behavior (see the blue decision boundary in Figure 2-18). Model training aims to determine these parameters from data to improve classification accuracy.
+
+To achieve this, we first collect samples of apples and oranges to create a training set. We use T to denote the class label: T = 1 for apples, T = 0 for oranges (Figure 2-19).
+
+Next, we define a loss function, which represents the gap between the model’s prediction Y and the actual label T. For example, the loss function L can be defined as:
+  L = (Y - T)²
+The smaller the value of L, the closer Y is to T, and the more accurate the prediction (see Figure 2-20). Thus, training the model becomes a mathematical problem: find the parameters (A, B, C) that minimize the loss function L.
+
+Figure 2-21 shows how the “random trial method” minimizes L. We start with a random initial guess for {A, B, C}, then try new values nearby. If the loss decreases, we keep the new values; otherwise, we try again. Repeating this many times reduces the loss and improves classification.
+
+To summarize, model training involves defining a reasonable loss function, then choosing an optimization method to adjust parameters and minimize the loss.
+
+	Gradient Descent Algorithm
+To minimize the loss function during training, many optimization algorithms have been proposed. Among them, gradient descent is the most widely used due to its simplicity and efficiency.
+
+Gradient descent is muchworks like descending a mountain. Imagine someone at the top of a mountain trying to reach the lowest valley:
+	From the current position, explore the surroundings and find the steepest direction downhill.
+	Take a step in that direction to reach a new position.
+	Repeat until reaching the lowest point.
+
+If we think of the parameters as geographic coordinates and the loss function value as elevation, then the loss function forms a 3D surface like a mountainside (Figure 2-22). Gradient descent follows the steepest slope to reach the valley.
+Concretely, we start with an initial point A, where the loss is high. We find the direction of steepest descent nearby and move a small step to point B. Repeating this process eventually leads to the valley C. Mathematically, the steepest slope is the gradient, so this method is called “gradient descent” (see Figure 2-23 for slope and gradient).
+
+To train our apple-orange classifier using gradient descent, we randomly initialize {A, B, C}. Then we compute the gradient of the loss function and update the parameters in the opposite direction of the gradient. Repeat until the loss stabilizes.
+
+Gradient descent is the most widely applied optimization method in machine learning. Compared to the random trial method (Figure 2-21), it uses local geometric information, making it more efficient. It is also simpler and faster than more advanced methods, especially for large-scale data.
+
+	Model Testing
+	What Is Overfitting?
+After training, we must test the model on an independent test set. Why not test on the training set? Because performance may differ greatly between the two: a model that performs well on the training set might do poorly on the test set. This is called overfitting. Overfitting is like when a student who memorizes everything the teacher says but cannot solve new problems on an exam.
+To evaluate true model performance, we must use a test set that the model hasn’t seen before must be used, —just as real exams should include new questions new to the student in order to test understanding.
+
+	Causes of Overfitting
+The root cause of overfitting is that the machine mistakenly learns noise and irrelevant details as if they were patterns. —Iin other words, the machine sees patterns where there are none,it learnings “false patterns.” In Figure 2-24, we trained two models with different decision boundaries were trained: the red dashed line and the blue solid line. The blue one is more complex and fits a specific apple that is unusually large and yellowish. But such apples are rare, and most large yellowish fruits are oranges. On the test set, this complex model makes more mistakes—,it wrongly classifyingies some oranges as apples. In brief, tThe essence of overfitting is mistaking an exceptions for a rules.
+
+	Model Selection
+	Overfitting and Underfitting
+Overfitting highlights the importance of model selection. Why woulddoes a model mistake an exceptions for a rules? Because the model isit’s too complex and flexible. Once it learns the real patterns, it still has enough capacity to memorize exceptions. Thus, overly complex models are prone to overfitting. So is the solutionshould we always choosinge simpler models? Not necessarily. If the model is too simple, it may lack the ability to learn even basic patterns. This is called underfitting. Neither overfitting nor underfitting areis ideal. Figure 2-25 shows how model performance changes with increasing complexity. Only when complexity is moderate do we achieve the best results. That’s why model selection matters.
+
+	Occam’s Razor
+How do we choose the right model? In machine learning, there’s a famous principle: if two models have similar performance, choose the simpler one. This is called Occam’s Razor, named after the medieval English philosopher Occam. The metaphorical “razor” means shaving off unnecessary complexity.
+
+For example, suppose we are choosing a model to classify apples and oranges. After many tries, we find one simple and one complex model that perform similarly. According to Occam’s Razor, we should choose the simpler model.
+
+Section Summary
+This section discussed the four main steps in building a machine learning system: model design, model training, model testing, and model selection.
+	Model Design: Extract relevant features and choose an appropriate model based on the task.
+	Model Training: Define a suitable loss function and use an optimization algorithm to adjust model parameters to reduce the loss.
+	Model Testing: Evaluate the model’s performance using a test set that is independent of the training set.
+	Model Selection: Use Occam’s Razor to prefer simpler models when performance is similar.
+It is important to note that these are general principles. In real-world applications, problems are often much more complex. Researchers may need to revise model design based on test results, improve training algorithms, or conduct simplified experiments to better understand the data and model properties. A key skill in machine learning is mastering trade-offs: between data and models, speed and accuracy, model performance and hardware resources, and so on. AI is a practical science, and to master these techniques, one must practice and explore them in real tasks.
