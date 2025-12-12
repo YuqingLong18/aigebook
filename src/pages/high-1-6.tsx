@@ -3,11 +3,11 @@ import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { SectionBlock } from "../components/SectionBlock";
 
-type LessonBeginningsAIProps = {
+type LessonProps = {
   lang: "en" | "zh";
 };
 
-export function LessonBeginningsAI({ lang }: LessonBeginningsAIProps) {
+export function HighLesson1_6({ lang }: LessonProps) {
   const isZh = lang === "zh";
   const ui = {
     reset: isZh ? "重置" : "Reset",

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { SectionBlock } from "./components/SectionBlock";
 import { ComingSoon } from "./pages/ComingSoon";
-import { LessonDeepLearningBasics } from "./pages/LessonDeepLearningBasics";
-import { LessonBeginningsAI } from "./pages/LessonBeginningsAI";
+import { HighLesson1_6 } from "./pages/high-1-6";
+import { HighLesson2_8 } from "./pages/high-2-8";
 import { NavigationPage } from "./pages/NavigationPage";
 
 function App() {
@@ -107,7 +107,7 @@ function LessonRouter({ lang }: LessonRouterProps) {
               : "This lesson covers early AI research and the Dartmouth Conference, including game algorithms, theorem proving, and early neural networks."}
           </p>
         </SectionBlock>
-        <LessonBeginningsAI lang={lang} />
+        <HighLesson1_6 lang={lang} />
       </div>
     );
   }
@@ -127,7 +127,7 @@ function LessonRouter({ lang }: LessonRouterProps) {
               : "This is Chapter 2 Lesson 8, covering deep learning basics and hierarchical feature learning."}
           </p>
         </SectionBlock>
-        <LessonDeepLearningBasics lang={lang} />
+        <HighLesson2_8 lang={lang} />
       </div>
     );
   }

@@ -183,6 +183,15 @@ For each book section provided:
    - Verify fidelity to book text and sequence.
    - Run lint/typecheck/build; ensure no runtime errors.
 
+## File/Route Naming (Lessons)
+- Keep lesson filenames and source text numeric and level-tagged to avoid collisions:
+  - `high-<chapter>-<lesson>.tsx` for high school (e.g., `high-2-8.tsx`).
+  - `primary-<unit>-<lesson>.tsx` for primary (e.g., `primary-1-4.tsx`).
+  - `middle-<unit>-<lesson>.tsx` for middle school when added.
+- Routes follow the same numeric pattern: `/high/ch/<chapter>/lesson/<lesson>` (mirror for primary/middle when needed).
+- Source text files: `source_text/<level>-<chapter>-<lesson>.txt`.
+- Navigation labels can say “Unit” or “Chapter,” but filenames stay numeric for clarity and grepability.
+
 ---
 
 ## “Do Not Do” List

@@ -9,11 +9,11 @@ import { PretrainingFlowDemo } from "../demos/PretrainingFlowDemo";
 import { StepApproxDemo } from "../demos/StepApproxDemo";
 import { SuccessFactorsDemo } from "../demos/SuccessFactorsDemo";
 
-type LessonDeepLearningBasicsProps = {
+type LessonProps = {
   lang: "en" | "zh";
 };
 
-export function LessonDeepLearningBasics({ lang }: LessonDeepLearningBasicsProps) {
+export function HighLesson2_8({ lang }: LessonProps) {
   const isZh = lang === "zh";
   const ui = {
     reset: isZh ? "重置" : "Reset",

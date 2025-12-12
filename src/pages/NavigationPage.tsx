@@ -397,7 +397,7 @@ const enText = {
   title: "Version Navigation",
   eyebrow: "Start here",
   subtitle: "Choose a school edition and chapter. Default landing is Chinese; toggle is above.",
-  hint: "Open now: High School → Unit 2 → Lesson 8 (this page) and Unit 1 → Lesson 6 (new).",
+  hint: "Open now: High School → Unit 2 → Lesson 8 (this page) and Unit 1 → Lesson 6 (new). Primary is listed for reference.",
   levelPrompt: "Pick a school edition to enter.",
   chapterPrompt: "Select a chapter (10 lessons each).",
   lessonPrompt:
@@ -424,7 +424,7 @@ const zhText = {
   title: "版本导航",
   eyebrow: "从这里开始",
   subtitle: "请选择学段与章节。默认显示中文，可通过右上角切换语言。",
-  hint: "已开放：高中版 → 第 2 单元 → 第 8 课（本页内容），以及第 1 单元 → 第 6 课。",
+  hint: "已开放：高中版 → 第 2 单元 → 第 8 课（本页内容），以及第 1 单元 → 第 6 课。小学版已列出目录。",
   levelPrompt: "选择学段进入对应内容。",
   chapterPrompt: "选择一个章节（每章 10 课）。",
   lessonPrompt: "选择课次。当前已开放：第 2 单元 第 8 课，以及第 1 单元 第 6 课，其余即将上线。",
