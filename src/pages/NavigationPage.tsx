@@ -14,6 +14,13 @@ type LessonInfo = {
   titleEn: string;
 };
 
+type ChapterInfo = {
+  id: number;
+  labelZh: string;
+  labelEn: string;
+  lessons: LessonInfo[];
+};
+
 export function NavigationPage({ lang }: NavigationPageProps) {
   const isZh = lang === "zh";
   const t = isZh ? zhText : enText;
@@ -21,63 +28,192 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const [chapter, setChapter] = useState<number | null>(null);
   const [lesson, setLesson] = useState<number | null>(null);
 
-  const lessonsByChapter: Record<number, LessonInfo[]> = useMemo(
-    () => ({
-      1: [
-        { num: 1, titleZh: "什么是人工智能", titleEn: "What is Artificial Intelligence" },
-        { num: 2, titleZh: "人类智能的起源", titleEn: "Origins of Human Intelligence" },
-        { num: 3, titleZh: "人工智能的起源：数理逻辑", titleEn: "Origins of AI: Mathematical Logic" },
-        { num: 4, titleZh: "人工智能的起源：计算机的诞生", titleEn: "Origins of AI: Birth of Computers" },
-        { num: 5, titleZh: "图灵：人工智能之父", titleEn: "Turing: Father of AI" },
-        { num: 6, titleZh: "人工智能的开端", titleEn: "The Dawn of Artificial Intelligence" },
-        { num: 7, titleZh: "人工智能发展史（1）", titleEn: "History of AI (1)" },
-        { num: 8, titleZh: "人工智能发展史（2）", titleEn: "History of AI (2)" },
-        { num: 9, titleZh: "人工智能伦理：近期风险", titleEn: "AI Ethics: Near-term Risks" },
-        { num: 10, titleZh: "人工智能伦理：远期风险", titleEn: "AI Ethics: Long-term Risks" },
-      ],
-      2: [
-        { num: 1, titleZh: "基于知识的人工智能", titleEn: "Knowledge-based Artificial Intelligence" },
-        { num: 2, titleZh: "基于学习的人工智能", titleEn: "Learning-based Artificial Intelligence" },
-        { num: 3, titleZh: "机器学习基础流程", titleEn: "Basic Machine Learning Pipeline" },
-        { num: 4, titleZh: "机器学习方法", titleEn: "Machine Learning Methods" },
-        { num: 5, titleZh: "机器学习四大学派", titleEn: "Four Major ML Schools" },
-        { num: 6, titleZh: "初识人工神经网络", titleEn: "Intro to Artificial Neural Networks" },
-        { num: 7, titleZh: "典型神经网络结构", titleEn: "Typical Neural Network Structures" },
-        { num: 8, titleZh: "深度学习基础", titleEn: "Deep Learning Basics" },
-        { num: 9, titleZh: "大模型的基本原理（1）", titleEn: "Basic Principles of Large Models (1)" },
-        { num: 10, titleZh: "大模型的基本原理（2）", titleEn: "Basic Principles of Large Models (2)" },
-      ],
-      3: [
-        { num: 1, titleZh: "机器视觉：人脸识别", titleEn: "Machine Vision: Face Recognition" },
-        { num: 2, titleZh: "机器视觉：绘画大师", titleEn: "Machine Vision: Painting Master" },
-        { num: 3, titleZh: "机器视觉：伪造与鉴别", titleEn: "Machine Vision: Forgery & Detection" },
-        { num: 4, titleZh: "机器听觉：语音识别", titleEn: "Machine Hearing: Speech Recognition" },
-        { num: 5, titleZh: "机器听觉：语音合成", titleEn: "Machine Hearing: Speech Synthesis" },
-        { num: 6, titleZh: "语言处理：机器翻译", titleEn: "Language Processing: Machine Translation" },
-        { num: 7, titleZh: "人机对战：AlphaGo 的秘密", titleEn: "Human vs AI: AlphaGo’s Secret" },
-        { num: 8, titleZh: "人机对战：AI 打游戏", titleEn: "Human vs AI: Game-playing AI" },
-        { num: 9, titleZh: "搜索引擎的秘密", titleEn: "Secrets of Search Engines" },
-        { num: 10, titleZh: "比你更懂你的推荐算法", titleEn: "Recommendation Algorithms That Know You" },
-      ],
-      4: [
-        { num: 1, titleZh: "和数学家做朋友", titleEn: "Making Friends with Mathematicians" },
-        { num: 2, titleZh: "模仿蝙蝠的耳朵", titleEn: "Mimicking the Bat’s Ear" },
-        { num: 3, titleZh: "破解蛋白质结构之谜", titleEn: "Cracking Protein Structures" },
-        { num: 4, titleZh: "重构材料微观三维结构", titleEn: "Reconstructing Material Microstructures" },
-        { num: 5, titleZh: "预测化学反应类型", titleEn: "Predicting Chemical Reaction Types" },
-        { num: 6, titleZh: "天文学家的助手", titleEn: "Assistant to Astronomers" },
-        { num: 7, titleZh: "人工智能作曲家", titleEn: "AI Composer" },
-        { num: 8, titleZh: "检测炭疽芽孢", titleEn: "Detecting Anthrax Spores" },
-        { num: 9, titleZh: "开发癌症疫苗", titleEn: "Developing Cancer Vaccines" },
-        { num: 10, titleZh: "走向未来", titleEn: "Heading to the Future" },
-      ],
-    }),
+  const highChapters: ChapterInfo[] = useMemo(
+    () => [
+      {
+        id: 1,
+        labelZh: "第 1 单元 人工智能概述",
+        labelEn: "Unit 1: Introduction to AI",
+        lessons: [
+          { num: 1, titleZh: "什么是人工智能", titleEn: "What is Artificial Intelligence" },
+          { num: 2, titleZh: "人类智能的起源", titleEn: "Origins of Human Intelligence" },
+          { num: 3, titleZh: "人工智能的起源：数理逻辑", titleEn: "Origins of AI: Mathematical Logic" },
+          { num: 4, titleZh: "人工智能的起源：计算机的诞生", titleEn: "Origins of AI: Birth of Computers" },
+          { num: 5, titleZh: "图灵：人工智能之父", titleEn: "Turing: Father of AI" },
+          { num: 6, titleZh: "人工智能的开端", titleEn: "The Dawn of Artificial Intelligence" },
+          { num: 7, titleZh: "人工智能发展史（1）", titleEn: "History of AI (1)" },
+          { num: 8, titleZh: "人工智能发展史（2）", titleEn: "History of AI (2)" },
+          { num: 9, titleZh: "人工智能伦理：近期风险", titleEn: "AI Ethics: Near-term Risks" },
+          { num: 10, titleZh: "人工智能伦理：远期风险", titleEn: "AI Ethics: Long-term Risks" },
+        ],
+      },
+      {
+        id: 2,
+        labelZh: "第 2 单元 人工智能基础",
+        labelEn: "Unit 2: Fundamentals of AI",
+        lessons: [
+          { num: 1, titleZh: "基于知识的人工智能", titleEn: "Knowledge-based Artificial Intelligence" },
+          { num: 2, titleZh: "基于学习的人工智能", titleEn: "Learning-based Artificial Intelligence" },
+          { num: 3, titleZh: "机器学习基础流程", titleEn: "Basic Machine Learning Pipeline" },
+          { num: 4, titleZh: "机器学习方法", titleEn: "Machine Learning Methods" },
+          { num: 5, titleZh: "机器学习四大学派", titleEn: "Four Major ML Schools" },
+          { num: 6, titleZh: "初识人工神经网络", titleEn: "Intro to Artificial Neural Networks" },
+          { num: 7, titleZh: "典型神经网络结构", titleEn: "Typical Neural Network Structures" },
+          { num: 8, titleZh: "深度学习基础", titleEn: "Deep Learning Basics" },
+          { num: 9, titleZh: "大模型的基本原理（1）", titleEn: "Basic Principles of Large Models (1)" },
+          { num: 10, titleZh: "大模型的基本原理（2）", titleEn: "Basic Principles of Large Models (2)" },
+        ],
+      },
+      {
+        id: 3,
+        labelZh: "第 3 单元 人工智能应用",
+        labelEn: "Unit 3: Applications of AI",
+        lessons: [
+          { num: 1, titleZh: "机器视觉：人脸识别", titleEn: "Machine Vision: Face Recognition" },
+          { num: 2, titleZh: "机器视觉：绘画大师", titleEn: "Machine Vision: Painting Master" },
+          { num: 3, titleZh: "机器视觉：伪造与鉴别", titleEn: "Machine Vision: Forgery & Detection" },
+          { num: 4, titleZh: "机器听觉：语音识别", titleEn: "Machine Hearing: Speech Recognition" },
+          { num: 5, titleZh: "机器听觉：语音合成", titleEn: "Machine Hearing: Speech Synthesis" },
+          { num: 6, titleZh: "语言处理：机器翻译", titleEn: "Language Processing: Machine Translation" },
+          { num: 7, titleZh: "人机对战：AlphaGo 的秘密", titleEn: "Human vs AI: AlphaGo’s Secret" },
+          { num: 8, titleZh: "人机对战：AI 打游戏", titleEn: "Human vs AI: Game-playing AI" },
+          { num: 9, titleZh: "搜索引擎的秘密", titleEn: "Secrets of Search Engines" },
+          { num: 10, titleZh: "比你更懂你的推荐算法", titleEn: "Recommendation Algorithms That Know You" },
+        ],
+      },
+      {
+        id: 4,
+        labelZh: "第 4 单元 人工智能前沿",
+        labelEn: "Unit 4: Frontiers of AI",
+        lessons: [
+          { num: 1, titleZh: "和数学家做朋友", titleEn: "Making Friends with Mathematicians" },
+          { num: 2, titleZh: "模仿蝙蝠的耳朵", titleEn: "Mimicking the Bat’s Ear" },
+          { num: 3, titleZh: "破解蛋白质结构之谜", titleEn: "Cracking Protein Structures" },
+          { num: 4, titleZh: "重构材料微观三维结构", titleEn: "Reconstructing Material Microstructures" },
+          { num: 5, titleZh: "预测化学反应类型", titleEn: "Predicting Chemical Reaction Types" },
+          { num: 6, titleZh: "天文学家的助手", titleEn: "Assistant to Astronomers" },
+          { num: 7, titleZh: "人工智能作曲家", titleEn: "AI Composer" },
+          { num: 8, titleZh: "检测炭疽芽孢", titleEn: "Detecting Anthrax Spores" },
+          { num: 9, titleZh: "开发癌症疫苗", titleEn: "Developing Cancer Vaccines" },
+          { num: 10, titleZh: "走向未来", titleEn: "Heading to the Future" },
+        ],
+      },
+    ],
     [],
   );
 
-  const lessons = chapter ? lessonsByChapter[chapter] ?? [] : [];
+  const primaryChapters: ChapterInfo[] = useMemo(
+    () => [
+      {
+        id: 1,
+        labelZh: "第 1 单元 从梦想到现实",
+        labelEn: "Unit 1: From Dream to Reality",
+        lessons: [
+          { num: 1, titleZh: "僧师的故事", titleEn: "Story of the Monk Master" },
+          { num: 2, titleZh: "加扎利的音乐团", titleEn: "Ghazali's Music Band" },
+          { num: 3, titleZh: "电影中的人工智能", titleEn: "AI in Movies" },
+          { num: 4, titleZh: "什么是人工智能", titleEn: "What is Artificial Intelligence" },
+        ],
+      },
+      {
+        id: 2,
+        labelZh: "第 2 单元 身边的人工智能",
+        labelEn: "Unit 2: AI Around Us",
+        lessons: [
+          { num: 1, titleZh: "高铁检票员", titleEn: "High-speed Rail Ticket Checker" },
+          { num: 2, titleZh: "电子交警", titleEn: "Electronic Traffic Officer" },
+          { num: 3, titleZh: "美颜相机", titleEn: "Beauty Camera" },
+          { num: 4, titleZh: "扫地机器人", titleEn: "Robot Vacuum" },
+          { num: 5, titleZh: "自动驾驶", titleEn: "Autonomous Driving" },
+          { num: 6, titleZh: "推荐系统", titleEn: "Recommendation Systems" },
+        ],
+      },
+      {
+        id: 3,
+        labelZh: "第 3 单元 人工智能前沿",
+        labelEn: "Unit 3: AI Frontiers",
+        lessons: [
+          { num: 1, titleZh: "AI 画家", titleEn: "AI Painter" },
+          { num: 2, titleZh: "AI 作曲", titleEn: "AI Composer" },
+          { num: 3, titleZh: "AI 诗人", titleEn: "AI Poet" },
+          { num: 4, titleZh: "AlphaGo 的故事", titleEn: "Story of AlphaGo" },
+          { num: 5, titleZh: "OpenAI 和它的 ChatGPT", titleEn: "OpenAI and ChatGPT" },
+          { num: 6, titleZh: "Sora 的故事", titleEn: "Story of Sora" },
+          { num: 7, titleZh: "AI 天气预报员", titleEn: "AI Weather Forecaster" },
+        ],
+      },
+      {
+        id: 4,
+        labelZh: "第 4 单元 人工智能起源",
+        labelEn: "Unit 4: Origins of AI",
+        lessons: [
+          { num: 1, titleZh: "亚里士多德的故事", titleEn: "Story of Aristotle" },
+          { num: 2, titleZh: "布尔的故事", titleEn: "Story of Boole" },
+          { num: 3, titleZh: "图灵和图灵机", titleEn: "Turing and the Turing Machine" },
+          { num: 4, titleZh: "计算机的诞生", titleEn: "Birth of the Computer" },
+          { num: 5, titleZh: "机器智能的最初设想", titleEn: "Early Notions of Machine Intelligence" },
+          { num: 6, titleZh: "达特茅斯会议", titleEn: "Dartmouth Conference" },
+        ],
+      },
+      {
+        id: 5,
+        labelZh: "第 5 单元 人工智能发展",
+        labelEn: "Unit 5: AI Development",
+        lessons: [
+          { num: 1, titleZh: "吴文俊的故事", titleEn: "Story of Wu Wenjun" },
+          { num: 2, titleZh: "费根鲍姆和专家系统", titleEn: "Feigenbaum and Expert Systems" },
+          { num: 3, titleZh: "深蓝：成就巅峰", titleEn: "Deep Blue: Reaching the Peak" },
+          { num: 4, titleZh: "深度学习兴起", titleEn: "Rise of Deep Learning" },
+          { num: 5, titleZh: "大模型时代", titleEn: "Era of Large Models" },
+          { num: 6, titleZh: "走向未来", titleEn: "Heading to the Future" },
+        ],
+      },
+      {
+        id: 6,
+        labelZh: "第 6 单元 人工智能基础",
+        labelEn: "Unit 6: AI Fundamentals",
+        lessons: [
+          { num: 1, titleZh: "认识计算机", titleEn: "Know the Computer" },
+          { num: 2, titleZh: "认识计算机程序", titleEn: "Know Computer Programs" },
+          { num: 3, titleZh: "什么是算法", titleEn: "What is an Algorithm" },
+          { num: 4, titleZh: "知识与智能", titleEn: "Knowledge and Intelligence" },
+          { num: 5, titleZh: "不会学习的机器不是好机器", titleEn: "A Machine that Cannot Learn is Not a Good Machine" },
+        ],
+      },
+      {
+        id: 7,
+        labelZh: "第 7 单元 深度学习时代",
+        labelEn: "Unit 7: Era of Deep Learning",
+        lessons: [
+          { num: 1, titleZh: "皮茨和他的神经元模型", titleEn: "Pitts and His Neuron Model" },
+          { num: 2, titleZh: "感知器：会学习的神经网络", titleEn: "Perceptron: A Learning Neural Network" },
+          { num: 3, titleZh: "杰弗里·辛顿的故事", titleEn: "Story of Geoffrey Hinton" },
+          { num: 4, titleZh: "李飞飞与 ImageNet 数据集", titleEn: "Fei-Fei Li and ImageNet Dataset" },
+          { num: 5, titleZh: "GPU：从游戏到人工智能", titleEn: "GPU: From Gaming to AI" },
+          { num: 6, titleZh: "解析 AlphaGo", titleEn: "Analyzing AlphaGo" },
+          { num: 7, titleZh: "探索大语言模型", titleEn: "Exploring Large Language Models" },
+          { num: 8, titleZh: "深度学习挑战：难以理解的智能", titleEn: "Deep Learning Challenge: Hard-to-Explain Intelligence" },
+          { num: 9, titleZh: "深度学习挑战：对抗样本", titleEn: "Deep Learning Challenge: Adversarial Examples" },
+          { num: 10, titleZh: "深度学习挑战：超级智能体", titleEn: "Deep Learning Challenge: Super Intelligent Agents" },
+        ],
+      },
+    ],
+    [],
+  );
+
+  const chapters: ChapterInfo[] = useMemo(() => {
+    if (level === "high") return highChapters;
+    if (level === "primary") return primaryChapters;
+    return [];
+  }, [highChapters, level, primaryChapters]);
+
+  const lessons = chapter ? chapters.find((c) => c.id === chapter)?.lessons ?? [] : [];
   const levelLabel = t.levels.find((l) => l.id === level)?.label;
-  const chapterLabel = t.chapters.find((c) => c.id === chapter)?.label;
+  const chapterLabel = chapters.find((c) => c.id === chapter)
+    ? isZh
+      ? chapters.find((c) => c.id === chapter)?.labelZh
+      : chapters.find((c) => c.id === chapter)?.labelEn
+    : undefined;
   const lessonLabel = lessons.find((l) => l.num === lesson);
   const selectedPath = [levelLabel, chapterLabel, lessonLabel ? lessonLabel.titleZh : null]
     .filter(Boolean)
@@ -143,14 +279,15 @@ export function NavigationPage({ lang }: NavigationPageProps) {
           </div>
         )}
 
-        {level === "high" && (
+        {(level === "high" || level === "primary") && (
           <div className="mt-4 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
               {t.chapterPrompt}
             </p>
             <div className="grid gap-3 md:grid-cols-2">
-              {t.chapters.map((chap) => {
+              {chapters.map((chap) => {
                 const active = chapter === chap.id;
+                const lessonCount = chap.lessons.length;
                 return (
                   <button
                     key={chap.id}
@@ -167,8 +304,12 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                     ].join(" ")}
                     aria-pressed={active}
                   >
-                    <p className="text-sm font-semibold text-slate-900">{chap.label}</p>
-                    <p className="text-xs text-slate-500">{isZh ? "共 10 课" : "10 lessons"}</p>
+                    <p className="text-sm font-semibold text-slate-900">
+                      {isZh ? chap.labelZh : chap.labelEn}
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      {isZh ? `共 ${lessonCount} 课` : `${lessonCount} lessons`}
+                    </p>
                   </button>
                 );
               })}
@@ -176,7 +317,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
           </div>
         )}
 
-        {level === "high" && chapter && (
+        {(level === "high" || level === "primary") && chapter && (
           <div className="mt-4 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
               {t.lessonPrompt}
@@ -185,7 +326,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
               {lessons.map((lsn) => {
                 const active = lesson === lsn.num;
                 const isAvailable =
-                  (chapter === 2 && lsn.num === 8) || (chapter === 1 && lsn.num === 6);
+                  (level === "high" && chapter === 2 && lsn.num === 8) ||
+                  (level === "high" && chapter === 1 && lsn.num === 6) ||
+                  false;
                 const buttonClass = [
                   "flex h-full flex-col justify-between rounded-xl border px-3 py-2 text-left text-sm transition",
                   isAvailable
