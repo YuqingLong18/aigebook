@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Routes, useLocation, useParams } from "reac
 import { SectionBlock } from "./components/SectionBlock";
 import { ComingSoon } from "./pages/ComingSoon";
 import { LessonDeepLearningBasics } from "./pages/LessonDeepLearningBasics";
+import { LessonBeginningsAI } from "./pages/LessonBeginningsAI";
 import { NavigationPage } from "./pages/NavigationPage";
 
 function App() {
@@ -88,6 +89,28 @@ function LessonRouter({ lang }: LessonRouterProps) {
     }
   }
   const isZh = lang === "zh";
+
+  if (chapterNum === 1 && lessonNum === 6) {
+    return (
+      <div className="space-y-4">
+        <SectionBlock
+          title={
+            isZh
+              ? "第 1 单元 · 第 6 课：人工智能的开端"
+              : "Unit 1 · Lesson 6: The Beginning of AI"
+          }
+          eyebrow={isZh ? "已开放课程" : "Open lesson"}
+        >
+          <p className="text-sm text-slate-700">
+            {isZh
+              ? "本课聚焦早期 AI 研究与达特茅斯会议，回顾博弈算法、定理证明、早期神经网络等里程碑。"
+              : "This lesson covers early AI research and the Dartmouth Conference, including game algorithms, theorem proving, and early neural networks."}
+          </p>
+        </SectionBlock>
+        <LessonBeginningsAI lang={lang} />
+      </div>
+    );
+  }
 
   if (chapterNum === 2 && lessonNum === 8) {
     return (

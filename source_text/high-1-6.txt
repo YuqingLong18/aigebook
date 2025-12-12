@@ -1,0 +1,55 @@
+1.6 The Beginning of Artificial Intelligence
+Learning Objectives
+(1) Understand the content and methods of early AI research, including game-playing algorithms, theorem proving, and early neural networks.
+(2) Recognize the historical significance of the Dartmouth Conference and its role in shaping the field of artificial intelligence.
+(3) Reflect on the importance of academic exchange and interdisciplinary collaboration in scientific progress, and understand how they promote the development of AI.
+ 
+In 1954, Alan Turing passed away, but the spark of machine intelligence that he had ignited could not be extinguished. Just two years after his death, a group of young scientists organized a two-month-long workshop in a small building of the Mathematics Department at Dartmouth College in the United States. At this meeting, artificial intelligence officially emerged as a new scientific field and began its nearly seventy-year journey. This was the renowned Dartmouth Conference, widely acknowledged by scholars as the official beginning of AI.
+
+1. The Rise
+In the 1950s, the general-purpose computer had just been invented, and its powerful computational ability drew significant attention from researchers. Meanwhile, with the development of mathematical logic, the idea that “thinking is computation” gained popularity. Inspired by Turing’s ideas on machine intelligence, the vision of using computers to simulate human thought and build human-like intelligent machines inspired the enthusiasm to research of young scholars.
+
+As a result, a number of pioneering research achievements emerged, including Claude Shannon’s game-playing algorithms, Herbert Simon and Allen Newell’s “Logic Theorist” theorem-proving system, and Marvin Minsky’s SNARC neural network learning machine.
+
+(1) Game-playing Algorithms
+Game-playing has always been seen as a task requiring high intelligence, as seen in chess and Go. Therefore, game-playing machines have long occupied the imagination of those building intelligent agents. The earliest automatic chess-playing machine was invented in 1910 by Spanish inventor Leonardo Torres. It could play chess with humans (see Figure 1-30).
+
+After the invention of the computer, many scientists (including Turing) began researching game-playing algorithms. Among them, Claude Shannon’s work was the most profound. In 1950, he published a paper in which he deeply analyzed a chess-playing algorithm known as MinMax and proposed ways to optimize it. That same year, Shannon also designed an electromechanical chess-playing machine (see Figure 1-31).
+
+(2) Theorem Proving
+As mathematical logic developed, people began to realize that based on a small set of fundamental principles and several rules of inference, one could derive an entire mathematical system. A classic example is Euclidean geometry, which can be built entirely upon five postulates. This inspired early AI researchers to try using machines to carry out theorem proving.
+
+In 1955, Herbert Simon and Allen Newell began exploring the possibility of machine-based theorem proving. The actual coding of the system was completed by computer programmer J. C. Shaw from the RAND Corporation. They named the program “Logic Theorist.” Logic Theorist used a tree search approach, where the root node represented the basic assumptions. The program expanded these assumptions using pre-designed rules of inference until it reached the desired conclusion. Using this method, Logic Theorist successfully proved 38 of the first 52 theorems in Principia Mathematica. The creation of Logic Theorist holds historical significance as a powerful validation of the philosophical idea that “thinking is computation.” In recognition of their contribution, Simon and Newell jointly received the Turing Award in 1975.
+
+(3) Neural Networks
+Scientists have long known that the brain is the center of human intelligence and that it is composed of numerous neurons. These neurons are uniform in structure and generate intelligence through their interconnection. If one could replicate the connection mechanisms of neurons in machines, it might be possible to reproduce human-like intelligence.
+
+In 1951, Marvin Minsky, then a graduate student in the Mathematics Department at Princeton University, designed an artificial neural network called SNARC (see Figure 1-32). This network included 40 "synapse modules." It started in a random state and was trained based on feedback from the operator. SNARC is a representative example among early achievements in the study of neural networks.
+ 
+2. The Dartmouth Conference: The Birth of AI
+On September 2, 1955, John McCarthy (an assistant professor of mathematics at Dartmouth College) collaborated with Claude Shannon (a mathematician at Bell Labs), Marvin Minsky (a junior researcher in mathematics and neurology at Harvard University), and Nathaniel Rochester (a manager of information research at IBM) to submit a proposal to the Rockefeller Foundation. They sought funding for a two-month seminar with about ten participants. In this proposal, McCarthy and his colleagues first introduced the concept of “artificial intelligence,” planting the seed that would grow into a new discipline.
+
+The conference began on June 18, 1956, and concluded around August 17. It lasted for nearly two months and had around 47 attendees. It was held in a teaching building in the Dartmouth College Mathematics Department (see Figure 1-33). During the conference, there were occasional keynote talks, but most of the time was spent in open discussion. In essence, the meeting was a long, sustained brainstorming session.
+
+According to McCarthy and his colleagues’ proposal, the topics discussed at the conference were very broad, including:
+1.	How to program a computer?
+2.	How can computers understand and use natural language?
+3.	Can neural networks be used to represent concepts?
+4.	How to define computational efficiency and complexity?
+5.	How can machines improve themselves?
+6.	How to achieve abstract representations of objects?
+7.	How to incorporate randomness and creativity?
+These questions raised at the Dartmouth Conference directly influenced the direction of AI research in the decades that followed.
+
+In addition to the aforementioned organizers, McCarthy, Shannon, Minsky, and Rochester (see Figure 1-34), the conference attracted participants like Herbert Simon, Allen Newell, Arthur Samuel, Ray Solomonoff, and John Nash. In the years that followed, these individuals became leading figures in the field of AI, contributing breakthrough after breakthrough, one after another. Notable examples include McCarthy’s LISP language, Selfridge’s theory of machine perception, Samuel’s machine learning methods, and Solomonoff’s Bayesian reasoning framework.
+
+This conference was significant not only because it introduced the term “artificial intelligence,” but also because it established many of the key research directions and methodologies for AI. It marked the official entry of AI onto the historical stage.
+
+In 2006, on the 50th anniversary of the Dartmouth Conference, Moore, McCarthy, Minsky, Selfridge, and Solomonoff (from left to right) reunited at Dartmouth College (see Figure 1-35). Fifty years after their initial bold endeavor, these once-young scholars might have grown old, but the discipline they pioneered was thriving.
+ 
+Section Summary
+The birth of any new discipline never happens overnight. The seed of artificial intelligence had already been planted in Aristotle’s time, and it took more than 2000 years of accumulation before maturing in Turing’s mind, eventually leading to the Dartmouth Conference in 1956. This shows that AI is both an ancient and a young science: although it gestated for centuries, it has only officially existed for about 70 years. By understanding this long historical trajectory, we can gain a fuller and more objective view of AI.
+
+The Dartmouth Conference marked the birth of artificial intelligence. It was a free and open academic dialogue, where a group of young scientists, undaunted, carried forward Turing’s vision of intelligent machines and lit the flame of a new scientific discipline in the United States. This event launched over half a century of AI development. From the application and execution of the conference, we see the spirit of young scholars at historical turning points, those bold enough to break conventions and create new fields. Standing at our own historical turning point, we can draw from their example and be inspired to overcome our limitations and boldly innovate in our own learning and exploration.
+
+The Dartmouth Conference also highlights the importance of academic exchange, especially when a new field is emerging. A nascent field calls for broad and deep dialogue among researchers from different disciplines. Today, AI is again at a transformative crossroad, deeply permeating all aspects of society. The circumstances demand an open mindset and collaborative learning across disciplines in order to push the field to new heights.
