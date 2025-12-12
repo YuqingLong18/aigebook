@@ -1,14 +1,64 @@
 import { useMemo, useState } from "react";
 
 const layerInfo = [
-  { title: "Layer 1", feature: "simple lines and edges", color: "#0ea5e9" },
-  { title: "Layer 2", feature: "corners and curves", color: "#22c55e" },
-  { title: "Layer 3", feature: "facial parts or object fragments", color: "#f97316" },
-  { title: "Layer 4", feature: "full faces or object silhouettes", color: "#a855f7" },
-  { title: "Layer 5", feature: "task-specific high-level concepts", color: "#0f172a" },
+  {
+    title: { en: "Layer 1", zh: "第 1 层" },
+    feature: { en: "simple lines and edges", zh: "简单线条与边缘" },
+    color: "#0ea5e9",
+  },
+  {
+    title: { en: "Layer 2", zh: "第 2 层" },
+    feature: { en: "corners and curves", zh: "拐角和曲线" },
+    color: "#22c55e",
+  },
+  {
+    title: { en: "Layer 3", zh: "第 3 层" },
+    feature: { en: "facial parts or object fragments", zh: "面部局部或物体局部" },
+    color: "#f97316",
+  },
+  {
+    title: { en: "Layer 4", zh: "第 4 层" },
+    feature: { en: "full faces or object silhouettes", zh: "完整人脸或物体轮廓" },
+    color: "#a855f7",
+  },
+  {
+    title: { en: "Layer 5", zh: "第 5 层" },
+    feature: { en: "task-specific high-level concepts", zh: "任务相关的高层概念" },
+    color: "#0f172a",
+  },
 ];
 
-export function FeatureHierarchyDemo() {
+type FeatureHierarchyDemoProps = {
+  lang: "en" | "zh";
+};
+
+export function FeatureHierarchyDemo({ lang }: FeatureHierarchyDemoProps) {
+  const t =
+    lang === "zh"
+      ? {
+          goal: "目标：分层特征学习",
+          desc: "滑动卷积层深度，查看感受野增长与特征含义变化。",
+          reset: "重置",
+          depthLabel: "网络层深度",
+          currentLayer: (title: string) => title,
+          featureDesc: "更高层捕获更大、更具语义的模式，对应人脸识别中的示例。",
+          stats: (rf: number, rel: number) => `感受野：${rf} 像素 · 任务相关度：${rel}%`,
+          footer:
+            "低层共享简单线条检测器，高层在任务上分化，呼应“底层共享 / 顶层差异”模式。",
+        }
+      : {
+          goal: "Goal: hierarchical feature learning",
+          desc: "Slide through convolutional layers to see receptive field growth and feature meaning.",
+          reset: "Reset",
+          depthLabel: "Layer depth",
+          currentLayer: (title: string) => title,
+          featureDesc:
+            "Higher layers capture larger, more semantic patterns, mirroring the examples in the face recognition discussion.",
+          stats: (rf: number, rel: number) => `Receptive field: ${rf} px · Task relevance: ${rel}%`,
+          footer:
+            "Lower layers share simple line detectors across many tasks, while higher layers specialize, matching the shared-bottom / varied-top pattern.",
+        };
+
   const [layer, setLayer] = useState(2);
   const info = layerInfo[layer - 1];
 
@@ -23,19 +73,15 @@ export function FeatureHierarchyDemo() {
     <div className="rounded-2xl border border-slate-200 bg-white p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-slate-900">
-            Goal: hierarchical feature learning
-          </p>
-          <p className="text-xs text-slate-600">
-            Slide through convolutional layers to see receptive field growth and feature meaning.
-          </p>
+          <p className="text-sm font-semibold text-slate-900">{t.goal}</p>
+          <p className="text-xs text-slate-600">{t.desc}</p>
         </div>
         <button
           className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
           onClick={reset}
           type="button"
         >
-          Reset
+          {t.reset}
         </button>
       </div>
 
@@ -45,7 +91,7 @@ export function FeatureHierarchyDemo() {
         </div>
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-slate-700">
-            Layer depth
+            {t.depthLabel}
             <input
               type="range"
               min={1}
@@ -54,24 +100,18 @@ export function FeatureHierarchyDemo() {
               onChange={(e) => setLayer(Number(e.target.value))}
               className="mt-1 w-full accent-brand-500"
             />
-            <span className="text-xs text-slate-500">{info.title}</span>
+            <span className="text-xs text-slate-500">{t.currentLayer(info.title[lang])}</span>
           </label>
           <div className="rounded-lg bg-white/80 p-3 shadow-inner ring-1 ring-slate-200">
-            <p className="text-sm font-semibold text-slate-900">{info.feature}</p>
-            <p className="text-xs text-slate-600">
-              Higher layers capture larger, more semantic patterns, mirroring the examples in the
-              face recognition discussion.
-            </p>
+            <p className="text-sm font-semibold text-slate-900">{info.feature[lang]}</p>
+            <p className="text-xs text-slate-600">{t.featureDesc}</p>
           </div>
           <div className="rounded-lg bg-emerald-50 p-3 text-sm text-emerald-800">
-            Receptive field: {receptiveField} px · Task relevance: {taskRelevance}%
+            {t.stats(receptiveField, taskRelevance)}
           </div>
         </div>
       </div>
-      <p className="mt-2 text-xs text-slate-500">
-        Lower layers share simple line detectors across many tasks, while higher layers specialize,
-        matching the shared-bottom / varied-top pattern.
-      </p>
+      <p className="mt-2 text-xs text-slate-500">{t.footer}</p>
     </div>
   );
 }

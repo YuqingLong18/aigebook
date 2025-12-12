@@ -8,7 +8,39 @@ function grad(x: number) {
   return 1.5 * Math.cos(1.5 * x) - 0.175 * Math.sin(0.5 * x) + 0.1 * x;
 }
 
-export function LossLandscapeDemo() {
+type LossLandscapeDemoProps = {
+  lang: "en" | "zh";
+};
+
+export function LossLandscapeDemo({ lang }: LossLandscapeDemoProps) {
+  const t =
+    lang === "zh"
+      ? {
+          goal: "目标：理解训练为何困难",
+          desc: "在崎岖的损失曲面上沿梯度下降，体验鞍点和局部极小值。",
+          reset: "重置",
+          step: "执行一次梯度步",
+          positionLabel: "起点 / 当前位置",
+          current: (pos: number, loss: number) => `当前参数：${pos.toFixed(2)} ｜ 损失：${loss.toFixed(2)}`,
+          lrLabel: "学习率",
+          stepSize: (lr: number) => `步长：${lr.toFixed(2)}`,
+          note:
+            "曲面崎岖时，梯度步容易在小山谷中徘徊或停在平台，与文本中训练困难的描述一致。",
+          marker: "当前位置",
+        }
+      : {
+          goal: "Goal: see why training is hard",
+          desc: "Follow gradient descent on a bumpy loss surface with saddles and local minima.",
+          reset: "Reset",
+          step: "Take gradient step",
+          positionLabel: "Start / current position",
+          current: (pos: number, loss: number) => `Current weight: ${pos.toFixed(2)} | Loss: ${loss.toFixed(2)}`,
+          lrLabel: "Learning rate",
+          stepSize: (lr: number) => `Step size: ${lr.toFixed(2)}`,
+          note:
+            "When the landscape is rugged, gradient steps can bounce between small valleys or get stuck on plateaus, echoing the training difficulty described in the text.",
+          marker: "you are here",
+        };
   const [position, setPosition] = useState(-5);
   const [lr, setLr] = useState(0.25);
   const [history, setHistory] = useState<number[]>([-5]);
@@ -43,10 +75,8 @@ export function LossLandscapeDemo() {
     <div className="rounded-2xl border border-slate-200 bg-white p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-slate-900">Goal: see why training is hard</p>
-          <p className="text-xs text-slate-600">
-            Follow gradient descent on a bumpy loss surface with saddles and local minima.
-          </p>
+          <p className="text-sm font-semibold text-slate-900">{t.goal}</p>
+          <p className="text-xs text-slate-600">{t.desc}</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -54,25 +84,30 @@ export function LossLandscapeDemo() {
             onClick={reset}
             type="button"
           >
-            Reset
+            {t.reset}
           </button>
           <button
             className="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold text-white shadow hover:bg-slate-800"
             onClick={takeStep}
             type="button"
           >
-            Take gradient step
+            {t.step}
           </button>
         </div>
       </div>
 
       <div className="mt-4 grid gap-3 md:grid-cols-[2fr,1fr]">
         <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3">
-          <LandscapeChart points={points} path={pathPoints} currentX={position} />
+          <LandscapeChart
+            points={points}
+            path={pathPoints}
+            currentX={position}
+            markerLabel={t.marker}
+          />
         </div>
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-slate-700">
-            Start / current position
+            {t.positionLabel}
             <input
               type="range"
               min={-8}
@@ -83,11 +118,11 @@ export function LossLandscapeDemo() {
               className="mt-1 w-full accent-brand-500"
             />
             <span className="text-xs text-slate-500">
-              Current weight: {position.toFixed(2)} | Loss: {currentLoss.toFixed(2)}
+              {t.current(position, currentLoss)}
             </span>
           </label>
           <label className="block text-sm font-semibold text-slate-700">
-            Learning rate
+            {t.lrLabel}
             <input
               type="range"
               min={0.05}
@@ -97,11 +132,10 @@ export function LossLandscapeDemo() {
               onChange={(e) => setLr(Number(e.target.value))}
               className="mt-1 w-full accent-brand-500"
             />
-            <span className="text-xs text-slate-500">Step size: {lr.toFixed(2)}</span>
+            <span className="text-xs text-slate-500">{t.stepSize(lr)}</span>
           </label>
           <div className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
-            When the landscape is rugged, gradient steps can bounce between small valleys or get
-            stuck on plateaus, echoing the training difficulty described in the text.
+            {t.note}
           </div>
         </div>
       </div>
@@ -115,9 +149,10 @@ type LandscapeChartProps = {
   points: ChartPoint[];
   path: ChartPoint[];
   currentX: number;
+  markerLabel: string;
 };
 
-function LandscapeChart({ points, path, currentX }: LandscapeChartProps) {
+function LandscapeChart({ points, path, currentX, markerLabel }: LandscapeChartProps) {
   const xs = points.map((p) => p.x);
   const ys = points.map((p) => p.y);
   const minX = Math.min(...xs);
@@ -168,7 +203,7 @@ function LandscapeChart({ points, path, currentX }: LandscapeChartProps) {
           />
         );
       })}
-      <CurrentMarker x={currentX} project={project} />
+      <CurrentMarker x={currentX} project={project} label={markerLabel} />
     </svg>
   );
 }
@@ -176,16 +211,17 @@ function LandscapeChart({ points, path, currentX }: LandscapeChartProps) {
 type MarkerProps = {
   x: number;
   project: (x: number, y: number) => { nx: number; ny: number };
+  label: string;
 };
 
-function CurrentMarker({ x, project }: MarkerProps) {
+function CurrentMarker({ x, project, label }: MarkerProps) {
   const { nx, ny } = project(x, lossFn(x));
   return (
     <g>
       <line x1={nx} x2={nx} y1="0" y2="100" stroke="#e2e8f0" strokeDasharray="3 2" />
       <circle cx={nx} cy={ny} r={3} fill="#0ea5e9" stroke="#0f172a" strokeWidth="0.6" />
       <text x={nx + 2} y={ny - 2} fontSize="3" fill="#0f172a">
-        you are here
+        {label}
       </text>
     </g>
   );

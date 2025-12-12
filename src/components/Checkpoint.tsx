@@ -7,11 +7,22 @@ type Option = {
 };
 
 type CheckpointProps = {
+  tagLabel: string;
   prompt: string;
   options: Option[];
+  resetLabel: string;
+  correctLabel: string;
+  incorrectLabel: string;
 };
 
-export function Checkpoint({ prompt, options }: CheckpointProps) {
+export function Checkpoint({
+  tagLabel,
+  prompt,
+  options,
+  resetLabel,
+  correctLabel,
+  incorrectLabel,
+}: CheckpointProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
 
@@ -29,16 +40,16 @@ export function Checkpoint({ prompt, options }: CheckpointProps) {
     <div className="rounded-2xl border border-slate-200/80 bg-white p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">Checkpoint</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{tagLabel}</p>
           <p className="mt-1 text-base font-medium text-slate-900">{prompt}</p>
         </div>
         <button
           className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
           onClick={reset}
           type="button"
-          aria-label="Reset checkpoint"
+          aria-label={resetLabel}
         >
-          Reset
+          {resetLabel}
         </button>
       </div>
       <div className="mt-3 space-y-2">
@@ -65,7 +76,7 @@ export function Checkpoint({ prompt, options }: CheckpointProps) {
                       isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700",
                     ].join(" ")}
                   >
-                    {isCorrect ? "Correct" : "Check again"}
+                    {isCorrect ? correctLabel : incorrectLabel}
                   </span>
                 )}
               </div>

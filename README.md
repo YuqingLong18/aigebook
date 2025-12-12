@@ -9,6 +9,8 @@ npm run dev
 ```
 Optional: `npm run build` to produce static assets.
 
+- The page includes an English/中文 toggle in the header; all content and UI text switch together.
+
 ### Section Map (book → page → demo/checkpoint)
 | Book subsection | Page/component | Demo | Checkpoint |
 | --- | --- | --- | --- |

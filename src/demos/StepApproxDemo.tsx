@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 
 type Shape = "bump" | "wave";
+type StepApproxDemoProps = {
+  lang: "en" | "zh";
+};
 
 function targetFn(x: number, shape: Shape) {
   if (shape === "bump") {
@@ -12,7 +15,33 @@ function targetFn(x: number, shape: Shape) {
   return 0.6 + 0.35 * Math.sin(x) + 0.15 * Math.sin(2 * x + 0.4);
 }
 
-export function StepApproxDemo() {
+export function StepApproxDemo({ lang }: StepApproxDemoProps) {
+  const t =
+    lang === "zh"
+      ? {
+          goal: "目标：理解普适近似直觉",
+          desc: "用阶跃窗口（成对隐藏单元）来逼近目标函数。",
+          reset: "重置",
+          pairsLabel: "隐藏节点对数",
+          pairsCount: (v: number) => `节点对：${v}`,
+          targetLabel: "目标曲线形状",
+          optionBump: "矩形脉冲",
+          optionWave: "波浪状曲线",
+          error: (v: number) =>
+            `误差：${v.toFixed(3)}（平均绝对误差）。更多窗口会降低误差，符合单隐层可近似任意连续函数的定理。`,
+        }
+      : {
+          goal: "Goal: universal approximation intuition",
+          desc: "Combine step windows (pairs of hidden units) to approximate a target function.",
+          reset: "Reset",
+          pairsLabel: "Hidden node pairs",
+          pairsCount: (v: number) => `Pairs: ${v}`,
+          targetLabel: "Target shape",
+          optionBump: "Rectangular bump",
+          optionWave: "Wave-like curve",
+          error: (v: number) =>
+            `Error: ${v.toFixed(3)} (mean absolute). More step pairs reduce the gap, matching the theorem that a single hidden layer with enough nodes can approximate any continuous function.`,
+        };
   const [pairs, setPairs] = useState(2);
   const [shape, setShape] = useState<Shape>("bump");
 
@@ -39,19 +68,15 @@ export function StepApproxDemo() {
     <div className="rounded-2xl border border-slate-200 bg-white p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-slate-900">
-            Goal: universal approximation intuition
-          </p>
-          <p className="text-xs text-slate-600">
-            Combine step windows (pairs of hidden units) to approximate a target function.
-          </p>
+          <p className="text-sm font-semibold text-slate-900">{t.goal}</p>
+          <p className="text-xs text-slate-600">{t.desc}</p>
         </div>
         <button
           className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
           onClick={reset}
           type="button"
         >
-          Reset
+          {t.reset}
         </button>
       </div>
 
@@ -61,7 +86,7 @@ export function StepApproxDemo() {
         </div>
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-slate-700">
-            Hidden node pairs
+            {t.pairsLabel}
             <input
               type="range"
               min={1}
@@ -70,23 +95,21 @@ export function StepApproxDemo() {
               onChange={(e) => setPairs(Number(e.target.value))}
               className="mt-1 w-full accent-brand-500"
             />
-            <span className="text-xs text-slate-500">Pairs: {pairs}</span>
+            <span className="text-xs text-slate-500">{t.pairsCount(pairs)}</span>
           </label>
           <label className="block text-sm font-semibold text-slate-700">
-            Target shape
+            {t.targetLabel}
             <select
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
               value={shape}
               onChange={(e) => setShape(e.target.value as Shape)}
             >
-              <option value="bump">Rectangular bump</option>
-              <option value="wave">Wave-like curve</option>
+              <option value="bump">{t.optionBump}</option>
+              <option value="wave">{t.optionWave}</option>
             </select>
           </label>
           <div className="rounded-lg bg-emerald-50 p-3 text-sm text-emerald-800">
-            Error: {error.toFixed(3)} (mean absolute). More step pairs reduce the gap, matching the
-            theorem that a single hidden layer with enough nodes can approximate any continuous
-            function.
+            {t.error(error)}
           </div>
         </div>
       </div>

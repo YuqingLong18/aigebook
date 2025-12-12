@@ -1,9 +1,9 @@
 type GuidedStepsProps = {
-  title?: string;
+  title: string;
   steps: string[];
 };
 
-export function GuidedSteps({ title = "Guided Steps", steps }: GuidedStepsProps) {
+export function GuidedSteps({ title, steps }: GuidedStepsProps) {
   return (
     <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/70 px-4 py-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{title}</p>
