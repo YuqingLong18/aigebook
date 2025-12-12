@@ -318,7 +318,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const availableLesson =
     (level === "high" &&
       ((chapter === 2 && lesson === 8) || (chapter === 1 && lesson === 6))) ||
-    (level === "primary" && chapter === 5 && lesson === 6);
+    (level === "primary" && chapter === 5 && lesson === 6) ||
+    (level === "middle" && chapter === 7 && lesson === 7);
 
   const availablePath =
     level === "high" && chapter && lesson
@@ -329,7 +330,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
           : ""
       : level === "primary" && chapter === 5 && lesson === 6
         ? "/primary/unit/5/lesson/6"
-        : "";
+        : level === "middle" && chapter === 7 && lesson === 7
+          ? "/middle/unit/7/lesson/7"
+          : "";
 
   return (
     <div className="space-y-6">
@@ -428,7 +431,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                 const isAvailable =
                   (level === "high" && chapter === 2 && lsn.num === 8) ||
                   (level === "high" && chapter === 1 && lsn.num === 6) ||
-                  (level === "primary" && chapter === 5 && lsn.num === 6);
+                  (level === "primary" && chapter === 5 && lsn.num === 6) ||
+                  (level === "middle" && chapter === 7 && lsn.num === 7);
                 const buttonClass = [
                   "flex h-full flex-col justify-between rounded-xl border px-3 py-2 text-left text-sm transition",
                   isAvailable
@@ -449,7 +453,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                           ? "/high/ch/2/lesson/8"
                           : level === "high" && chapter === 1 && lsn.num === 6
                             ? "/high/ch/1/lesson/6"
-                            : "/primary/unit/5/lesson/6"
+                            : level === "primary" && chapter === 5 && lsn.num === 6
+                              ? "/primary/unit/5/lesson/6"
+                              : "/middle/unit/7/lesson/7"
                       }
                       className={buttonClass}
                       onClick={() => setLesson(lsn.num)}

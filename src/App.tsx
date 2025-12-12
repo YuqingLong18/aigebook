@@ -4,6 +4,7 @@ import { SectionBlock } from "./components/SectionBlock";
 import { ComingSoon } from "./pages/ComingSoon";
 import { HighLesson1_6 } from "./pages/high-1-6";
 import { HighLesson2_8 } from "./pages/high-2-8";
+import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
@@ -22,6 +23,10 @@ function App() {
             <Route
               path="/primary/unit/:unit/lesson/:lesson"
               element={<LessonRouter lang={lang} level="primary" />}
+            />
+            <Route
+              path="/middle/unit/:unit/lesson/:lesson"
+              element={<LessonRouter lang={lang} level="middle" />}
             />
             <Route path="*" element={<NavigationPage lang={lang} />} />
           </Routes>
@@ -80,7 +85,7 @@ function Header({ lang, setLang }: HeaderProps) {
 
 type LessonRouterProps = {
   lang: "en" | "zh";
-  level?: "primary" | "high";
+  level?: "primary" | "high" | "middle";
 };
 
 function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
@@ -103,6 +108,28 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
           </p>
         </SectionBlock>
         <PrimaryLesson5_6 lang={lang} />
+      </div>
+    );
+  }
+
+  if (level === "middle" && chapterNum === 7 && lessonNum === 7) {
+    return (
+      <div className="space-y-4">
+        <SectionBlock
+          title={
+            isZh
+              ? "第 7 单元 · 第 7 课：深度学习的挑战：可解释性"
+              : "Unit 7 · Lesson 7: Deep Learning Challenges — Explainability"
+          }
+          eyebrow={isZh ? "已开放课程" : "Open lesson"}
+        >
+          <p className="text-sm text-slate-700">
+            {isZh
+              ? "聚焦深度学习“黑箱”问题，了解局部与全局解释方法及可解释性不足的根源。"
+              : "Focus on the deep learning “black box”, local and global explanations, and root causes of low explainability."}
+          </p>
+        </SectionBlock>
+        <MiddleLesson7_7 lang={lang} />
       </div>
     );
   }
