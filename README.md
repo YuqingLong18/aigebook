@@ -9,7 +9,11 @@ npm run dev
 ```
 Optional: `npm run build` to produce static assets.
 
-- The page includes an English/中文 toggle in the header; all content and UI text switch together.
+- The page includes an English/中文 toggle in the header; all content and UI text switch together (default language is Chinese).
+- Routes:
+  - `/` — navigation panel (小学版 / 初中版 / 高中版; chapters and lessons)
+  - `/high/ch/2/lesson/8` — Chapter 2 Lesson 8 (Section 2.8 deep learning basics, bilingual) — `/high/ch2/lesson8` also works
+  - Other lessons/levels currently show “coming soon”.
 
 ### Section Map (book → page → demo/checkpoint)
 | Book subsection | Page/component | Demo | Checkpoint |
