@@ -201,11 +201,107 @@ export function NavigationPage({ lang }: NavigationPageProps) {
     [],
   );
 
+  const middleChapters: ChapterInfo[] = useMemo(
+    () => [
+      {
+        id: 1,
+        labelZh: "第 1 单元 人工智能的概念",
+        labelEn: "Unit 1: Concept of AI",
+        lessons: [
+          { num: 1, titleZh: "智能机器的梦想", titleEn: "Dream of Intelligent Machines" },
+          { num: 2, titleZh: "什么是人工智能", titleEn: "What is Artificial Intelligence" },
+          { num: 3, titleZh: "机器的眼睛", titleEn: "Eyes of the Machine" },
+          { num: 4, titleZh: "机器的耳朵", titleEn: "Ears of the Machine" },
+          { num: 5, titleZh: "机器的嘴巴", titleEn: "Mouth of the Machine" },
+          { num: 6, titleZh: "机器的手和脚", titleEn: "Hands and Feet of the Machine" },
+        ],
+      },
+      {
+        id: 2,
+        labelZh: "第 2 单元 人工智能的诞生",
+        labelEn: "Unit 2: Birth of AI",
+        lessons: [
+          { num: 1, titleZh: "人类智能的起源", titleEn: "Origin of Human Intelligence" },
+          { num: 2, titleZh: "人类思维规律的总结", titleEn: "Summaries of Human Thought" },
+          { num: 3, titleZh: "计算机的诞生", titleEn: "Birth of the Computer" },
+          { num: 4, titleZh: "伟大的图灵", titleEn: "Great Turing" },
+          { num: 5, titleZh: "达特茅斯会议", titleEn: "Dartmouth Conference" },
+        ],
+      },
+      {
+        id: 3,
+        labelZh: "第 3 单元 人工智能发展史",
+        labelEn: "Unit 3: AI Development History",
+        lessons: [
+          { num: 1, titleZh: "梦想与失落", titleEn: "Dreams and Setbacks" },
+          { num: 2, titleZh: "深度学习时代", titleEn: "Era of Deep Learning" },
+          { num: 3, titleZh: "大模型时代", titleEn: "Era of Large Models" },
+          { num: 4, titleZh: "交叉与融合", titleEn: "Crossovers and Integration" },
+          { num: 5, titleZh: "走向未来", titleEn: "Heading to the Future" },
+        ],
+      },
+      {
+        id: 4,
+        labelZh: "第 4 单元 人工智能前沿",
+        labelEn: "Unit 4: AI Frontiers",
+        lessons: [
+          { num: 1, titleZh: "人工智能与游戏", titleEn: "AI and Games" },
+          { num: 2, titleZh: "人工智能与语言", titleEn: "AI and Language" },
+          { num: 3, titleZh: "人工智能与艺术", titleEn: "AI and Art" },
+          { num: 4, titleZh: "人工智能与天文学", titleEn: "AI and Astronomy" },
+          { num: 5, titleZh: "人工智能与生物学", titleEn: "AI and Biology" },
+          { num: 6, titleZh: "人工智能与医学", titleEn: "AI and Medicine" },
+        ],
+      },
+      {
+        id: 5,
+        labelZh: "第 5 单元 人工智能伦理",
+        labelEn: "Unit 5: AI Ethics",
+        lessons: [
+          { num: 1, titleZh: "机器人三定律", titleEn: "Three Laws of Robotics" },
+          { num: 2, titleZh: "信息伪造", titleEn: "Information Forgery" },
+          { num: 3, titleZh: "信息泄露", titleEn: "Information Leakage" },
+          { num: 4, titleZh: "信息茧房", titleEn: "Information Cocoon" },
+          { num: 5, titleZh: "人工智能与社会公平", titleEn: "AI and Social Fairness" },
+          { num: 6, titleZh: "法律责任", titleEn: "Legal Responsibility" },
+        ],
+      },
+      {
+        id: 6,
+        labelZh: "第 6 单元 人工智能基础方法",
+        labelEn: "Unit 6: Fundamental AI Methods",
+        lessons: [
+          { num: 1, titleZh: "基于知识的智能", titleEn: "Knowledge-based Intelligence" },
+          { num: 2, titleZh: "基于学习的智能", titleEn: "Learning-based Intelligence" },
+          { num: 3, titleZh: "监督学习与无监督学习", titleEn: "Supervised & Unsupervised Learning" },
+          { num: 4, titleZh: "强化学习", titleEn: "Reinforcement Learning" },
+          { num: 5, titleZh: "机器学习的流派", titleEn: "Schools of Machine Learning" },
+        ],
+      },
+      {
+        id: 7,
+        labelZh: "第 7 单元 深度学习方法",
+        labelEn: "Unit 7: Deep Learning Methods",
+        lessons: [
+          { num: 1, titleZh: "人类神经系统", titleEn: "Human Nervous System" },
+          { num: 2, titleZh: "人工神经网络的开端", titleEn: "Beginnings of Neural Networks" },
+          { num: 3, titleZh: "人工神经网络发展史", titleEn: "History of Neural Networks" },
+          { num: 4, titleZh: "深度学习的开端", titleEn: "Beginnings of Deep Learning" },
+          { num: 5, titleZh: "深度学习基本原理", titleEn: "Deep Learning Principles" },
+          { num: 6, titleZh: "深度学习的挑战：对抗样本", titleEn: "Deep Learning Challenge: Adversarial Samples" },
+          { num: 7, titleZh: "深度学习的挑战：可解释性", titleEn: "Deep Learning Challenge: Interpretability" },
+        ],
+      },
+    ],
+    [],
+  );
+
   const chapters: ChapterInfo[] = useMemo(() => {
     if (level === "high") return highChapters;
     if (level === "primary") return primaryChapters;
+    if (level === "middle") return middleChapters;
     return [];
-  }, [highChapters, level, primaryChapters]);
+  }, [highChapters, level, middleChapters, primaryChapters]);
 
   const lessons = chapter ? chapters.find((c) => c.id === chapter)?.lessons ?? [] : [];
   const levelLabel = t.levels.find((l) => l.id === level)?.label;
@@ -273,13 +369,13 @@ export function NavigationPage({ lang }: NavigationPageProps) {
           })}
         </div>
 
-        {level && level !== "high" && (
+        {level && chapters.length === 0 && (
           <div className="mt-3 rounded-xl bg-slate-50 p-3 text-sm text-slate-700">
             {t.levelComing}
           </div>
         )}
 
-        {(level === "high" || level === "primary") && (
+        {(level === "high" || level === "primary" || level === "middle") && chapters.length > 0 && (
           <div className="mt-4 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
               {t.chapterPrompt}
@@ -317,7 +413,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
           </div>
         )}
 
-        {(level === "high" || level === "primary") && chapter && (
+        {(level === "high" || level === "primary" || level === "middle") && chapter && (
           <div className="mt-4 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
               {t.lessonPrompt}
@@ -397,11 +493,11 @@ const enText = {
   title: "Version Navigation",
   eyebrow: "Start here",
   subtitle: "Choose a school edition and chapter. Default landing is Chinese; toggle is above.",
-  hint: "Open now: High School → Unit 2 → Lesson 8 (this page) and Unit 1 → Lesson 6 (new). Primary is listed for reference.",
+  hint: "Open now: High → Unit 2 Lesson 8 and Unit 1 Lesson 6. Primary and Middle units are listed for reference.",
   levelPrompt: "Pick a school edition to enter.",
-  chapterPrompt: "Select a chapter (10 lessons each).",
+  chapterPrompt: "Select a unit/chapter.",
   lessonPrompt:
-    "Select a lesson. Currently available: Unit 2 Lesson 8 and Unit 1 Lesson 6. Others will arrive soon.",
+    "Select a lesson. Currently available: High Unit 2 Lesson 8 and Unit 1 Lesson 6. Others will arrive soon.",
   pathLabel: "You are viewing",
   quickLink: "Direct link to the open lesson:",
   coming: "Coming soon",
@@ -424,10 +520,10 @@ const zhText = {
   title: "版本导航",
   eyebrow: "从这里开始",
   subtitle: "请选择学段与章节。默认显示中文，可通过右上角切换语言。",
-  hint: "已开放：高中版 → 第 2 单元 → 第 8 课（本页内容），以及第 1 单元 → 第 6 课。小学版已列出目录。",
+  hint: "已开放：高中版 第 2 单元 第 8 课、本页；第 1 单元 第 6 课。小学版、初中版已列出目录。",
   levelPrompt: "选择学段进入对应内容。",
-  chapterPrompt: "选择一个章节（每章 10 课）。",
-  lessonPrompt: "选择课次。当前已开放：第 2 单元 第 8 课，以及第 1 单元 第 6 课，其余即将上线。",
+  chapterPrompt: "选择一个单元。",
+  lessonPrompt: "选择课次。当前已开放：高中 第 2 单元 第 8 课，以及第 1 单元 第 6 课，其余即将上线。",
   pathLabel: "当前路径",
   quickLink: "已开放课的直达链接：",
   coming: "内容即将上线",
