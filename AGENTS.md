@@ -199,6 +199,15 @@ For each book section provided:
 - Section cards should include stable `id`s to enable intra-page navigation (e.g., `#dnn`, `#pretrain`, `#summary`).
 - TOC labels should mirror the lesson headings/subheadings in both languages; clicking jumps to the corresponding section.
 
+## Image Generation (OpenRouter, Gemini image preview)
+- Local-only helper (do not commit): create `scripts/generate-image.js` and add `.env` + the script to `.gitignore` (already listed).
+  - Use `dotenv` or `process.env` to read `OPENROUTER_API_KEY` from `.env`.
+  - Example run: `OPENROUTER_API_KEY=... node scripts/generate-image.js "Precise academic prompt here"`.
+  - Save outputs to `assets/generated/` with timestamped filenames; keep assets versioned, not the script or `.env`.
+- Model: `google/gemini-3-pro-image-preview`. Prompts must be academically accurate, context-aligned (avoid fanciful/misleading visuals).
+- Input/Output: Single prompt → returns base64 data URL(s); decode and write PNG(s).
+- When adding lesson illustrations, use this local helper to produce and check images before committing the generated assets; never commit API keys or the helper script itself.
+
 ---
 
 ## “Do Not Do” List
