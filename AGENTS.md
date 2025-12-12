@@ -207,6 +207,7 @@ For each book section provided:
 - Model: `google/gemini-3-pro-image-preview`. Prompts must be academically accurate, context-aligned (avoid fanciful/misleading visuals).
 - Input/Output: Single prompt → returns base64 data URL(s); decode and write PNG(s).
 - When adding lesson illustrations, use this local helper to produce and check images before committing the generated assets; never commit API keys or the helper script itself.
+- Primary vs middle vs high prompts: keep style age-appropriate (primary cute/fun/clear; middle more grounded; high academic/technical). Always prioritize factual/academic accuracy in the prompt.
 
 ---
 

@@ -5,6 +5,7 @@ import { ComingSoon } from "./pages/ComingSoon";
 import { HighLesson1_6 } from "./pages/high-1-6";
 import { HighLesson2_8 } from "./pages/high-2-8";
 import { NavigationPage } from "./pages/NavigationPage";
+import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
 function App() {
   const [lang, setLang] = useState<"en" | "zh">("zh");
@@ -18,6 +19,10 @@ function App() {
             <Route path="/" element={<NavigationPage lang={lang} />} />
             <Route path="/high/ch/:chapter/lesson/:lesson" element={<LessonRouter lang={lang} />} />
             <Route path="/high/ch:chapter/lesson:lesson" element={<LessonRouter lang={lang} />} />
+            <Route
+              path="/primary/unit/:unit/lesson/:lesson"
+              element={<LessonRouter lang={lang} level="primary" />}
+            />
             <Route path="*" element={<NavigationPage lang={lang} />} />
           </Routes>
         </div>
@@ -75,22 +80,34 @@ function Header({ lang, setLang }: HeaderProps) {
 
 type LessonRouterProps = {
   lang: "en" | "zh";
+  level?: "primary" | "high";
 };
 
-function LessonRouter({ lang }: LessonRouterProps) {
-  const { chapter, lesson } = useParams();
-  let chapterNum = Number(chapter);
-  let lessonNum = Number(lesson);
-  if (Number.isNaN(chapterNum) || Number.isNaN(lessonNum)) {
-    const match = window.location.pathname.match(/ch\/?(\d+)\/lesson\/?(\d+)/i);
-    if (match) {
-      chapterNum = Number(match[1]);
-      lessonNum = Number(match[2]);
-    }
-  }
+function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
+  const { chapter, lesson, unit } = useParams();
+  const chapterNum = Number(chapter ?? unit);
+  const lessonNum = Number(lesson);
   const isZh = lang === "zh";
 
-  if (chapterNum === 1 && lessonNum === 6) {
+  if (level === "primary" && chapterNum === 5 && lessonNum === 6) {
+    return (
+      <div className="space-y-4">
+        <SectionBlock
+          title={isZh ? "第 5 单元 · 第 6 课：走向未来" : "Unit 5 · Lesson 6: Moving Toward the Future"}
+          eyebrow={isZh ? "已开放课程" : "Open lesson"}
+        >
+          <p className="text-sm text-slate-700">
+            {isZh
+              ? "面向小学生的未来展望：人工智能的发展、通用智能、与科学共进与共存。"
+              : "Future-focused for primary learners: AI’s development, general intelligence, cross-discipline impact, and living alongside AI."}
+          </p>
+        </SectionBlock>
+        <PrimaryLesson5_6 lang={lang} />
+      </div>
+    );
+  }
+
+  if (chapterNum === 1 && lessonNum === 6 && level === "high") {
     return (
       <div className="space-y-4">
         <SectionBlock
@@ -112,7 +129,7 @@ function LessonRouter({ lang }: LessonRouterProps) {
     );
   }
 
-  if (chapterNum === 2 && lessonNum === 8) {
+  if (chapterNum === 2 && lessonNum === 8 && level === "high") {
     return (
       <div className="space-y-4">
         <SectionBlock

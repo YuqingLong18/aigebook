@@ -316,8 +316,10 @@ export function NavigationPage({ lang }: NavigationPageProps) {
     .join(" / ");
 
   const availableLesson =
-    level === "high" &&
-    ((chapter === 2 && lesson === 8) || (chapter === 1 && lesson === 6));
+    (level === "high" &&
+      ((chapter === 2 && lesson === 8) || (chapter === 1 && lesson === 6))) ||
+    (level === "primary" && chapter === 5 && lesson === 6);
+
   const availablePath =
     level === "high" && chapter && lesson
       ? chapter === 2 && lesson === 8
@@ -325,7 +327,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         : chapter === 1 && lesson === 6
           ? "/high/ch/1/lesson/6"
           : ""
-      : "";
+      : level === "primary" && chapter === 5 && lesson === 6
+        ? "/primary/unit/5/lesson/6"
+        : "";
 
   return (
     <div className="space-y-6">
@@ -424,7 +428,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                 const isAvailable =
                   (level === "high" && chapter === 2 && lsn.num === 8) ||
                   (level === "high" && chapter === 1 && lsn.num === 6) ||
-                  false;
+                  (level === "primary" && chapter === 5 && lsn.num === 6);
                 const buttonClass = [
                   "flex h-full flex-col justify-between rounded-xl border px-3 py-2 text-left text-sm transition",
                   isAvailable
@@ -443,7 +447,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                       to={
                         chapter === 2 && lsn.num === 8
                           ? "/high/ch/2/lesson/8"
-                          : "/high/ch/1/lesson/6"
+                          : level === "high" && chapter === 1 && lsn.num === 6
+                            ? "/high/ch/1/lesson/6"
+                            : "/primary/unit/5/lesson/6"
                       }
                       className={buttonClass}
                       onClick={() => setLesson(lsn.num)}
