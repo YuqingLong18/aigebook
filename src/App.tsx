@@ -48,6 +48,16 @@ import { MiddleLesson1_3 } from "./pages/middle-1-3";
 import { MiddleLesson1_4 } from "./pages/middle-1-4";
 import { MiddleLesson1_5 } from "./pages/middle-1-5";
 import { MiddleLesson1_6 } from "./pages/middle-1-6";
+import { MiddleLesson2_1 } from "./pages/middle-2-1";
+import { MiddleLesson2_2 } from "./pages/middle-2-2";
+import { MiddleLesson2_3 } from "./pages/middle-2-3";
+import { MiddleLesson2_4 } from "./pages/middle-2-4";
+import { MiddleLesson2_5 } from "./pages/middle-2-5";
+import { MiddleLesson3_1 } from "./pages/middle-3-1";
+import { MiddleLesson3_2 } from "./pages/middle-3-2";
+import { MiddleLesson3_3 } from "./pages/middle-3-3";
+import { MiddleLesson3_4 } from "./pages/middle-3-4";
+import { MiddleLesson3_5 } from "./pages/middle-3-5";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
@@ -212,6 +222,108 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         {lessonNum === 4 && <MiddleLesson1_4 lang={lang} />}
         {lessonNum === 5 && <MiddleLesson1_5 lang={lang} />}
         {lessonNum === 6 && <MiddleLesson1_6 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "middle" && chapterNum === 2 && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const middle2Titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 2 单元 · 第 1 课：人类智能的起源",
+        en: "Unit 2 · Lesson 1: Origins of Human Intelligence",
+        blurbZh: "探索人类演化、智力飞跃与合作在文明形成中的作用。",
+        blurbEn: "Explore human evolution, intelligence leap, and cooperation’s role in civilization.",
+      },
+      2: {
+        zh: "第 2 单元 · 第 2 课：人类思维规律的总结",
+        en: "Unit 2 · Lesson 2: Summary of Human Thinking Patterns",
+        blurbZh: "从亚里士多德到布尔与数理逻辑，梳理“思维-逻辑-计算”链条。",
+        blurbEn: "From Aristotle to Boole and math logic—thinking → logic → computation.",
+      },
+      3: {
+        zh: "第 2 单元 · 第 3 课：计算机的诞生",
+        en: "Unit 2 · Lesson 3: Birth of Computers",
+        blurbZh: "机械计算、图灵机、电子计算机与存储程序架构如何奠基 AI。",
+        blurbEn: "Mechanical calculators, Turing Machine, electronic computers, stored programs as AI’s bedrock.",
+      },
+      4: {
+        zh: "第 2 单元 · 第 4 课：图灵：计算机巨人",
+        en: "Unit 2 · Lesson 4: Alan Turing: Giant of Computing",
+        blurbZh: "图灵生平与三大贡献：图灵机、机器智能设想、图灵测试。",
+        blurbEn: "Turing’s life and three contributions: TM, machine intelligence ideas, Turing Test.",
+      },
+      5: {
+        zh: "第 2 单元 · 第 5 课：达特茅斯会议",
+        en: "Unit 2 · Lesson 5: Dartmouth Conference",
+        blurbZh: "AI 命名与议程的诞生，奠定学科方向。",
+        blurbEn: "Naming AI and setting its agenda—founding the field.",
+      },
+    };
+    const title = isZh ? middle2Titles[lessonNum].zh : middle2Titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? middle2Titles[lessonNum].blurbZh : middle2Titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson2_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson2_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson2_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson2_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson2_5 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "middle" && chapterNum === 3 && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 3 单元 · 第 1 课：梦想与失落",
+        en: "Unit 3 · Lesson 1: Dreams and Setbacks",
+        blurbZh: "回顾 AI 的高潮与寒冬，理解坚持与转折。",
+        blurbEn: "Review AI peaks and winters and the perseverance behind them.",
+      },
+      2: {
+        zh: "第 3 单元 · 第 2 课：深度学习时代",
+        en: "Unit 3 · Lesson 2: Deep Learning Era",
+        blurbZh: "深度学习的背景、核心思想与爆发。",
+        blurbEn: "Background, core ideas, and rise of deep learning.",
+      },
+      3: {
+        zh: "第 3 单元 · 第 3 课：大模型时代",
+        en: "Unit 3 · Lesson 3: Era of Large Models",
+        blurbZh: "LLM/LVM 的兴起、特征与挑战。",
+        blurbEn: "Rise, traits, and challenges of LLMs/LVMs.",
+      },
+      4: {
+        zh: "第 3 单元 · 第 4 课：交叉与融合",
+        en: "Unit 3 · Lesson 4: Intersection and Integration",
+        blurbZh: "AI 如何赋能生物、化学、天文、医学等领域。",
+        blurbEn: "How AI empowers biology, chemistry, astronomy, medicine, and more.",
+      },
+      5: {
+        zh: "第 3 单元 · 第 5 课：走向未来",
+        en: "Unit 3 · Lesson 5: Moving Toward the Future",
+        blurbZh: "展望 AGI、学科融合与前沿安全方向。",
+        blurbEn: "Outlook on AGI, integration, and frontier safety directions.",
+      },
+    };
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson3_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson3_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson3_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson3_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson3_5 lang={lang} />}
       </div>
     );
   }

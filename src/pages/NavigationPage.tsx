@@ -319,6 +319,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const highOpenCh3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const highOpenCh4 = [1, 2, 3, 4, 5];
   const middleOpenCh1 = [1, 2, 3, 4, 5, 6];
+  const middleOpenCh2 = [1, 2, 3, 4, 5];
+  const middleOpenCh3 = [1, 2, 3, 4, 5];
   const middleOpenCh7 = [7];
   const availableLesson =
     (level === "high" &&
@@ -329,6 +331,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
     (level === "primary" && chapter === 5 && lesson === 6) ||
     (level === "middle" &&
       ((chapter === 1 && lesson && middleOpenCh1.includes(lesson)) ||
+        (chapter === 2 && lesson && middleOpenCh2.includes(lesson)) ||
+        (chapter === 3 && lesson && middleOpenCh3.includes(lesson)) ||
         (chapter === 7 && lesson && middleOpenCh7.includes(lesson))));
 
   const availablePath =
@@ -346,6 +350,10 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         ? "/primary/unit/5/lesson/6"
         : level === "middle" && chapter === 1 && lesson && middleOpenCh1.includes(lesson)
           ? `/middle/unit/1/lesson/${lesson}`
+          : level === "middle" && chapter === 2 && lesson && middleOpenCh2.includes(lesson)
+            ? `/middle/unit/2/lesson/${lesson}`
+          : level === "middle" && chapter === 3 && lesson && middleOpenCh3.includes(lesson)
+            ? `/middle/unit/3/lesson/${lesson}`
           : level === "middle" && chapter === 7 && lesson === 7
             ? "/middle/unit/7/lesson/7"
           : "";
@@ -454,6 +462,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                   (level === "primary" && chapter === 5 && lsn.num === 6) ||
                   (level === "middle" &&
                     ((chapter === 1 && middleOpenCh1.includes(lsn.num)) ||
+                      (chapter === 2 && middleOpenCh2.includes(lsn.num)) ||
+                      (chapter === 3 && middleOpenCh3.includes(lsn.num)) ||
                       (chapter === 7 && middleOpenCh7.includes(lsn.num))));
                 const buttonClass = [
                   "flex h-full flex-col justify-between rounded-xl border px-3 py-2 text-left text-sm transition",
@@ -480,6 +490,10 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                             ? "/primary/unit/5/lesson/6"
                             : level === "middle" && chapter === 1
                               ? `/middle/unit/1/lesson/${lsn.num}`
+                              : level === "middle" && chapter === 2
+                                ? `/middle/unit/2/lesson/${lsn.num}`
+                              : level === "middle" && chapter === 3
+                                ? `/middle/unit/3/lesson/${lsn.num}`
                               : "/middle/unit/7/lesson/7";
 
                   return (
