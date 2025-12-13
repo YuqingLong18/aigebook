@@ -316,7 +316,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
     .join(" / ");
 
   const highOpenLessons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const highOpenCh3 = [1, 2, 3, 4, 5];
+  const highOpenCh3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const availableLesson =
     (level === "high" &&
       ((chapter === 2 && lesson && highOpenLessons.includes(lesson)) ||
@@ -517,11 +517,11 @@ const enText = {
   title: "Version Navigation",
   eyebrow: "Start here",
   subtitle: "Choose a school edition and chapter. Default landing is Chinese; toggle is above.",
-  hint: "Open now: High → Unit 1 Lessons 1–10, Unit 2 Lessons 1–10, Unit 3 Lessons 1–5. Primary and Middle units are listed for reference.",
+  hint: "Open now: High → Unit 1 Lessons 1–10, Unit 2 Lessons 1–10, Unit 3 Lessons 1–10. Primary and Middle units are listed for reference.",
   levelPrompt: "Pick a school edition to enter.",
   chapterPrompt: "Select a unit/chapter.",
   lessonPrompt:
-    "Select a lesson. Currently available: High Unit 1 Lessons 1–10, Unit 2 Lessons 1–10, Unit 3 Lessons 1–5. Others will arrive soon.",
+    "Select a lesson. Currently available: High Unit 1 Lessons 1–10, Unit 2 Lessons 1–10, Unit 3 Lessons 1–10. Others will arrive soon.",
   pathLabel: "You are viewing",
   quickLink: "Direct link to the open lesson:",
   coming: "Coming soon",
@@ -544,10 +544,10 @@ const zhText = {
   title: "版本导航",
   eyebrow: "从这里开始",
   subtitle: "请选择学段与章节。默认显示中文，可通过右上角切换语言。",
-  hint: "已开放：高中版 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课；第 3 单元 第 1-5 课。小学版、初中版已列出目录。",
+  hint: "已开放：高中版 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课；第 3 单元 第 1-10 课。小学版、初中版已列出目录。",
   levelPrompt: "选择学段进入对应内容。",
   chapterPrompt: "选择一个单元。",
-  lessonPrompt: "选择课次。当前已开放：高中 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课；第 3 单元 第 1-5 课，其余即将上线。",
+  lessonPrompt: "选择课次。当前已开放：高中 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课；第 3 单元 第 1-10 课，其余即将上线。",
   pathLabel: "当前路径",
   quickLink: "已开放课的直达链接：",
   coming: "内容即将上线",

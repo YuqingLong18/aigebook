@@ -27,6 +27,11 @@ import { HighLesson3_2 } from "./pages/high-3-2";
 import { HighLesson3_3 } from "./pages/high-3-3";
 import { HighLesson3_4 } from "./pages/high-3-4";
 import { HighLesson3_5 } from "./pages/high-3-5";
+import { HighLesson3_6 } from "./pages/high-3-6";
+import { HighLesson3_7 } from "./pages/high-3-7";
+import { HighLesson3_8 } from "./pages/high-3-8";
+import { HighLesson3_9 } from "./pages/high-3-9";
+import { HighLesson3_10 } from "./pages/high-3-10";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
@@ -42,7 +47,6 @@ function App() {
           <Routes>
             <Route path="/" element={<NavigationPage lang={lang} />} />
             <Route path="/high/ch/:chapter/lesson/:lesson" element={<LessonRouter lang={lang} />} />
-            <Route path="/high/ch:chapter/lesson:lesson" element={<LessonRouter lang={lang} />} />
             <Route
               path="/primary/unit/:unit/lesson/:lesson"
               element={<LessonRouter lang={lang} level="primary" />}
@@ -348,6 +352,11 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
       3: isZh ? "第 3 章 · 第 3 课：机器视觉：伪造与鉴别" : "Chapter 3 · Lesson 3: Machine Vision — Forgery & Detection",
       4: isZh ? "第 3 章 · 第 4 课：听觉计算：语音识别" : "Chapter 3 · Lesson 4: Auditory Computation — Speech Recognition",
       5: isZh ? "第 3 章 · 第 5 课：听觉计算：语音合成" : "Chapter 3 · Lesson 5: Auditory Computation — Speech Synthesis",
+      6: isZh ? "第 3 章 · 第 6 课：语言处理：机器翻译" : "Chapter 3 · Lesson 6: Language Processing — Machine Translation",
+      7: isZh ? "第 3 章 · 第 7 课：人机对弈：AlphaGo 的秘密" : "Chapter 3 · Lesson 7: Human vs. Machine — AlphaGo",
+      8: isZh ? "第 3 章 · 第 8 课：人机对战：电子游戏" : "Chapter 3 · Lesson 8: Human vs. AI — Video Games",
+      9: isZh ? "第 3 章 · 第 9 课：搜索引擎的秘密" : "Chapter 3 · Lesson 9: Secrets of Search Engines",
+      10: isZh ? "第 3 章 · 第 10 课：比你更懂你的推荐算法" : "Chapter 3 · Lesson 10: Recommendation Algorithms",
     } as const;
 
     const blurbs = {
@@ -366,18 +375,41 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
       5: isZh
         ? "对比声源-声道传统合成与端到端神经 TTS。"
         : "Compare source–filter TTS with end-to-end neural synthesis.",
+      6: isZh
+        ? "语言特性、规则翻译、SMT、NMT 与未来趋势。"
+        : "Language traits, rule-based MT, SMT, NMT, and future trends.",
+      7: isZh
+        ? "围棋难点、MCTS、策略/价值网络、自博弈到 AlphaGo Zero。"
+        : "Go challenge, MCTS, policy/value nets, self-play to AlphaGo Zero.",
+      8: isZh
+        ? "深度强化学习玩游戏：Atari、藏猫猫、AlphaStar。"
+        : "Deep RL in gaming: Atari, hide-and-seek, AlphaStar.",
+      9: isZh
+        ? "搜索核心：倒排索引与 PageRank 排序。"
+        : "Search core: inverted index and PageRank-style ranking.",
+      10: isZh
+        ? "推荐算法的相似性核心、神经嵌入与伦理风险。"
+        : "Recommendation similarity core, neural embeddings, and ethical risks.",
     } as const;
 
     return (
       <div className="space-y-4">
-        <SectionBlock title={titles[lessonNum as 1 | 2 | 3 | 4 | 5]} eyebrow={isZh ? "已开放课程" : "Open lesson"}>
-          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5]}</p>
+        <SectionBlock
+          title={titles[lessonNum as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10]}
+          eyebrow={isZh ? "已开放课程" : "Open lesson"}
+        >
+          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10]}</p>
         </SectionBlock>
         {lessonNum === 1 && <HighLesson3_1 lang={lang} />}
         {lessonNum === 2 && <HighLesson3_2 lang={lang} />}
         {lessonNum === 3 && <HighLesson3_3 lang={lang} />}
         {lessonNum === 4 && <HighLesson3_4 lang={lang} />}
         {lessonNum === 5 && <HighLesson3_5 lang={lang} />}
+        {lessonNum === 6 && <HighLesson3_6 lang={lang} />}
+        {lessonNum === 7 && <HighLesson3_7 lang={lang} />}
+        {lessonNum === 8 && <HighLesson3_8 lang={lang} />}
+        {lessonNum === 9 && <HighLesson3_9 lang={lang} />}
+        {lessonNum === 10 && <HighLesson3_10 lang={lang} />}
       </div>
     );
   }
