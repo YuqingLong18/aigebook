@@ -345,7 +345,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
     );
   }
 
-  if (chapterNum === 3 && level === "high" && [1, 2, 3, 4, 5].includes(lessonNum)) {
+  if (chapterNum === 3 && level === "high" && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(lessonNum)) {
     const titles = {
       1: isZh ? "第 3 章 · 第 1 课：机器视觉：人脸识别" : "Chapter 3 · Lesson 1: Computer Vision — Facial Recognition",
       2: isZh ? "第 3 章 · 第 2 课：机器视觉：绘画大师" : "Chapter 3 · Lesson 2: Computer Vision — Painting Master",

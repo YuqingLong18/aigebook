@@ -23,7 +23,8 @@ export function EigenfaceExplorerDemo({ lang }: Props) {
   const [weights, setWeights] = useState({ brow: 0.3, nose: -0.2, jaw: 0.4, mouth: -0.1 });
 
   const summary = useMemo(() => {
-    const top = Object.entries(weights).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0][0];
+    const entries = Object.entries(weights) as Array<[keyof typeof weights, number]>;
+    const top = entries.sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0]?.[0] ?? "brow";
     const topBasis = bases.find((b) => b.id === top)!;
     return isZh
       ? `主要特征来自 ${topBasis.label}（${topBasis.traitZh}），权重 ${weights[top].toFixed(2)}。`
