@@ -49,6 +49,7 @@ export function MiddleLesson3_1({ lang }: LessonProps) {
           <InfoCard title={t.introCardTitle}>
             <p className="text-sm text-slate-700">{t.introCard}</p>
           </InfoCard>
+          <EraExplorer lang={lang} />
         </SectionBlock>
 
         <SectionBlock id="golden" title={t.goldenTitle} eyebrow={t.goldenEyebrow}>
@@ -248,6 +249,68 @@ function GrowthHighlights({ lang }: { lang: "en" | "zh" }) {
         ))}
       </div>
       <p className="mt-3 text-sm text-slate-800">{notes[focus]}</p>
+    </div>
+  );
+}
+
+function EraExplorer({ lang }: { lang: "en" | "zh" }) {
+  const isZh = lang === "zh";
+  const eras = useMemo(
+    () => [
+      {
+        key: "golden",
+        label: isZh ? "黄金十年" : "Golden decade",
+        optimism: isZh ? "符号推理+感知机，信心高涨" : "Symbolic + perceptron optimism",
+        blocker: isZh ? "现实问题复杂度被低估" : "Real-world complexity underestimated",
+        lesson: isZh ? "乐观需配合可验证的路径" : "Optimism needs testable paths",
+      },
+      {
+        key: "winter",
+        label: isZh ? "寒冬时期" : "Winter periods",
+        optimism: isZh ? "期望落空，资金/信心下滑" : "Expectations miss, funding/faith dip",
+        blocker: isZh ? "算力、算法、知识获取受限" : "Limited compute, algorithms, knowledge capture",
+        lesson: isZh ? "重新聚焦可行问题与方法" : "Refocus on tractable problems/methods",
+      },
+      {
+        key: "revival",
+        label: isZh ? "复苏与深度时代" : "Revival & deep era",
+        optimism: isZh ? "数据+算力+深度网络开启新篇章" : "Data + compute + deep nets reopen growth",
+        blocker: isZh ? "仍需解决效率、对齐、安全" : "Still need efficiency, alignment, safety",
+        lesson: isZh ? "坚持 + 技术突破推动新周期" : "Persistence + breakthroughs power new cycles",
+      },
+    ],
+    [isZh],
+  );
+  const [idx, setIdx] = useState(0);
+  const current = eras[idx];
+  return (
+    <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex flex-wrap gap-2">
+        {eras.map((era, i) => (
+          <button
+            key={era.key}
+            type="button"
+            onClick={() => setIdx(i)}
+            className={[
+              "rounded-full border px-3 py-1 text-xs font-semibold transition",
+              idx === i ? "border-brand-500 bg-brand-50 text-brand-700" : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {era.label}
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 grid gap-2 md:grid-cols-3">
+        <InfoCard title={isZh ? "乐观点" : "Optimism"}>
+          <p className="text-sm text-slate-700">{current.optimism}</p>
+        </InfoCard>
+        <InfoCard title={isZh ? "受限因素" : "Blocker"}>
+          <p className="text-sm text-slate-700">{current.blocker}</p>
+        </InfoCard>
+        <InfoCard title={isZh ? "启示" : "Lesson"}>
+          <p className="text-sm text-slate-700">{current.lesson}</p>
+        </InfoCard>
+      </div>
     </div>
   );
 }

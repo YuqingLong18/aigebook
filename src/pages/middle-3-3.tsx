@@ -51,6 +51,7 @@ export function MiddleLesson3_3({ lang }: LessonProps) {
         <SectionBlock id="llm" title={t.llmTitle}>
           <p className="text-sm leading-relaxed text-slate-700">{t.llmIntro}</p>
           <LLMTabs lang={lang} />
+          <ScaleExplorer lang={lang} />
           <GuidedSteps title={ui.guidedTitle} steps={t.llmSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
@@ -224,6 +225,68 @@ function EraTraits({ lang }: { lang: "en" | "zh" }) {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function ScaleExplorer({ lang }: { lang: "en" | "zh" }) {
+  const isZh = lang === "zh";
+  const sizes = useMemo(
+    () => [
+      {
+        label: "117M",
+        era: "GPT-1",
+        capability: isZh ? "基础文本生成" : "Basic text generation",
+      },
+      {
+        label: "1.5B",
+        era: "GPT-2",
+        capability: isZh ? "可用的连贯写作、翻译尝试" : "Usable coherent writing, translation attempts",
+      },
+      {
+        label: "175B",
+        era: "GPT-3",
+        capability: isZh ? "零样本/少样本任务、多场景对话" : "Zero/ few-shot tasks, broad dialog",
+      },
+      {
+        label: "1.8T",
+        era: "GPT-4 级",
+        capability: isZh ? "长上下文、推理更强、编程/多模态" : "Long context, stronger reasoning, code/multimodal",
+      },
+    ],
+    [isZh],
+  );
+  const [idx, setIdx] = useState(0);
+  const current = sizes[idx];
+  return (
+    <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+      <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
+        {isZh ? "规模与能力" : "Scale vs. capability"}
+      </p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {sizes.map((s, i) => (
+          <button
+            key={s.label}
+            type="button"
+            onClick={() => setIdx(i)}
+            className={[
+              "rounded-full border px-3 py-1 text-xs font-semibold transition",
+              idx === i ? "border-brand-500 bg-brand-50 text-brand-700" : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
+        <p className="text-sm font-semibold text-slate-900">{current.era}</p>
+        <p className="mt-1 text-sm text-slate-800">{current.capability}</p>
+      </div>
+      <p className="mt-1 text-xs text-slate-600">
+        {isZh
+          ? "能力常在规模/数据/上下文跃迁处“涌现”。"
+          : "Abilities often “emerge” at new scale/data/context thresholds."}
+      </p>
     </div>
   );
 }

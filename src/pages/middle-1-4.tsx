@@ -4,6 +4,7 @@ import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
+import { ASRDecoderDemo } from "../demos/ASRDecoderDemo";
 
 type LessonProps = {
   lang: "en" | "zh";
@@ -48,6 +49,7 @@ export function MiddleLesson1_4({ lang }: LessonProps) {
 
         <SectionBlock id="asr" title={t.asrTitle} eyebrow={t.asrEyebrow}>
           <p className="text-sm leading-relaxed text-slate-700">{t.asrIntro}</p>
+          <ASRDecoderDemo lang={lang} />
           <GuidedSteps title={ui.guidedTitle} steps={t.asrSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}

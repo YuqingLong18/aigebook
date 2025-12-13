@@ -4,6 +4,8 @@ import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
+import { LogicGateCircuitDemo } from "../demos/LogicGateCircuitDemo";
+import { TuringMachineDemo } from "../demos/TuringMachineDemo";
 
 type LessonProps = {
   lang: "en" | "zh";
@@ -67,6 +69,7 @@ export function MiddleLesson2_3({ lang }: LessonProps) {
         <SectionBlock id="turing" title={t.turingTitle}>
           <p className="text-sm leading-relaxed text-slate-700">{t.turingIntro}</p>
           <TuringStrip lang={lang} />
+          <TuringMachineDemo lang={lang} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
             prompt={t.turingCheckpoint.prompt}
@@ -82,6 +85,7 @@ export function MiddleLesson2_3({ lang }: LessonProps) {
           <InfoCard title={t.shannonCardTitle}>
             <p className="text-sm text-slate-700">{t.shannonCard}</p>
           </InfoCard>
+          <LogicGateCircuitDemo lang={lang} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
             prompt={t.shannonCheckpoint.prompt}

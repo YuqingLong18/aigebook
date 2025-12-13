@@ -4,6 +4,7 @@ import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
+import { TuringTestDemo } from "../demos/TuringTestDemo";
 
 type LessonProps = {
   lang: "en" | "zh";
@@ -65,6 +66,7 @@ export function MiddleLesson2_4({ lang }: LessonProps) {
         <SectionBlock id="contrib" title={t.contribTitle}>
           <p className="text-sm leading-relaxed text-slate-700">{t.contribIntro}</p>
           <ContribTabs lang={lang} />
+          <TuringTestDemo lang={lang} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
             prompt={t.contribCheckpoint.prompt}

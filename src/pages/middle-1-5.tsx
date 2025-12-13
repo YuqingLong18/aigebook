@@ -4,6 +4,7 @@ import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
+import { SourceFilterDemo } from "../demos/SourceFilterDemo";
 
 type LessonProps = {
   lang: "en" | "zh";
@@ -64,6 +65,7 @@ export function MiddleLesson1_5({ lang }: LessonProps) {
           <InfoCard title={t.vocoderCardTitle}>
             <p className="text-sm text-slate-700">{t.vocoderCardText}</p>
           </InfoCard>
+          <SourceFilterDemo lang={lang} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
             prompt={t.vocoderCheckpoint.prompt}

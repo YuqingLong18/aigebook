@@ -62,6 +62,7 @@ export function MiddleLesson1_6({ lang }: LessonProps) {
 
         <SectionBlock id="selfdrive" title={t.selfdriveTitle} eyebrow={t.selfdriveEyebrow}>
           <p className="text-sm leading-relaxed text-slate-700">{t.selfdriveIntro}</p>
+          <AutomationLadder lang={lang} />
           <GuidedSteps title={ui.guidedTitle} steps={t.selfdriveSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
@@ -162,6 +163,97 @@ function PathPlanner({ lang }: { lang: "en" | "zh" }) {
       <p className="mt-1 text-xs text-slate-600">
         {isZh ? "高效清扫依赖规划；SLAM 让机器人无需预制地图。" : "Efficient cleaning needs planning; SLAM removes pre-made map need."}
       </p>
+    </div>
+  );
+}
+
+function AutomationLadder({ lang }: { lang: "en" | "zh" }) {
+  const isZh = lang === "zh";
+  const [level, setLevel] = useState(2);
+  const labels = [
+    { title: "L0", text: isZh ? "无辅助，完全靠驾驶员" : "No assist; human drives" },
+    { title: "L1", text: isZh ? "单功能辅助，如定速巡航" : "Single assist such as cruise" },
+    { title: "L2", text: isZh ? "组合辅助，仍需手握方向盘" : "Combined assist; hands stay on" },
+    { title: "L3", text: isZh ? "限定场景可放手，需随时接管" : "Hands-off in zones; be ready to take over" },
+    { title: "L4", text: isZh ? "限定区域全自动，乘客设定目的地" : "Geofenced self-drive; riders set destination" },
+    { title: "L5", text: isZh ? "任何场景全自动，无需方向盘" : "Any scenario, fully autonomous" },
+  ];
+  const current = labels[level];
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
+            {isZh ? "自动驾驶分级" : "Automation ladder"}
+          </p>
+          <p className="text-sm text-slate-700">
+            {isZh ? "调整等级，看“车”与“人”如何分工。" : "Slide to see how car vs. human share the work."}
+          </p>
+        </div>
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{current.title}</span>
+      </div>
+      <input
+        aria-label={isZh ? "自动驾驶等级" : "Automation level"}
+        type="range"
+        min={0}
+        max={5}
+        step={1}
+        value={level}
+        onChange={(e) => setLevel(Number(e.target.value))}
+        className="mt-3 w-full accent-brand-600"
+      />
+      <p className="mt-2 text-sm font-semibold text-slate-900">{current.text}</p>
+      <div className="mt-3 grid gap-3 md:grid-cols-3">
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm text-slate-800">
+          <p className="text-xs font-semibold text-slate-600">{isZh ? "车辆负责" : "Car handles"}</p>
+          <p className="mt-1">
+            {level >= 4
+              ? isZh
+                ? "感知、规划、控制全流程，乘客只需设定目的地。"
+                : "Perception, planning, control end-to-end; riders just set a destination."
+              : level >= 2
+                ? isZh
+                  ? "横纵向控制协助，持续监测周围环境。"
+                  : "Helps steering/braking and watches surroundings."
+                : isZh
+                  ? "主要由人类操作，车辆提供提醒或简单辅助。"
+                  : "Human drives; car offers reminders/basic assist."}
+          </p>
+        </div>
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm text-slate-800">
+          <p className="text-xs font-semibold text-slate-600">{isZh ? "人类负责" : "Human handles"}</p>
+          <p className="mt-1">
+            {level >= 4
+              ? isZh
+                ? "监督系统健康、选择路线和应急决策。"
+                : "Watch system health, pick routes, handle emergencies."
+              : level >= 2
+                ? isZh
+                  ? "保持注意力，随时接管，处理罕见情况。"
+                  : "Stay alert, take over anytime, handle rare cases."
+                : isZh
+                  ? "全部驾驶与判断。"
+                  : "All driving and decisions."}
+          </p>
+        </div>
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-sm text-slate-800">
+          <p className="text-xs font-semibold text-slate-600">{isZh ? "常见场景" : "Typical scene"}</p>
+          <p className="mt-1">
+            {level >= 5
+              ? isZh
+                ? "任何道路、任何天气，完全无人驾驶。"
+                : "Any road or weather, fully driverless."
+              : level >= 3
+                ? isZh
+                  ? "高速巡航、园区接驳、固定路线公交。"
+                  : "Highway cruising, campus shuttles, fixed-route buses."
+                : isZh
+                  ? "跟车、车道保持等基础辅助。"
+                  : "Car-following, lane keeping, basic assist."}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

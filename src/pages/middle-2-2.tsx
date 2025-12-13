@@ -4,6 +4,7 @@ import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { LessonToc } from "../components/LessonToc";
 import { SectionBlock } from "../components/SectionBlock";
+import { BooleanGateDemo } from "../demos/BooleanGateDemo";
 
 type LessonProps = {
   lang: "en" | "zh";
@@ -65,6 +66,7 @@ export function MiddleLesson2_2({ lang }: LessonProps) {
         <SectionBlock id="math-logic" title={t.mathTitle}>
           <p className="text-sm leading-relaxed text-slate-700">{t.mathIntro}</p>
           <LogicSymbols lang={lang} />
+          <BooleanGateDemo lang={lang} />
           <GuidedSteps title={ui.guidedTitle} steps={t.mathSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}

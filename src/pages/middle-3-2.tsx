@@ -79,6 +79,7 @@ export function MiddleLesson3_2({ lang }: LessonProps) {
         <SectionBlock id="revolution" title={t.revolutionTitle}>
           <p className="text-sm leading-relaxed text-slate-700">{t.revolutionIntro}</p>
           <DeepHighlights lang={lang} />
+          <LayerExplorer lang={lang} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
             prompt={t.revolutionCheckpoint.prompt}
@@ -203,6 +204,59 @@ function DeepHighlights({ lang }: { lang: "en" | "zh" }) {
         ))}
       </div>
       <p className="mt-3 text-sm text-slate-800">{copy[focus]}</p>
+    </div>
+  );
+}
+
+function LayerExplorer({ lang }: { lang: "en" | "zh" }) {
+  const isZh = lang === "zh";
+  const layers = useMemo(
+    () => [
+      {
+        label: isZh ? "第 1 层：边缘" : "Layer 1: edges",
+        detail: isZh ? "学到横线、竖线、斜线等简单纹理。" : "Learns simple textures like edges/lines.",
+      },
+      {
+        label: isZh ? "第 3 层：局部部件" : "Layer 3: parts",
+        detail: isZh ? "组合边缘形成鼻子、眼睛等局部特征。" : "Combines edges into parts like noses/eyes.",
+      },
+      {
+        label: isZh ? "第 5 层：整体语义" : "Layer 5: whole",
+        detail: isZh ? "识别人脸/物体整体，关联类别。" : "Recognizes whole faces/objects with class meaning.",
+      },
+    ],
+    [isZh],
+  );
+  const [idx, setIdx] = useState(0);
+  const current = layers[idx];
+  return (
+    <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+      <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
+        {isZh ? "分层特征示意" : "Layered feature intuition"}
+      </p>
+      <div className="flex flex-wrap gap-2 mt-2">
+        {layers.map((layer, i) => (
+          <button
+            key={layer.label}
+            type="button"
+            onClick={() => setIdx(i)}
+            className={[
+              "rounded-full border px-3 py-1 text-xs font-semibold transition",
+              idx === i ? "border-brand-500 bg-brand-50 text-brand-700" : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {layer.label}
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
+        <p className="text-sm text-slate-800">{current.detail}</p>
+      </div>
+      <p className="mt-1 text-xs text-slate-600">
+        {isZh
+          ? "多层网络逐层构建复杂表示，替代手工特征。"
+          : "Deep nets build complex representations layer by layer, replacing hand-crafted features."}
+      </p>
     </div>
   );
 }
