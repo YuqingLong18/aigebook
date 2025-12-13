@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useCheckpointProgressContext, type CheckpointStatus } from "./CheckpointProgressProvider";
 
 type Option = {
   label: string;
@@ -15,7 +16,7 @@ type CheckpointProps = {
   incorrectLabel: string;
   submitLabel?: string;
   checkpointId?: string;
-  onStatusChange?: (id: string, status: "idle" | "correct" | "incorrect") => void;
+  onStatusChange?: (id: string, status: CheckpointStatus) => void;
   progress?: {
     current: number;
     total: number;
@@ -34,24 +35,49 @@ export function Checkpoint({
   resetLabel,
   correctLabel,
   incorrectLabel,
-  submitLabel = "Submit",
+  submitLabel,
   checkpointId,
   onStatusChange,
   progress,
-  helperText = {
-    selectPrompt: "Select an option",
-    readyPrompt: "Ready to submit",
-  },
+  helperText,
 }: CheckpointProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [status, setStatus] = useState<"idle" | "correct" | "incorrect">("idle");
+  const [status, setStatus] = useState<CheckpointStatus>("idle");
+  const progressContext = useCheckpointProgressContext();
 
-  const updateStatus = (next: "idle" | "correct" | "incorrect") => {
+  const resolvedId = useMemo(
+    () => checkpointId ?? `checkpoint-${Math.random().toString(36).slice(2, 8)}`,
+    [checkpointId],
+  );
+
+  const register = progressContext?.register;
+  const unregister = progressContext?.unregister;
+
+  useEffect(() => {
+    if (!register) return;
+    register(resolvedId);
+    return () => {
+      unregister?.(resolvedId);
+    };
+  }, [register, unregister, resolvedId]);
+
+  const resolvedSubmitLabel = submitLabel ?? progressContext?.ui.submitLabel ?? "Submit";
+  const resolvedHelperText = {
+    selectPrompt:
+      helperText?.selectPrompt ?? progressContext?.ui.helperText.selectPrompt ?? "Select an option",
+    readyPrompt: helperText?.readyPrompt ?? progressContext?.ui.helperText.readyPrompt ?? "Ready to submit",
+  };
+  const progressToUse = progress ?? progressContext?.progress;
+
+  const updateStatus = (next: CheckpointStatus) => {
     setStatus((prev) => {
       if (prev === next) return prev;
-      if (checkpointId && onStatusChange) {
-        onStatusChange(checkpointId, next);
+      if (onStatusChange) {
+        onStatusChange(resolvedId, next);
+      }
+      if (progressContext) {
+        progressContext.setStatus(resolvedId, next);
       }
       return next;
     });
@@ -82,9 +108,10 @@ export function Checkpoint({
 
   const showFeedback = submitted && selected !== null;
   const selectedIsCorrect = selected !== null && options[selected].correct;
-  const shouldShowProgress = progress && progress.total > 0 && status === "correct";
-  const progressRatio =
-    progress && progress.total > 0 ? Math.min(progress.current / progress.total, 1) * 100 : 0;
+  const shouldShowProgress = progressToUse && progressToUse.total > 0 && status === "correct";
+  const progressRatio = progressToUse && progressToUse.total > 0
+    ? Math.min(progressToUse.current / progressToUse.total, 1) * 100
+    : 0;
 
   return (
     <div className="rounded-2xl border border-slate-200/80 bg-white p-4">
@@ -149,24 +176,24 @@ export function Checkpoint({
               : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:text-slate-900",
           ].join(" ")}
         >
-          {submitLabel}
+          {resolvedSubmitLabel}
         </button>
         <div className="text-xs font-medium text-slate-600">
           {selected === null
-            ? helperText.selectPrompt
+            ? resolvedHelperText.selectPrompt
             : submitted
               ? selectedIsCorrect
                 ? correctLabel
                 : incorrectLabel
-              : helperText.readyPrompt}
+              : resolvedHelperText.readyPrompt}
         </div>
       </div>
-      {shouldShowProgress && progress && (
+      {shouldShowProgress && progressToUse && (
         <div className="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
-            <span>{progress.label}</span>
+            <span>{progressToUse.label}</span>
             <span>
-              {progress.current} / {progress.total}
+              {progressToUse.current} / {progressToUse.total}
             </span>
           </div>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-white">

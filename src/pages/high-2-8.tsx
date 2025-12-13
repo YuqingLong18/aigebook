@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import { Checkpoint } from "../components/Checkpoint";
 import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
@@ -10,10 +9,6 @@ import { LossLandscapeDemo } from "../demos/LossLandscapeDemo";
 import { PretrainingFlowDemo } from "../demos/PretrainingFlowDemo";
 import { StepApproxDemo } from "../demos/StepApproxDemo";
 import { SuccessFactorsDemo } from "../demos/SuccessFactorsDemo";
-
-const checkpointIds = ["depth", "diff", "universal", "pretrain", "flourish", "feature"] as const;
-type CheckpointId = (typeof checkpointIds)[number];
-type Status = "idle" | "correct" | "incorrect";
 
 type LessonProps = {
   lang: "en" | "zh";
@@ -27,39 +22,9 @@ export function HighLesson2_8({ lang }: LessonProps) {
     correctLabel: isZh ? "正确" : "Correct",
     incorrectLabel: isZh ? "再试一次" : "Check again",
     guidedTitle: isZh ? "引导步骤" : "Guided Steps",
-    submit: isZh ? "提交" : "Submit",
-    selectPrompt: isZh ? "请选择一个选项" : "Select an option",
-    readyPrompt: isZh ? "准备提交" : "Ready to submit",
-    progressLabel: isZh ? "本课已通过测验" : "Quizzes passed this lesson",
   };
 
   const t = content[lang];
-
-  const [checkpointStatus, setCheckpointStatus] = useState<Record<CheckpointId, Status>>(() => {
-    return checkpointIds.reduce((acc, id) => {
-      acc[id] = "idle";
-      return acc;
-    }, {} as Record<CheckpointId, Status>);
-  });
-
-  const handleStatusChange = (id: string, status: Status) => {
-    const typedId = id as CheckpointId;
-    setCheckpointStatus((prev) => {
-      if (!(typedId in prev) || prev[typedId] === status) return prev;
-      return { ...prev, [typedId]: status };
-    });
-  };
-
-  const passedCount = useMemo(
-    () => checkpointIds.reduce((count, id) => count + (checkpointStatus[id] === "correct" ? 1 : 0), 0),
-    [checkpointStatus],
-  );
-
-  const progress = {
-    current: passedCount,
-    total: checkpointIds.length,
-    label: ui.progressLabel,
-  };
 
   const toc = [
     { id: "learning-objectives", label: isZh ? "学习目标" : "Learning Objectives" },
@@ -107,11 +72,6 @@ export function HighLesson2_8({ lang }: LessonProps) {
           resetLabel={ui.reset}
           correctLabel={ui.correctLabel}
           incorrectLabel={ui.incorrectLabel}
-          submitLabel={ui.submit}
-          helperText={{ selectPrompt: ui.selectPrompt, readyPrompt: ui.readyPrompt }}
-          checkpointId="depth"
-          onStatusChange={handleStatusChange}
-          progress={progress}
         />
       </SectionBlock>
 
@@ -126,11 +86,6 @@ export function HighLesson2_8({ lang }: LessonProps) {
           resetLabel={ui.reset}
           correctLabel={ui.correctLabel}
           incorrectLabel={ui.incorrectLabel}
-          submitLabel={ui.submit}
-          helperText={{ selectPrompt: ui.selectPrompt, readyPrompt: ui.readyPrompt }}
-          checkpointId="diff"
-          onStatusChange={handleStatusChange}
-          progress={progress}
         />
       </SectionBlock>
 
@@ -147,11 +102,6 @@ export function HighLesson2_8({ lang }: LessonProps) {
           resetLabel={ui.reset}
           correctLabel={ui.correctLabel}
           incorrectLabel={ui.incorrectLabel}
-          submitLabel={ui.submit}
-          helperText={{ selectPrompt: ui.selectPrompt, readyPrompt: ui.readyPrompt }}
-          checkpointId="universal"
-          onStatusChange={handleStatusChange}
-          progress={progress}
         />
       </SectionBlock>
 
@@ -169,11 +119,6 @@ export function HighLesson2_8({ lang }: LessonProps) {
           resetLabel={ui.reset}
           correctLabel={ui.correctLabel}
           incorrectLabel={ui.incorrectLabel}
-          submitLabel={ui.submit}
-          helperText={{ selectPrompt: ui.selectPrompt, readyPrompt: ui.readyPrompt }}
-          checkpointId="pretrain"
-          onStatusChange={handleStatusChange}
-          progress={progress}
         />
       </SectionBlock>
 
@@ -186,11 +131,6 @@ export function HighLesson2_8({ lang }: LessonProps) {
           resetLabel={ui.reset}
           correctLabel={ui.correctLabel}
           incorrectLabel={ui.incorrectLabel}
-          submitLabel={ui.submit}
-          helperText={{ selectPrompt: ui.selectPrompt, readyPrompt: ui.readyPrompt }}
-          checkpointId="flourish"
-          onStatusChange={handleStatusChange}
-          progress={progress}
         />
       </SectionBlock>
 
@@ -211,11 +151,6 @@ export function HighLesson2_8({ lang }: LessonProps) {
           resetLabel={ui.reset}
           correctLabel={ui.correctLabel}
           incorrectLabel={ui.incorrectLabel}
-          submitLabel={ui.submit}
-          helperText={{ selectPrompt: ui.selectPrompt, readyPrompt: ui.readyPrompt }}
-          checkpointId="feature"
-          onStatusChange={handleStatusChange}
-          progress={progress}
         />
 
         <InfoCard title={t.sharedTitle}>

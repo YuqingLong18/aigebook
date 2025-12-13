@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { SectionBlock } from "./components/SectionBlock";
+import { LessonCheckpointProvider } from "./components/CheckpointProgressProvider";
 import { ComingSoon } from "./pages/ComingSoon";
 import { HighLesson1_1 } from "./pages/high-1-1";
 import { HighLesson1_2 } from "./pages/high-1-2";
@@ -128,9 +129,12 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
   const chapterNum = Number(chapter ?? unit);
   const lessonNum = Number(lesson);
   const isZh = lang === "zh";
+  const wrap = (content: JSX.Element) => (
+    <LessonCheckpointProvider lang={lang}>{content}</LessonCheckpointProvider>
+  );
 
   if (level === "primary" && chapterNum === 5 && lessonNum === 6) {
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock
           title={isZh ? "第 5 单元 · 第 6 课：走向未来" : "Unit 5 · Lesson 6: Moving Toward the Future"}
@@ -148,7 +152,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
   }
 
   if (level === "middle" && chapterNum === 7 && lessonNum === 7) {
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock
           title={
@@ -170,7 +174,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
   }
 
   if (chapterNum === 1 && level === "high" && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(lessonNum)) {
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock
           title={
@@ -190,29 +194,29 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
                     ? isZh
                       ? "第 1 单元 · 第 4 课：人工智能的起源：计算机的诞生"
                       : "Unit 1 · Lesson 4: Origins of AI: Birth of Computers"
-                  : lessonNum === 5
-                    ? isZh
-                      ? "第 1 单元 · 第 5 课：图灵：人工智能之父"
-                      : "Unit 1 · Lesson 5: Turing: Father of AI"
-                    : lessonNum === 6
+                    : lessonNum === 5
                       ? isZh
-                        ? "第 1 单元 · 第 6 课：人工智能的开端"
-                        : "Unit 1 · Lesson 6: The Beginning of AI"
-                      : lessonNum === 7
+                        ? "第 1 单元 · 第 5 课：图灵：人工智能之父"
+                        : "Unit 1 · Lesson 5: Turing: Father of AI"
+                      : lessonNum === 6
                         ? isZh
-                          ? "第 1 单元 · 第 7 课：人工智能发展史（1）"
-                          : "Unit 1 · Lesson 7: History of AI (1)"
-                        : lessonNum === 8
+                          ? "第 1 单元 · 第 6 课：人工智能的开端"
+                          : "Unit 1 · Lesson 6: The Beginning of AI"
+                        : lessonNum === 7
                           ? isZh
-                            ? "第 1 单元 · 第 8 课：人工智能发展史（2）"
-                            : "Unit 1 · Lesson 8: History of AI (2)"
-                          : lessonNum === 9
+                            ? "第 1 单元 · 第 7 课：人工智能发展史（1）"
+                            : "Unit 1 · Lesson 7: History of AI (1)"
+                          : lessonNum === 8
                             ? isZh
-                              ? "第 1 单元 · 第 9 课：人工智能伦理：近期风险"
-                              : "Unit 1 · Lesson 9: AI Ethics — Near-Term Risks"
-                            : isZh
-                              ? "第 1 单元 · 第 10 课：人工智能伦理：长期风险"
-                              : "Unit 1 · Lesson 10: AI Ethics — Long-Term Risks"
+                              ? "第 1 单元 · 第 8 课：人工智能发展史（2）"
+                              : "Unit 1 · Lesson 8: History of AI (2)"
+                            : lessonNum === 9
+                              ? isZh
+                                ? "第 1 单元 · 第 9 课：人工智能伦理：近期风险"
+                                : "Unit 1 · Lesson 9: AI Ethics — Near-Term Risks"
+                              : isZh
+                                ? "第 1 单元 · 第 10 课：人工智能伦理：长期风险"
+                                : "Unit 1 · Lesson 10: AI Ethics — Long-Term Risks"
           }
           eyebrow={isZh ? "已开放课程" : "Open lesson"}
         >
@@ -315,7 +319,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         : "Prompts, few-shot/CoT, scaling laws, RAG, multimodality and tools.",
     } as const;
 
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock title={titles[lessonNum as 1 | 2 | 3 | 4 | 5]} eyebrow={isZh ? "已开放课程" : "Open lesson"}>
           <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5]}</p>
@@ -334,7 +338,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
   }
 
   if (chapterNum === 2 && lessonNum === 8 && level === "high") {
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock
           title={
@@ -400,7 +404,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         : "Recommendation similarity core, neural embeddings, and ethical risks.",
     } as const;
 
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock
           title={titles[lessonNum as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10]}
@@ -463,7 +467,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         : "Review the enduring AI wave, third-generation AI plus neuromorphic/optical/quantum frontiers, and consider governance for human–AI coexistence.",
     } as const;
 
-    return (
+    return wrap(
       <div className="space-y-4">
         <SectionBlock
           title={titles[lessonNum as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 10]}
@@ -483,7 +487,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
     );
   }
 
-  return (
+  return wrap(
     <div className="space-y-4">
       <SectionBlock
         title={isZh ? "本课内容即将上线" : "Lesson coming soon"}

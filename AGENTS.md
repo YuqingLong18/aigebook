@@ -98,6 +98,7 @@ Use a consistent scaffold per subsection:
    - 1–3 questions (MCQ or short input)
    - Immediate feedback with concise explanation
    - If wrong: show the relevant snippet/concept reference (not a lecture)
+   - Require an explicit **Submit** click after selecting an option; on a correct submission show a per-lesson progress bar `(x / y quizzes passed)` where `y` is the total MCQs on that lesson (all levels: primary/middle/high)
 
 5. **Key Takeaways**
    - 2–5 bullet points mirroring the section summary
@@ -154,7 +155,7 @@ A deliverable is “done” only if:
 2. Each demo clearly supports a specific subsection concept.
 3. The site works fully as a static frontend (no backend).
 4. UI is consistent, readable, and responsive.
-5. Checkpoints provide immediate, correct feedback.
+5. Checkpoints provide immediate, correct feedback, use a submit action (no auto-grade), and surface lesson-level quiz progress `(x / total MCQs)`.
 6. Code is clean, typed (if TS), and components are not overly coupled.
 7. No console errors; basic edge cases handled (empty inputs, reset state).
 
@@ -175,6 +176,7 @@ For each book section provided:
 
 4. **Add Checkpoints**
    - Add a small quiz/check with feedback aligned to the book’s explanation.
+   - Quizzes must use explicit submit + reset controls and show per-lesson progress `(passed / total MCQs)` once the answer is correct.
 
 5. **Polish**
    - Improve spacing, typography, and microcopy (without deviating from book).
