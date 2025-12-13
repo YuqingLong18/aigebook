@@ -318,6 +318,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const highOpenLessons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const highOpenCh3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const highOpenCh4 = [1, 2, 3, 4, 5];
+  const middleOpenCh1 = [1, 2, 3, 4, 5, 6];
+  const middleOpenCh7 = [7];
   const availableLesson =
     (level === "high" &&
       ((chapter === 2 && lesson && highOpenLessons.includes(lesson)) ||
@@ -325,7 +327,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         (chapter === 3 && lesson && highOpenCh3.includes(lesson)) ||
         (chapter === 4 && lesson && highOpenCh4.includes(lesson)))) ||
     (level === "primary" && chapter === 5 && lesson === 6) ||
-    (level === "middle" && chapter === 7 && lesson === 7);
+    (level === "middle" &&
+      ((chapter === 1 && lesson && middleOpenCh1.includes(lesson)) ||
+        (chapter === 7 && lesson && middleOpenCh7.includes(lesson))));
 
   const availablePath =
     level === "high" && chapter && lesson
@@ -340,8 +344,10 @@ export function NavigationPage({ lang }: NavigationPageProps) {
             : ""
       : level === "primary" && chapter === 5 && lesson === 6
         ? "/primary/unit/5/lesson/6"
-        : level === "middle" && chapter === 7 && lesson === 7
-          ? "/middle/unit/7/lesson/7"
+        : level === "middle" && chapter === 1 && lesson && middleOpenCh1.includes(lesson)
+          ? `/middle/unit/1/lesson/${lesson}`
+          : level === "middle" && chapter === 7 && lesson === 7
+            ? "/middle/unit/7/lesson/7"
           : "";
 
   return (
@@ -446,7 +452,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                   (level === "high" && chapter === 3 && highOpenCh3.includes(lsn.num)) ||
                   (level === "high" && chapter === 4 && highOpenCh4.includes(lsn.num)) ||
                   (level === "primary" && chapter === 5 && lsn.num === 6) ||
-                  (level === "middle" && chapter === 7 && lsn.num === 7);
+                  (level === "middle" &&
+                    ((chapter === 1 && middleOpenCh1.includes(lsn.num)) ||
+                      (chapter === 7 && middleOpenCh7.includes(lsn.num))));
                 const buttonClass = [
                   "flex h-full flex-col justify-between rounded-xl border px-3 py-2 text-left text-sm transition",
                   isAvailable
@@ -458,19 +466,21 @@ export function NavigationPage({ lang }: NavigationPageProps) {
 
                 const title = isZh ? lsn.titleZh : lsn.titleEn;
 
-                if (isAvailable) {
-                  const linkPath =
-                    level === "high" && chapter === 2
-                      ? `/high/ch/2/lesson/${lsn.num}`
-                      : level === "high" && chapter === 1
-                        ? `/high/ch/1/lesson/${lsn.num}`
-                        : level === "high" && chapter === 3
-                          ? `/high/ch/3/lesson/${lsn.num}`
+                    if (isAvailable) {
+                      const linkPath =
+                        level === "high" && chapter === 2
+                          ? `/high/ch/2/lesson/${lsn.num}`
+                          : level === "high" && chapter === 1
+                            ? `/high/ch/1/lesson/${lsn.num}`
+                          : level === "high" && chapter === 3
+                            ? `/high/ch/3/lesson/${lsn.num}`
                           : level === "high" && chapter === 4
                             ? `/high/ch/4/lesson/${lsn.num}`
                           : level === "primary" && chapter === 5 && lsn.num === 6
                             ? "/primary/unit/5/lesson/6"
-                            : "/middle/unit/7/lesson/7";
+                            : level === "middle" && chapter === 1
+                              ? `/middle/unit/1/lesson/${lsn.num}`
+                              : "/middle/unit/7/lesson/7";
 
                   return (
                     <Link

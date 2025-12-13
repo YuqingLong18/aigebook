@@ -42,6 +42,12 @@ import { HighLesson4_6 } from "./pages/high-4-6";
 import { HighLesson4_7 } from "./pages/high-4-7";
 import { HighLesson4_10 } from "./pages/high-4-10";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
+import { MiddleLesson1_1 } from "./pages/middle-1-1";
+import { MiddleLesson1_2 } from "./pages/middle-1-2";
+import { MiddleLesson1_3 } from "./pages/middle-1-3";
+import { MiddleLesson1_4 } from "./pages/middle-1-4";
+import { MiddleLesson1_5 } from "./pages/middle-1-5";
+import { MiddleLesson1_6 } from "./pages/middle-1-6";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
@@ -147,6 +153,65 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
           </p>
         </SectionBlock>
         <PrimaryLesson5_6 lang={lang} />
+      </div>
+    );
+  }
+
+  if (level === "middle" && chapterNum === 1 && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
+    const middleTitles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 1 单元 · 第 1 课：智能机器的梦想",
+        en: "Unit 1 · Lesson 1: Dream of Intelligent Machines",
+        blurbZh: "从古代传说到机械装置，看看人类如何想象并追寻智能机器。",
+        blurbEn: "From legends to mechanisms—how humans imagined and chased intelligent machines.",
+      },
+      2: {
+        zh: "第 1 单元 · 第 2 课：什么是人工智能",
+        en: "Unit 1 · Lesson 2: What Is Artificial Intelligence",
+        blurbZh: "厘清智能与自动化的区别，回到“用计算机模拟人类智能行为”的定义。",
+        blurbEn: "Separate automation from AI and focus on simulating human intelligence with computation.",
+      },
+      3: {
+        zh: "第 1 单元 · 第 3 课：机器的眼睛",
+        en: "Unit 1 · Lesson 3: Eyes of the Machine",
+        blurbZh: "认识计算机视觉：人脸、车牌、物体识别及其应用与风险。",
+        blurbEn: "Meet computer vision: face, plate, and object recognition—uses and risks.",
+      },
+      4: {
+        zh: "第 1 单元 · 第 4 课：机器的耳朵",
+        en: "Unit 1 · Lesson 4: Ears of the Machine",
+        blurbZh: "机器听觉的核心方向：语音识别、声纹识别、声音事件检测。",
+        blurbEn: "Machine hearing focus: ASR, voiceprints, sound-event detection.",
+      },
+      5: {
+        zh: "第 1 单元 · 第 5 课：机器的嘴巴",
+        en: "Unit 1 · Lesson 5: Mouth of the Machine",
+        blurbZh: "语音合成从机械发声到神经网络拟真，同时带来安全与版权新问题。",
+        blurbEn: "Speech synthesis from mechanical to neural realism, with new safety and copyright issues.",
+      },
+      6: {
+        zh: "第 1 单元 · 第 6 课：机器的手和脚",
+        en: "Unit 1 · Lesson 6: Hands and Feet of the Machine",
+        blurbZh: "移动与操作机器人：扫地、自动驾驶、机械臂如何因 AI 变得更聪明。",
+        blurbEn: "Mobile and manipulation robots—vacuum, self-driving, arms—made smarter by AI.",
+      },
+    };
+
+    const title = isZh ? middleTitles[lessonNum].zh : middleTitles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? middleTitles[lessonNum].blurbZh : middleTitles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson1_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson1_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson1_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson1_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson1_5 lang={lang} />}
+        {lessonNum === 6 && <MiddleLesson1_6 lang={lang} />}
       </div>
     );
   }
