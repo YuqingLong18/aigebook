@@ -4,3 +4,4 @@ dist
 *.log
 scripts/generate-image.js
 .env
+/source_text/
