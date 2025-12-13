@@ -16,6 +16,10 @@ Book Subsection | Page/Component | Demo | Checkpoint
 1.3 Origins of AI: Mathematical Logic | `src/pages/high-1-3.tsx` (`HighLesson1_3`) | `SyllogismPlaygroundDemo`, `BooleanGateDemo` | `logicCheckpoint`, `mathCheckpoint`, `boolCheckpoint`
 1.4 Origins of AI: Birth of Computers | `src/pages/high-1-4.tsx` (`HighLesson1_4`) | `TuringMachineDemo`, `LogicGateCircuitDemo` | `turingCheckpoint`, `shannonCheckpoint`, `compCheckpoint`
 1.5 Turing: Father of AI | `src/pages/high-1-5.tsx` (`HighLesson1_5`) | `RewardLearningDemo`, `TuringTestDemo` | `tmCheckpoint`, `earlyCheckpoint`, `ttestCheckpoint`
+1.7 AI History (1) | `src/pages/high-1-7.tsx` (`HighLesson1_7`) | `SymbolicVsNeuralDemo`, `ExpertSystemCostDemo`, `EraTimelineDemo` | `summaryCheckpoint`
+1.8 AI History (2) | `src/pages/high-1-8.tsx` (`HighLesson1_8`) | `DataComputeTriadDemo`, `MilestoneSpotlightDemo`, `SelfAttentionDemo` | `mlCheckpoint`, `deepCheckpoint`, `llmCheckpoint`
+1.9 AI Ethics: Near-Term Risks | `src/pages/high-1-9.tsx` (`HighLesson1_9`) | `DeepfakeRiskDemo`, `AIDependenceDemo`, `JobImpactDemo` | `dataCheckpoint`, `deepfakeCheckpoint`, `dependenceCheckpoint`, `jobsCheckpoint`
+1.10 AI Ethics: Long-Term Risks | `src/pages/high-1-10.tsx` (`HighLesson1_10`) | `ControlRiskDemo`, `LiabilityScenarioDemo` | `uncontrolCheckpoint`, `ethicsCheckpoint`
 
 Notes:
 - Section IDs on each page align with the book sequence; demos follow the concept they illustrate.

@@ -8,6 +8,10 @@ import { HighLesson1_3 } from "./pages/high-1-3";
 import { HighLesson1_4 } from "./pages/high-1-4";
 import { HighLesson1_5 } from "./pages/high-1-5";
 import { HighLesson1_6 } from "./pages/high-1-6";
+import { HighLesson1_7 } from "./pages/high-1-7";
+import { HighLesson1_8 } from "./pages/high-1-8";
+import { HighLesson1_9 } from "./pages/high-1-9";
+import { HighLesson1_10 } from "./pages/high-1-10";
 import { HighLesson2_1 } from "./pages/high-2-1";
 import { HighLesson2_2 } from "./pages/high-2-2";
 import { HighLesson2_3 } from "./pages/high-2-3";
@@ -148,7 +152,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
     );
   }
 
-  if (chapterNum === 1 && level === "high" && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
+  if (chapterNum === 1 && level === "high" && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(lessonNum)) {
     return (
       <div className="space-y-4">
         <SectionBlock
@@ -169,13 +173,29 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
                     ? isZh
                       ? "第 1 单元 · 第 4 课：人工智能的起源：计算机的诞生"
                       : "Unit 1 · Lesson 4: Origins of AI: Birth of Computers"
-                    : lessonNum === 5
+                  : lessonNum === 5
+                    ? isZh
+                      ? "第 1 单元 · 第 5 课：图灵：人工智能之父"
+                      : "Unit 1 · Lesson 5: Turing: Father of AI"
+                    : lessonNum === 6
                       ? isZh
-                        ? "第 1 单元 · 第 5 课：图灵：人工智能之父"
-                        : "Unit 1 · Lesson 5: Turing: Father of AI"
-                      : isZh
                         ? "第 1 单元 · 第 6 课：人工智能的开端"
                         : "Unit 1 · Lesson 6: The Beginning of AI"
+                      : lessonNum === 7
+                        ? isZh
+                          ? "第 1 单元 · 第 7 课：人工智能发展史（1）"
+                          : "Unit 1 · Lesson 7: History of AI (1)"
+                        : lessonNum === 8
+                          ? isZh
+                            ? "第 1 单元 · 第 8 课：人工智能发展史（2）"
+                            : "Unit 1 · Lesson 8: History of AI (2)"
+                          : lessonNum === 9
+                            ? isZh
+                              ? "第 1 单元 · 第 9 课：人工智能伦理：近期风险"
+                              : "Unit 1 · Lesson 9: AI Ethics — Near-Term Risks"
+                            : isZh
+                              ? "第 1 单元 · 第 10 课：人工智能伦理：长期风险"
+                              : "Unit 1 · Lesson 10: AI Ethics — Long-Term Risks"
           }
           eyebrow={isZh ? "已开放课程" : "Open lesson"}
         >
@@ -200,9 +220,25 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
                       ? isZh
                         ? "图灵的通用机、学习设想与图灵测试的奠基作用。"
                         : "Turing’s universal machine, learning ideas, and Turing Test foundations."
-                      : isZh
-                        ? "本课聚焦早期 AI 研究与达特茅斯会议。"
-                        : "Early AI research and the Dartmouth Conference."}
+                      : lessonNum === 6
+                        ? isZh
+                          ? "本课聚焦早期 AI 研究与达特茅斯会议。"
+                          : "Early AI research and the Dartmouth Conference."
+                        : lessonNum === 7
+                          ? isZh
+                            ? "回顾黄金十年、两次寒冬与第二次热潮。"
+                            : "Covers the golden decade, first/second winters, and the second boom."
+                          : lessonNum === 8
+                            ? isZh
+                              ? "聚焦 1993 以来的务实复兴、深度学习、大模型时代。"
+                              : "Focuses on post-1993 revival, deep learning era, and large models."
+                            : lessonNum === 9
+                              ? isZh
+                                ? "讨论数据安全、深度伪造、AI 依赖、就业冲击等近期风险。"
+                                : "Discusses data security, deepfakes, AI dependence, and job disruption."
+                              : isZh
+                                ? "探讨 AI 失控、武器化与伦理法律等长期风险。"
+                                : "Explores AI loss-of-control, weaponization, and ethical/legal long-term risks."}
           </p>
         </SectionBlock>
         {lessonNum === 1 && <HighLesson1_1 lang={lang} />}
@@ -211,6 +247,10 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         {lessonNum === 4 && <HighLesson1_4 lang={lang} />}
         {lessonNum === 5 && <HighLesson1_5 lang={lang} />}
         {lessonNum === 6 && <HighLesson1_6 lang={lang} />}
+        {lessonNum === 7 && <HighLesson1_7 lang={lang} />}
+        {lessonNum === 8 && <HighLesson1_8 lang={lang} />}
+        {lessonNum === 9 && <HighLesson1_9 lang={lang} />}
+        {lessonNum === 10 && <HighLesson1_10 lang={lang} />}
       </div>
     );
   }

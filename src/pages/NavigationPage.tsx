@@ -319,7 +319,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const availableLesson =
     (level === "high" &&
       ((chapter === 2 && lesson && highOpenLessons.includes(lesson)) ||
-        (chapter === 1 && lesson && [1, 2, 3, 4, 5, 6].includes(lesson)))) ||
+        (chapter === 1 && lesson && highOpenLessons.includes(lesson)))) ||
     (level === "primary" && chapter === 5 && lesson === 6) ||
     (level === "middle" && chapter === 7 && lesson === 7);
 
@@ -434,7 +434,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                   (level === "high" &&
                     chapter === 2 &&
                     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as number[]).includes(lsn.num)) ||
-                  (level === "high" && chapter === 1 && [1, 2, 3, 4, 5, 6].includes(lsn.num)) ||
+                  (level === "high" && chapter === 1 && highOpenLessons.includes(lsn.num)) ||
                   (level === "primary" && chapter === 5 && lsn.num === 6) ||
                   (level === "middle" && chapter === 7 && lsn.num === 7);
                 const buttonClass = [
@@ -449,18 +449,19 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                 const title = isZh ? lsn.titleZh : lsn.titleEn;
 
                 if (isAvailable) {
+                  const linkPath =
+                    level === "high" && chapter === 2
+                      ? `/high/ch/2/lesson/${lsn.num}`
+                      : level === "high" && chapter === 1
+                        ? `/high/ch/1/lesson/${lsn.num}`
+                        : level === "primary" && chapter === 5 && lsn.num === 6
+                          ? "/primary/unit/5/lesson/6"
+                          : "/middle/unit/7/lesson/7";
+
                   return (
                     <Link
                       key={lsn.num}
-                      to={
-                        level === "high" && chapter === 2
-                          ? `/high/ch/2/lesson/${lsn.num}`
-                          : level === "high" && chapter === 1 && lsn.num === 6
-                            ? "/high/ch/1/lesson/6"
-                            : level === "primary" && chapter === 5 && lsn.num === 6
-                              ? "/primary/unit/5/lesson/6"
-                              : "/middle/unit/7/lesson/7"
-                      }
+                      to={linkPath}
                       className={buttonClass}
                       onClick={() => setLesson(lsn.num)}
                     >
@@ -509,11 +510,11 @@ const enText = {
   title: "Version Navigation",
   eyebrow: "Start here",
   subtitle: "Choose a school edition and chapter. Default landing is Chinese; toggle is above.",
-  hint: "Open now: High → Unit 1 Lessons 1–6 and Unit 2 Lessons 1–7, 8, 9, 10. Primary and Middle units are listed for reference.",
+  hint: "Open now: High → Unit 1 Lessons 1–10 and Unit 2 Lessons 1–10. Primary and Middle units are listed for reference.",
   levelPrompt: "Pick a school edition to enter.",
   chapterPrompt: "Select a unit/chapter.",
   lessonPrompt:
-    "Select a lesson. Currently available: High Unit 1 Lessons 1–6 and Unit 2 Lessons 1–7, 8, 9, 10. Others will arrive soon.",
+    "Select a lesson. Currently available: High Unit 1 Lessons 1–10 and Unit 2 Lessons 1–10. Others will arrive soon.",
   pathLabel: "You are viewing",
   quickLink: "Direct link to the open lesson:",
   coming: "Coming soon",
@@ -536,10 +537,10 @@ const zhText = {
   title: "版本导航",
   eyebrow: "从这里开始",
   subtitle: "请选择学段与章节。默认显示中文，可通过右上角切换语言。",
-  hint: "已开放：高中版 第 1 单元 第 1-6 课；第 2 单元 第 1-7、8、9、10 课。小学版、初中版已列出目录。",
+  hint: "已开放：高中版 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课。小学版、初中版已列出目录。",
   levelPrompt: "选择学段进入对应内容。",
   chapterPrompt: "选择一个单元。",
-  lessonPrompt: "选择课次。当前已开放：高中 第 1 单元 第 1-6 课；第 2 单元 第 1-7、8、9、10 课，其余即将上线。",
+  lessonPrompt: "选择课次。当前已开放：高中 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课，其余即将上线。",
   pathLabel: "当前路径",
   quickLink: "已开放课的直达链接：",
   coming: "内容即将上线",
