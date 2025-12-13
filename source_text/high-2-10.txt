@@ -1,0 +1,131 @@
+2.10 Fundamental Principles of Large Models (2) 
+
+Learning Objectives 
+
+Understand the basic idea of the general intelligence of Large Language Models (LLMs), clarify the key role of "prompts" in task description, and understand how LLMs reduce the dependency on task-specific models. 
+
+Grasp the basic principles of few-shot learning and Chain-of-Thought (CoT) reasoning, and understand how they enhance the ability of LLMs to solve complex problems. 
+
+Recognize the scaling laws, analyze the relationship between model size, data volume, computational resources, and LLM performance, and clarify their impact on the development of large models. 
+
+Understand the principle of Retrieval-Augmented Generation (RAG) technology, and recognize how it solves the "hallucination" problem in LLMs and improves information accuracy and update efficiency. 
+
+Understand the basic concept of multimodal large models, clarify the fusion principles and application advantages of different data modalities such as text, images, audio, and video, and analyze the potential and prospects of multimodal large models in practical problems. 
+
+Shape 
+
+This section continues the discussion on the fundamental principles of large models. Since OpenAI launched GPT in 2018, Large Language Model technology has undergone several technical iterations. These technologies include prompt-based general problem-solving solutions, few-shot learning, and Chain-of-Thought reasoning. Not only that, but researchers have also extended the Transformer-based sequence modeling method to images, audio, video, and other fields, training large models for each domain. Finally, researchers are integrating information from various modalities to train multimodal large models. Compared to unimodal text-based Large Language Models, multimodal large models are equivalent to equipping large models with sensory organs like eyes and ears, thereby further extending the boundaries of machine intelligence. 
+
+1. Large Language Model Technologies 
+
+In the short span of just a few years, Large Language Models (LLMs) have undergone several technological breakthroughs. These breakthroughs have collectively laid the foundation for the powerful artificial intelligence of today. This section will briefly review these technologies. 
+
+1) Generative AI 
+
+In 2019, OpenAI launched GPT-2, which used a "generative" approach to solve general problems. This marked the beginning of Generative AI and gave people a glimpse of the dawn of Artificial General Intelligence (AGI). 
+
+Today, almost every LLM application possesses this kind of general intelligence. They can not only chat casually with people but also answer various questions posed by users, such as providing solutions to problems, analyzing and reasoning about events, and even answering brain teasers. The input given to the model by the user is called a prompt. Some Q&A examples are presented below. 
+
+ 
+
+Discussion and Suggestions 
+
+Me: Xiaoming isn't studying well, what can be done? 
+
+LLM: Have him read more stories about scientists, and at the same time, be sure to give him more encouragement. 
+
+ 
+
+Analysis and Reasoning 
+
+Me: Who is Xiaoming's father's son? 
+
+LLM: Xiaoming's father's son is Xiaoming. 
+
+ 
+
+Brain Teaser 
+
+Me: Xiaoming didn't bring an umbrella, but his hair didn't get wet. Why? 
+
+LLM: Because Xiaoming doesn't have hair. 
+
+ 
+
+From these Q&A examples, we can see that LLMs not only understand human language but can also provide reasonable answers, demonstrating the ability to handle general problems. The fundamental reason for this capability of LLMs is that by understanding human language, they have learned human ways of expression and have absorbed the treasure trove of knowledge accumulated by humanity over a long period. Therefore, they not only exhibit human-like communication styles but can also provide answers to a wide range of questions. 
+
+Particularly important is that traditional artificial intelligence requires training different models for different tasks. The emergence of LLMs has fundamentally changed this situation; a LLMit can complete tasks that previously only specialized domain models could handle, using a "generative" method. Take machine translation as an example. Traditionally, we would need to train a dedicated translation model. With an LLM, you can tell it through a prompt that the task is to "translate the sentence," and the LLM will output the translation result in a "word-by-word continuation" manner. Another example is sentiment analysis. As shown in Figure 2-78, traditionally, a classification model needs to be trained, with the output being 1 or 0, representing positive and negative emotions, respectively. With an LLM, you just need to use a prompt to tell it the task is to "determine if the sentiment of the following sentence is positive or negative," and the LLM will output "positive" or "negative" in natural language. 
+
+Using prompts to define tasks instead of designing a separate model for each task is a leap forward for artificial intelligence, signifying that LLMs possess a certain kind of general intelligence. This general intelligence is the foundation of how the human brain works: we have only one brain, but this brain can perform various tasks, and even attempt to solve problems never seen before. The emergence of LLMs has allowed us to see the dawn of Artificial General Intelligence for the first time. 
+
+Furthermore, providing feedback (including the solution process and answer) by generating natural language is also a significant innovation, offering a universal mode of information exchange. In fact, when humans solve problems, they also output the process and results through natural language. Natural language is a universal human-computer interface that is suitable for any complex or even entirely new task, while also being user-friendly and transparent. 
+
+2) Few-Shot Learning 
+
+In 2020, GPT-3, launched by OpenAI, included an innovative technique: using examples to describe tasks. As shown in Figure 2-79, when different examples are given to the model, it learns the implicit relationships within the examples and uses this relationship to answer the user's questions. Few-shot learning is significant for tasks that are difficult to define with language and once again demonstrates the comprehension ability of Large Language Models. 
+
+3) Chain of Thought (CoT) 
+
+In 2022, researchers at Google proposed the concept of Chain of Thought (CoT) to guide large models in solving complex problems. When people solve complex problems, they don't make decisions by sheer intuitionoff the cuff but go through a process of careful thinking. The reasoning of an LLM is similar; without any guidance, it can only make decisions by patting its head (I’d need to see the Chinese, as the English here doesn’t make sense, but I REALLY can’t grasp what this idiom is trying to suggest). The Chain of Thought is about telling the LLM to think carefully before giving an answer. So, how do you tell a Large Language Model how to think? CoT uses an example-based method, as shown in Table 2-4. When asking a question, a calculation process is first demonstrated, and the LLM will then follow the cat to draw a tigerreason by analogy, solving the problem in a similar manner. 
+
+4) The Scaling Law 
+
+In 2020, research from OpenAI discovered that LLMs based on the Transformer architecture are extremely powerful. As long as they are given enough data and sufficient computational resources, very powerful models can be trained. Moreover, the model's performance grows proportionally with the model size, data volume, and computational consumption. This conclusion is called the "scaling law." 
+
+The scaling law implies that by investing more computational and data resources, more powerful models can be trained. In other words, the competition in modern artificial intelligence is largely a competition of resources. Consequently, many large corporations have started to invest massive resources into training even larger models. For instance, Google's PaLM-E model has up to 562 billion parameters; the MT-NLG, jointly launched by Microsoft and NVIDIA, also has 530 billion parameters; and the open-source model Grok-1 from xAI has 314 billion parameters. 
+
+Increasingly large models have brought performance improvements but have also raised concerns. First, these models are exhausting the data generated by humans, and what to learn next and from where are becoming issues. Second, both training and running these massive models consume a vast amount of computing power, and the resulting energy consumption has become an obstacle to the further development of AI. 
+
+5) Retrieval-Augmented Generation (RAG) 
+
+Although Large Language Models are powerful, they have many shortcomings. First, today's mainstream large models often have hundreds of billions of parameters, and training them consumes a great deal of electricity and computational resources. Therefore, large models cannot be updated frequently, which leads to their inability to grasp the latest information. Second, large models sometimes "confabulate" inaccurate content, the so-called "hallucination problem" of large models, generating erroneous information. Finally, a large portion of the model parameters and computational power of large models is spent on memorizing common-sense knowledge, which could be obtained instantly through retrieval, thus not occupying the model's precious resources. 
+
+To address these issues, researchers proposed a new solution in 2020 called Retrieval-Augmented Generation (RAG). The idea behind this solution is to introduce a retrieval function to the large model, enabling it to read materials from online documents. RAG solves the problem of LLMs being unable to update in a timely manner, allowing them to access the latest information online. At the same time, the external materials obtained through retrieval can also help LLMs avoid "hallucinations." Especially when generating factual knowledge, retrieval is more reliable. Lastly, RAG greatly alleviates the burden on LLMs for knowledge memory, improving the model's operational efficiency. 
+
+Figure 2-80 shows a typical structure of RAG. A user inputs a question or command, and the retriever in the system finds relevant materials from an external knowledge base based on this input. These materials could be public documents on the internet or personal data in a user's database. Then, the system sends the most relevant content along with the user's original input to the generation model to obtain more precise and higher-quality results. 
+
+6) The Hands and Feet of Large Models 
+
+Large Language Models are powerful, but they can only output text and do not have a direct impact on the physical world. This is not unlikelike our own brains, which only directly produces thoughts, but need the body’s hands and feet to directly affect our surroundingss hands and feet to act. How can we equip an LLM with “hands and feet”? We only need to tell the LLM the programming interfaces of the devices, and it can control these devices by generating and running programs, just as our brain controls our limbs through nerve signals. For example, researchers at Microsoft designed an application that uses an LLM to control a drone, as shown in Figure 2-81. The user only needs to state the task objective, and the LLM can generate a Python program to control the drone to complete the task. 
+
+Equipping large models with a hardware body may be the next important breakthrough in modern artificial intelligence. On one hand, with hardware support, the highly intelligent Large Language Model can directly enter the real world to help us complete various tasks (such as disaster relief and space exploration). On the other hand, an artificial intelligence with a body can explore and grow on its own in the real world, thereby breaking through the current boundaries of human exploration and acquiring increasingly powerful capabilities. 
+
+2. Multimedia Large Models 
+
+The basic principle of a Large Language Model is to learn the contextual relevance of words, and through learning this relevance, it indirectly learns the rules of the language itself. In fact, this contextual relevance is not only a rule of language but also a rule of the natural world. In a picture of a tiger, as shown in Figure 2-82, the pixels are not randomly arranged. Only a reasonable combination can form parts like ears and a tail, and only through a reasonable combination of these parts can a tiger be formed. 
+
+Similarly, when we listen to a piece of music, the combination of notes must conform to musical principles to sound smooth and pleasant; a combination that does not conform to musical principles will sound jarring and annoying. When watching a video, whether mountains and flowing water or, flowers blooming and falling,—all these visuals must conform to natural laws for the video to appear realistic. Likewise, iIf the segments of a video are scrambled and reassembled, it becomes difficult to understandnonsensical. 
+
+In summary, sequentiality is a fundamental law of the natural world. Understanding this sequentiality offers the prospect of understanding and mastering the laws of the natural world, and in turn, generating realistic audio and video. 
+
+Based on this idea, one can predict pixels in an image in the same way one predicts words, thereby gradually generating a picture, as shown in Figure 2-83. 
+
+In 2021, DALL·E, launched by OpenAI, was based on this principle. The model, based on the Transformer architecture, can generate high-quality images from a user's natural language description, as shown in Figure 2-84. In 2023, Google launched MusicLM, also based on the Transformer architecture, which was trained on 200,000 to 300,000 hours of music data and can generate fluent music based on a user's description. 
+
+Although this pixel-by-pixel prediction method can generate realistic images and fluent music, the generation speed is relatively slow. Later, researchers discovered that sequentiality itself implies pattern, and data with pattern will only exist on a certain manifold within the entire data space. As shown in Figure 2-85, images that look natural and reasonable are all distributed on the yellow manifold. Therefore, one can start with a random image and gradually approach this yellow manifold. When this manifold is reached, a reasonable image is obtained. 
+
+DALL·E 2, launched by OpenAI in 2022, is based on this idea. Specifically, it uses a type of neural network model called a diffusion model. A drop of red ink dripping into water and gradually dispersing until it merges with the water is a diffusion process. The diffusion model models this process and from it derives an inverse diffusion process, as if extracting the red ink back out of the water. Applied to image generation, this process is similar to a denoising process: starting from a completely random noise image, the noise is removed bit by bit until a clear picture is generated, as shown in Figure 2-86. 
+
+The same technology can also be extended to video generation. Like images, text, and sound, video can also be regarded as sequential data, although this data is more complex, having correlations in both space and time. In February 2024, OpenAI released the video generation model Sora, whose basic principle is also the diffusion model. Following Sora, many other institutions have also launched their own large video models. Currently, artificial intelligence can generate high-definition videos up to several minutes long. 
+
+3) Multimodal Large Models 
+
+Multimodal large models refer to large models whose input and output include multiple modalities. Here, modality mainly refers to text, sound, and video. From a fundamental principles perspective, multimodal large models are not essentially different from unimodal text-based large models; both are based on the Transformer for modeling sequential data, except that the input and output can take multiple forms. The reason multimodal modeling can be successful may be that text, sound, and video can all be mapped to a unified conceptual space. For example, the word "cow" corresponds visually to the image of a cow and aurally to the sound of a cow. Although these forms of representation are different, at the conceptual level, they are all the same object (—the cow) —and therefore can potentially be mapped to one conceptual space. 
+
+GPT-4, launched by OpenAI in 2023, was one of the first multimodal large models. It can accept not only text input but also image input, communicating with people in text through a "describing a picture" format. During the training of GPT-4, both image and text data were used. Interestingly, adding image data did not compromise the precision of text-based conversation; on the contrary, it improved text comprehension ability. This might be because text and images are unified at the conceptual level, so adding image data helps in establishing the conceptual space. 
+
+With image recognition capabilities, GPT-4 is equivalent to having eyes and can answer any question related to a picture. For example, if you provide a picture, GPT-4 can describe its content and even analyze deeper meanings, as shown in Figure 2-87. For example, if you give it a photo of the existing fruits and vegetables in a refrigerator, GPT-4 can tell you what dishes can be made from the vegetables in the photo. 
+
+With eyes, GPT-4 can see exam papers and thus can answer questions directly. This is very different from previous text-only LLMs. For a unimodal text LLM, the questions had to be converted into text for the model to answer. This limited the types of questions an LLM could answer; for example, geometry problems could not be solved. Now, with the image modality, GPT-4 can directly write out the solution steps and results, even for geometry problems. 
+
+OpenAI tested the performance of GPT-4 on a large number of professional exams and found its capabilities to be extremely powerful, even surpassing most human test-takers in many exams, as shown in Figure 2-88. 
+
+In May 2024, OpenAI released GPT-4o, adding two new modalities, voice and video, to the foundation of GPT-4, and the output can also be in voice instead of text. Tests revealed that GPT-4o can chat with people like a real person and even participate in multi-person conversations. It can listen to questions and provide suggestions. It also has visual capabilities, able to see the surrounding environment, analyze and understand what is happening, and respond accordingly. 
+
+GPT-4o has a large number of application scenarios, such as acting as a visual assistance guidethe eyes for the blind to guide them (Figure 2-89), serving as an artificial intelligence teaching assistant for self-study or Q&A, acting as an AI doctor to answer medical inquiries, serving as a psychotherapist to alleviate anxiety, as well as assisting in interior design or artistic creation, and helping job seekers practice interview skills. 
+
+Section Summary 
+
+Large models have ushered in a new era of artificial intelligence. We can liken a Large Language Model to building a human brain; its core is to learn human language through massive amounts of text data and use the acquired language understanding ability to absorb the vast knowledge accumulated throughout human history, thereby constructing a super-powerful brain. If you add multimodal perception and generation capabilities for voice, images, and video, you get today's multimodal large models. Large models have pushed research into Artificial General Intelligence a major step forward. Many scientists now believe that in the not-too-distant future, Artificial General Intelligence based on large models will become a reality. 
+
+Currently, scientists are striving to enhance the capabilities of large models, especially their ability for deep thinking. OpenAI o1, a new model launched by OpenAI in September 2024, is a groundbreaking achievement. This model thinks deeply about problem-solving strategies, proactively tries various approaches, and selects the optimal solution. Tests show that OpenAI o1 can reach a doctoral student's level on professional problems in fields like physics and chemistry. In early 2025, the DeepSeek AI team launched DeepSeek R1, which possesses reasoning capabilities similar to OpenAI o1 but at only 3%-4% of the cost, shocking the world. This deep thinking ability of large models was once unique to humans; all the technological achievements we enjoy today originated from humanity's deep reflection on nature and itself. Now, artificial intelligence also possesses this capacity for deep thought. One can imagine that this will continue to be a huge driving force for scientific and technological progress. 

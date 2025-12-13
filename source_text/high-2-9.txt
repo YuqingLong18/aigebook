@@ -1,0 +1,199 @@
+2.9 The Basic Principles of Large Models (1) 
+
+Learning Objectives 
+
+(1) Understand the fundamental principles and developmental background of large language models, grasp their breakthroughs in modeling ultra-long contexts, and clarify their contributions to language understanding and generation. 
+
+(2) Recognize the development history of language models, and understand the basic principles and limitations of N-gram models, RNN-based neural network language models, and word embeddings. 
+
+(3) Understand the advantages of RNN-based neural language models in long sequence modeling and clarify how they break through the context length limitations of traditional [RED]N-gram models[/RED]. 
+
+(4) Recognize the core ideas of the self-attention mechanism and the Transformer architecture, and clarify how they achieve the modeling of ultra-long sequences and semantic purification. 
+
+(5) Learn about the development history of the GPT series of large language models and recognize their innovations and application value in natural language processing and general-purpose task processing. 
+
+ 
+
+Since 2018, large model technologies, represented by GPT, have emerged as a prominentone of the crowning achievements of the new generation of artificial intelligence. Large models started with "large language models," which achieved an understanding and mastery of language through ultra-long context modeling, thereby acquiring establishing mastery over the treasure vast trove of knowledge accumulated by humanity over itsa long history period. Subsequently, researchers discovered that this ultra-long context modeling could also enable machines to learn the laws of the physical world, allowing them to understand and comprehend our world by seeing and hearing, and on this basis, generate realistic sounds and videos. Today, research on large models is truly in full swing. Powerful intelligent agents that approach or even surpass expert levels have emerged, showcasing the immense potential of artificial intelligence. This section and the next will discuss the basic principles of large models. 
+
+ 
+
+Let's Start with Language Models 
+
+Language is governed by rules, and only by mastering these rules can one understand and use language. Early research attempted to teach machines the grammatical and semantic rules summarized by linguists, hoping that machines would acquire language abilities similar to humans. However, researchers soon discovered that linguistic phenomena are extremely complex, and mechanically applying grammatical and semantic rules could not encompasscope with the complexity of real-world scenarios. 
+
+Later, researchers proposed using a language model (LM) to describe language. Simply put, a language model describes the probability of words following one another. For example, in the sentence "I'm in a very ( ) mood today," the blank could be filled with "good" or "bad," but it is unlikely to be "sun" or "pink." Expressing this likelihood as a probability is what a language model does. For instance: 
+
+[Equation] 
+
+𝑃(𝑏𝑎𝑑|𝐼′𝑚 𝑖𝑛 𝑎 𝑣𝑒𝑟𝑦 𝑚𝑜𝑜𝑑 𝑡𝑜𝑑𝑎𝑦) = 0.2
+P
+(
+b
+a
+d
+|
+I
+′
+m
+ 
+i
+n
+ 
+a
+ 
+v
+e
+r
+y
+ 
+m
+o
+o
+d
+ 
+t
+o
+d
+a
+y
+)
+ 
+=
+ 
+0
+.
+2
+ 
+ 
+
+𝑃(𝑠𝑢𝑛|𝐼′𝑚 𝑖𝑛 𝑎 𝑣𝑒𝑟𝑦 𝑚𝑜𝑜𝑑 𝑡𝑜𝑑𝑎𝑦) = 0.01
+P
+(
+s
+u
+n
+|
+I
+′
+m
+ 
+i
+n
+ 
+a
+ 
+v
+e
+r
+y
+ 
+m
+o
+o
+d
+ 
+t
+o
+d
+a
+y
+)
+ 
+=
+ 
+0
+.
+01
+ 
+ 
+
+[Equation] 
+
+Traditionally, language models are implemented through word frequencies. For example, by analyzing a dataset for all instances of the phrase "I'm in a very mood today" and the words that follow, we might find that "good" appears 30% of the time and "bad" 20% of the time, while "sun" and "pink" hardly appear at all. This ratio becomes the probability that the language model outputs for each word. Furthermore, because our dataset is finite, the fact that "sun" and "pink" have not yet appeared does not mean they never will. Therefore, a small probability is usually assigned to these less plausible words, rather than an absolute zero. 
+
+Traditional language models are represented using N-grams. This model is essentially a probability table that shows the probability of a particular word appearing after a sequence of N-1 preceding words. If there is one preceding word, it is a 2-gram (also known as a bi-gram); if there are two, it is a 3-gram (also known as a tri-gram). Part of a 2-gram probability table is shown in Table 2-3. 
+
+N-gram language models have a wide range of applications. For example, they are used in input methods for auto-complete subsequent words, in traditional machine translation to select fluent and reasonable sentences, and in editing software like Word to detect spelling errors. This model can also be used to generate text. The generation method is also very simple: randomly generate the next word based on the N-gram probability table, and then add this word to the history sequence to continue generating the next word. This is like a word-chain game, where the first person says the first word, and the next person continues, trying to make the sentence as fluent and reasonable as possible. The larger the 'N' in an N-gram, the more historical information is available, and the more reasonable the generated sentence becomes. Below is a paragraph generated by a 3-gram language model. As you can see, each sentence is mostly coherent, which shows that the language model is working. However, the meaning of some sentences is unclear, the coherence between sentences is poor, and the overall text lacks logic. This is understandable because a 3-gram model only looks at the two preceding words when generating, so the resulting sentences naturally lack logical structure. 
+
+Example: 
+
+“I also want to go to the fan meeting. In the end, always being robbed and pushed aside. Does the biology definition scope for the postgraduate entrance exam in New York? I won’t bother you anymore. Don’t say there is wind behind that matter. A lot of money will be spent after it’s all over, no. When on earth will I get that thing from last night to be elegant? Thank you.” 
+
+ 
+
+2. Neural Network Language Models 
+
+1) From N-grams to Neural Networks 
+
+N-gram language models have several problems, the main one being that the table-lookup method cannot handle longer contexts without causing a rapid consumption of memory. In fact, when the vocabulary size reaches hundreds of thousands, a 5-gram model would already exceed the memory limits of most computers. 
+
+In 2000, Yoshua Bengio proposed a neural network-based language model (neural LM), pioneering the use of continuous vectors to represent semantics. Given a history word sequence [Equation], this model uses a neural network to predict the probability of the next word 
+𝑥𝑡 
+, i.e., [Equation]. Bengio primarily focused on feed-forward neural network-based language models. In 2010, Tomas Mikolov extended this to a recurrent neural network (RNN) structure, where the semantics of each word in the sequence are accumulated through the recurrent connections of the hidden layer. This model is called RNN LM, as shown in Figure 2-72. Similar to N-grams, RNNLM can also generate sentences through a "word-chain game" approach. Unlike feed-forward neural network-based language models, an RNN can consider a much longer history of information. Theoretically, an RNN's prediction at any given moment is related to all previous predictions, which breaks the context length limitation of the N-gram model and lays the foundation for ultra-long sequence modeling. 
+
+2) Semantic Embedding 
+
+A crucial design element in neural network language models is the representation and computation of word semantics. In traditional natural language processing, words are treated as discrete units, typically represented using a simple one-hot encoding—a vector the length of the vocabulary where only one position is 1 and the rest are 0. For example, "book" might be represented as [0, 1, 0] and "open" as [1, 0, 0]. One-hot encoding can only indicate what the word is, but not its meaning. 
+
+Neural network language models introduce a learnable embedding vector to represent the semantics of a word. As shown in Figure 2-72, The model uses an embedding matrix, [Equation], where each column corresponds to the embedding vector of a word. Based on this matrix, each input word is mapped to its corresponding continuous vector (e.g.,[Equation]). This process is called word embedding. The continuous vector corresponding to each word is called an embedding vector, or word vector for short. It is important to note that the embedding matrix E is not manually specified but is learned along with other network parameters. 
+
+The introduction of word vectors is of great significance. These learned vectors place previously isolated words into a continuous semantic space, making semantic distance measurable within this space. For example, "grape" and "peach" are semantically closer to each other than to "sun," and therefore, in this semantic space, the distance between "grape" and "peach" is shorter, as shown in Figure 2-73. In 2013, Tomas Mikolov and his colleagues proposed more effective methods for learning word vectors. They moved away from using RNN language models and instead directly optimized the distances between word vectors, bringing related words closer together and unrelated words further apart in the vector space. 
+
+Interestingly, researchers found that the word vectors obtained through this simple learning objective did indeed capture semantic meaning. For example, the displacement from "England" to "London" has the same direction as the displacement from "USA" to "Washington," indicating that this direction represents the semantic concept of a "capital city." Similarly, the displacement from "king" to "queen" is consistent with that from "prince" to "princess," suggesting this direction represents the semantic concept of "gender." 
+
+The proposal of word vectors was a milestone achievement. It provided a concise way to compute semantics, opening a new chapter in natural language processing.  
+
+The Powerful Transformer Model 
+
+While word vectors and neural network language models provided a foundation for understanding natural language, two problems remained unsolved: ① The semantics in word vectors are mixed. Many words have more than one meaning, and the word vector is a combined representation of these multiple meanings. ② Traditional RNN models are "forgetful"; historical information beyond about 10 words is often lost, making them incapable of modeling ultra-long sequences. 
+
+In 2017, researchers at Google proposed a model called the Transformer, which perfectly solved these two problems. The name Transformer implies that this new model can perform flexible and powerful information processing and transformation. 
+
+The core of the Transformer is a module called the self-attention mechanism. Assuming the input sequence is [Equation], it first undergoes three independent transformations to produce three sequences: the query vectors [Equation], the key vectors [Equation], and the value vectors [Equation] Here, [Equation] is called the query vector, [Equation] is the key vector, and [Equation] is the value vector. The relevance, [Equation], between the [Equation]-th word and the [Equation]-th word is calculated by calculating a mathematical ‘distance’ between [Equation] and [Equation]. This relevance is then used for a weighted sum of the value vectors. The specific formula is as follows: 
+
+[Equation] 
+
+In the formula, [Equation] is the function for calculating relevance, which needs to satisfy [Equation]; xi′​ is the output for the [Equation]-th word after the self-attention mechanism. 
+
+The self-attention mechanism can be understood as an "attend-and-extract" process. For any word [Equation] in a sentence, it first uses its query vector [Equation]​ to "attend" to every other word in the sentence (including itself) through [Equation], calculates the relevance, and then extracts the semantics of the most relevant words. Through this semantic extraction process, contextually relevant information can be gathered, thereby confirming and purifying the meaning of each word. For example, in the sentence "Do you eat apples?", the word "apple" has multiple meanings: it could be an edible fruit or an electronic product. Therefore, before applying the self-attention mechanism, the word vector for "apple" is semantically ambiguous. However, the self-attention mechanism can focus on the word "eat," thus determining that this "apple" must be the "edible fruit" kind (Figure 2-75). Therefore, the self-attention mechanism can be seen as a semantic purification mechanism, making it possible to accurately express and understand the meaning of language. 
+
+The self-attention mechanism has another important feature: it can model ultra-long sequences. Looking at its computation process, every word in the input sequence can observe all other words through the attention mechanism, no matter how far apart they are. This is fundamentally different from an RNN. An RNN accumulates semantics sequentially (Figure 2-72) over time, so by the time it reaches later words, the semantics of earlier words may have been forgotten. The self-attention mechanism fundamentally solves this problem; important meanings are not lost, regardless of distance. 
+
+Based on the self-attention mechanism, Google proposed the Transformer architecture in a 2017 paper, as illustrated in Figure 2-76. To extract semantic information from multiple perspectives, the self-attention mechanism in the Transformer is "multi-head," with each head corresponding to a different angle of extraction. In addition, the Transformer includes a fully connected layer and two layer normalization operations. The former increases the model's flexibility, while the latter makes training more stable. There are also some cross-layer connections (residual connections) between these modules, which facilitate the flow of information and make training easier. 
+
+Finally, by stacking Transformer layers, the semantics of each word become progressively clearer, providing a solid foundation for understanding language. 
+
+(4) The Birth of Large Language Models 
+
+In 2018, OpenAI developed the first version of its large language model based on the Transformer architecture, calling it the Generative Pre-trained Transformer (GPT). This model had several key features: first, it was a standard language model, meaning it predicted the next word based on a historical sequence of words; second, its backbone was a 12-layer Transformer with a context window size of 512 tokens (an English word averages 1.25 tokens), giving it powerful context modeling capabilities; finally, it had 117 million model parameters and was trained on 40GB of data, making both its parameter count and data volume enormous. For these reasons, GPT is also known as a Large Language Model (LLM). 
+
+As a powerful language model, GPT can be used to generate very fluent sentences. For example, below is a short story written by GPT titled "Sun Wukong vs. Li Kui." As you can see, the sentences generated by GPT are much better than those from a traditional N-gram model, with not only reasonable word choice but also logical coherence. 
+
+"One day, at the border between the Celestial Realm and the human world, where clouds and mist swirled and the winds were changing, Sun Wukong and Li Kui met by chance on a desolate ancient battlefield. This battlefield had witnessed the contests of countless ancient heroes and was today set to stage another epic duel. Sun Wukong, with a wave of his Ruyi Jingu Bang, created a mighty roar, and thunder boomed across the sky. His eyes sparkled with the excitement of battle, for he knew Li Kui was immensely strong and no ordinary foe." 
+
+OpenAI researchers also tested GPT's effectiveness for pre-training. Because the training data for a language model does not require manual annotation, in principle, all text accumulated by humanity can be used for pre-training. With this massive base model, only a small amount of data is needed for fine-tuning to achieve excellent results on specific tasks (such as sentiment analysis, question answering, etc.). In their experiments, they tested the GPT pre-trained model on 12 language understanding tasks, outperforming the best existing systems on 9 of them. 
+
+However, OpenAI researchers were not satisfied with this achievement. They felt that a language model should not only be used for generating fluent sentences or for pre-training, but that it could be the key to understanding language. This is because while word prediction may seem simple, doing it well is not easy and requires a deep understanding of the language. This is similar to the cloze test questions in anour English exams; although it's just about filling in one word, it's hard to get it right without understanding the full meaning of the passage. 
+
+Therefore, if a model can do a good job of word prediction, it must learn to understand our language. At the same time, the Transformer has powerful semantic analysis capabilities: it can determine the precise meaning of words from an ultra-long context through the self-attention mechanism. Thus, OpenAI researchers believed that by using the "word prediction" task to drive a Transformer's learning, it might be possible for a machine to understand human language, as long as the data is sufficient and the model is large enough. This is the underlying logic of GPT. 
+
+Based on this idea, OpenAI continued its research. In 2019, they launched GPT-2, with model parameters increased to 1.5 billion and the context length expanded to 1024 tokens. In 2020, GPT-3 was released, with parameters reaching 175 billion, a context length of 2048 tokens, and the training data expanded to 570GB. In 2022, OpenAI launched a landmark new model, commercially named ChatGPT. ChatGPT (based on GPT-3.5) has the same model architecture as GPT-3 but has been aligned with human values and also possesses the ability to write code. In 2023, OpenAI released the even more powerful GPT-4, with a reported parameter scale of 1.8 trillion, a context length of 8192 tokens, and the ability to understand image content. In May 2024, GPT-4o went live, featuring audio-visual capabilities, allowing it to communicate with people through voice and video. In September 2024, OpenAI launched the o1 system, which has more powerful reasoning abilities and can solve professional problems in mathematics, physics, etc., at a doctoral student level. 
+
+The success of GPT triggered a craze for large language models, with numerous research institutions, including OpenAI, Tsinghua University, Google, and Meta (formerly Facebook), investing in this field. Especially after the release of ChatGPT (GPT-3.5) at the end of 2022, large language models became widely known, and artificial intelligence entered a new era. 
+
+The development history of GPT is summarized in Figure 2-77. 
+
+ 
+
+Section Summary 
+
+A language model describes the sequential relationship between words, specifically the probability [Equation] of a word [Equation] appearing after a given context [Equation]. The traditional N-gram language model is a statistical method that calculates the frequency of a word [Equation] appearing after a context [Equation] in a training corpus. This statistical method cannot handle long contexts and is therefore unable to capture long-distance dependencies in language. 
+
+The RNN-based neural network language model pioneered semantic computation. Unlike the statistical approach of N-grams, the RNN language model is a learning-based generative model. Its objective is to predict the next word [Equation] as accurately as possible based on the context [Equation]. To achieve this, the model first embeds words into a continuous semantic space and then builds an RNN model within that space. Semantic embedding solves the problem of word meaning representation, while the RNN model addresses the issues of sequential modeling and semantic accumulation. 
+
+The RNN language model faced two main difficulties: ① the mixed semantics of word vectors; and ② the rapid forgetting of long-distance semantics. The Transformer architecture provided a perfect solution. Through its self-attention mechanism, it can extract and associate long-distance semantics, and through this association, it clarifies the exact meaning of words in context. The Transformer opened a door to understanding human language. 
+
+Starting in 2018, numerous research institutions, led by OpenAI, ushered in a new era of large language models. Using the Transformer as a backbone and training on massive amounts of data, they built neural language models with parameters in the hundreds of billions, achieving astonishing progress. Researchers discovered that when the context length is sufficiently long and the amount of data is large enough, large language models can accurately understand human language. This is a remarkable achievement because once the language barrier is broken, machines can access and learn from the vast treasure trove of knowledge accumulated by humanity, thereby acquiring powerful intelligence. 
+
+ 

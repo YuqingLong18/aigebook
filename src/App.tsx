@@ -3,6 +3,15 @@ import { BrowserRouter, Link, Route, Routes, useLocation, useParams } from "reac
 import { SectionBlock } from "./components/SectionBlock";
 import { ComingSoon } from "./pages/ComingSoon";
 import { HighLesson1_6 } from "./pages/high-1-6";
+import { HighLesson2_1 } from "./pages/high-2-1";
+import { HighLesson2_2 } from "./pages/high-2-2";
+import { HighLesson2_3 } from "./pages/high-2-3";
+import { HighLesson2_4 } from "./pages/high-2-4";
+import { HighLesson2_5 } from "./pages/high-2-5";
+import { HighLesson2_6 } from "./pages/high-2-6";
+import { HighLesson2_7 } from "./pages/high-2-7";
+import { HighLesson2_9 } from "./pages/high-2-9";
+import { HighLesson2_10 } from "./pages/high-2-10";
 import { HighLesson2_8 } from "./pages/high-2-8";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
@@ -152,6 +161,67 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
           </p>
         </SectionBlock>
         <HighLesson1_6 lang={lang} />
+      </div>
+    );
+  }
+
+  if (chapterNum === 2 && level === "high" && [1, 2, 3, 4, 5, 6, 7, 9, 10].includes(lessonNum)) {
+    const titles = {
+      1: isZh ? "第 2 章 · 第 1 课：基于知识的人工智能" : "Chapter 2 · Lesson 1: Knowledge-Based AI",
+      2: isZh ? "第 2 章 · 第 2 课：基于学习的人工智能" : "Chapter 2 · Lesson 2: Learning-Based AI",
+      3: isZh ? "第 2 章 · 第 3 课：机器学习基础流程" : "Chapter 2 · Lesson 3: ML Workflow",
+      4: isZh ? "第 2 章 · 第 4 课：机器学习方法" : "Chapter 2 · Lesson 4: ML Methods",
+      5: isZh ? "第 2 章 · 第 5 课：机器学习四大学派" : "Chapter 2 · Lesson 5: Four ML Schools",
+      6: isZh ? "第 2 章 · 第 6 课：初识人工神经网络" : "Chapter 2 · Lesson 6: Intro to Artificial Neural Networks",
+      7: isZh ? "第 2 章 · 第 7 课：典型神经网络结构" : "Chapter 2 · Lesson 7: Typical Neural Network Structures",
+      9: isZh ? "第 2 章 · 第 9 课：大模型基本原理（1）" : "Chapter 2 · Lesson 9: Large Models Basics (1)",
+      10: isZh ? "第 2 章 · 第 10 课：大模型基本原理（2）" : "Chapter 2 · Lesson 10: Large Models Basics (2)",
+    } as const;
+
+    const blurbs = {
+      1: isZh
+        ? "介绍流体/晶体智力、定理证明与专家系统等知识型 AI 思路。"
+        : "Covers fluid vs. crystallized intelligence, theorem proving, expert systems, and knowledge graphs.",
+      2: isZh
+        ? "讲解机器学习起源、五要素与苹果橙子分类示例。"
+        : "Explains the origin of machine learning, its five elements, and the apple–orange example.",
+      3: isZh
+        ? "梳理模型设计、训练、测试、选择的完整流程。"
+        : "Maps the workflow: design, train, test, and select models.",
+      4: isZh
+        ? "对比监督、无监督、强化学习的适用场景与特点。"
+        : "Compares supervised, unsupervised, and reinforcement learning and their use cases.",
+      5: isZh
+        ? "概述符号、贝叶斯、联结、进化学派与融合趋势。"
+        : "Summarizes symbolic, Bayesian, connectionist, and evolutionary schools and their integration.",
+      6: isZh
+        ? "讲解神经元/突触/修剪、M-P 神经元、感知机、BP 与发展历程。"
+        : "Covers neurons/synapses/pruning, M-P neuron, perceptron limits, backprop, and milestones.",
+      7: isZh
+        ? "介绍 MLP、CNN、RNN、AE 结构与各自适用任务。"
+        : "Introduces MLP, CNN, RNN, AE structures and their task fit.",
+      9: isZh
+        ? "从 N-gram、RNN 语言模型到 Transformer 与 GPT 系列的基本原理。"
+        : "Principles from N-gram/RNN LMs to Transformer and GPT series.",
+      10: isZh
+        ? "提示、少样本/CoT、扩展定律、RAG、多模态与工具能力。"
+        : "Prompts, few-shot/CoT, scaling laws, RAG, multimodality and tools.",
+    } as const;
+
+    return (
+      <div className="space-y-4">
+        <SectionBlock title={titles[lessonNum as 1 | 2 | 3 | 4 | 5]} eyebrow={isZh ? "已开放课程" : "Open lesson"}>
+          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5]}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <HighLesson2_1 lang={lang} />}
+        {lessonNum === 2 && <HighLesson2_2 lang={lang} />}
+        {lessonNum === 3 && <HighLesson2_3 lang={lang} />}
+        {lessonNum === 4 && <HighLesson2_4 lang={lang} />}
+        {lessonNum === 5 && <HighLesson2_5 lang={lang} />}
+        {lessonNum === 6 && <HighLesson2_6 lang={lang} />}
+        {lessonNum === 7 && <HighLesson2_7 lang={lang} />}
+        {lessonNum === 9 && <HighLesson2_9 lang={lang} />}
+        {lessonNum === 10 && <HighLesson2_10 lang={lang} />}
       </div>
     );
   }
