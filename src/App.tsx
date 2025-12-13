@@ -22,6 +22,11 @@ import { HighLesson2_7 } from "./pages/high-2-7";
 import { HighLesson2_9 } from "./pages/high-2-9";
 import { HighLesson2_10 } from "./pages/high-2-10";
 import { HighLesson2_8 } from "./pages/high-2-8";
+import { HighLesson3_1 } from "./pages/high-3-1";
+import { HighLesson3_2 } from "./pages/high-3-2";
+import { HighLesson3_3 } from "./pages/high-3-3";
+import { HighLesson3_4 } from "./pages/high-3-4";
+import { HighLesson3_5 } from "./pages/high-3-5";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
@@ -332,6 +337,47 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
           </p>
         </SectionBlock>
         <HighLesson2_8 lang={lang} />
+      </div>
+    );
+  }
+
+  if (chapterNum === 3 && level === "high" && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const titles = {
+      1: isZh ? "第 3 章 · 第 1 课：机器视觉：人脸识别" : "Chapter 3 · Lesson 1: Computer Vision — Facial Recognition",
+      2: isZh ? "第 3 章 · 第 2 课：机器视觉：绘画大师" : "Chapter 3 · Lesson 2: Computer Vision — Painting Master",
+      3: isZh ? "第 3 章 · 第 3 课：机器视觉：伪造与鉴别" : "Chapter 3 · Lesson 3: Machine Vision — Forgery & Detection",
+      4: isZh ? "第 3 章 · 第 4 课：听觉计算：语音识别" : "Chapter 3 · Lesson 4: Auditory Computation — Speech Recognition",
+      5: isZh ? "第 3 章 · 第 5 课：听觉计算：语音合成" : "Chapter 3 · Lesson 5: Auditory Computation — Speech Synthesis",
+    } as const;
+
+    const blurbs = {
+      1: isZh
+        ? "从人类面孔加工到几何/特征脸，再到深度嵌入与安全防护。"
+        : "From human face processing to geometry/eigenfaces, deep embeddings, and security.",
+      2: isZh
+        ? "区分内容与风格，理解风格迁移与艺术修复案例。"
+        : "Separate content/style, grasp neural style transfer, and see art restoration.",
+      3: isZh
+        ? "解析 GAN、换脸/表情控制、伪造检测与社会风险。"
+        : "Covers GANs, swaps/control, detection cues, and social risks.",
+      4: isZh
+        ? "从共振峰到 HMM+语言模型，再到端到端深度语音识别。"
+        : "From formants to HMM+LM to end-to-end deep ASR.",
+      5: isZh
+        ? "对比声源-声道传统合成与端到端神经 TTS。"
+        : "Compare source–filter TTS with end-to-end neural synthesis.",
+    } as const;
+
+    return (
+      <div className="space-y-4">
+        <SectionBlock title={titles[lessonNum as 1 | 2 | 3 | 4 | 5]} eyebrow={isZh ? "已开放课程" : "Open lesson"}>
+          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5]}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <HighLesson3_1 lang={lang} />}
+        {lessonNum === 2 && <HighLesson3_2 lang={lang} />}
+        {lessonNum === 3 && <HighLesson3_3 lang={lang} />}
+        {lessonNum === 4 && <HighLesson3_4 lang={lang} />}
+        {lessonNum === 5 && <HighLesson3_5 lang={lang} />}
       </div>
     );
   }
