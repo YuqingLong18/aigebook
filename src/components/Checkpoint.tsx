@@ -13,6 +13,18 @@ type CheckpointProps = {
   resetLabel: string;
   correctLabel: string;
   incorrectLabel: string;
+  submitLabel?: string;
+  checkpointId?: string;
+  onStatusChange?: (id: string, status: "idle" | "correct" | "incorrect") => void;
+  progress?: {
+    current: number;
+    total: number;
+    label: string;
+  };
+  helperText?: {
+    selectPrompt: string;
+    readyPrompt: string;
+  };
 };
 
 export function Checkpoint({
@@ -22,19 +34,57 @@ export function Checkpoint({
   resetLabel,
   correctLabel,
   incorrectLabel,
+  submitLabel = "Submit",
+  checkpointId,
+  onStatusChange,
+  progress,
+  helperText = {
+    selectPrompt: "Select an option",
+    readyPrompt: "Ready to submit",
+  },
 }: CheckpointProps) {
   const [selected, setSelected] = useState<number | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "correct" | "incorrect">("idle");
+
+  const updateStatus = (next: "idle" | "correct" | "incorrect") => {
+    setStatus((prev) => {
+      if (prev === next) return prev;
+      if (checkpointId && onStatusChange) {
+        onStatusChange(checkpointId, next);
+      }
+      return next;
+    });
+  };
 
   const handleSelect = (index: number) => {
     setSelected(index);
-    setRevealed(true);
+    if (submitted) {
+      setSubmitted(false);
+    }
+    if (status !== "idle") {
+      updateStatus("idle");
+    }
+  };
+
+  const submit = () => {
+    if (selected === null) return;
+    const nextStatus = options[selected].correct ? "correct" : "incorrect";
+    setSubmitted(true);
+    updateStatus(nextStatus);
   };
 
   const reset = () => {
     setSelected(null);
-    setRevealed(false);
+    setSubmitted(false);
+    updateStatus("idle");
   };
+
+  const showFeedback = submitted && selected !== null;
+  const selectedIsCorrect = selected !== null && options[selected].correct;
+  const shouldShowProgress = progress && progress.total > 0 && status === "correct";
+  const progressRatio =
+    progress && progress.total > 0 ? Math.min(progress.current / progress.total, 1) * 100 : 0;
 
   return (
     <div className="rounded-2xl border border-slate-200/80 bg-white p-4">
@@ -69,7 +119,7 @@ export function Checkpoint({
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold">{option.label}</span>
-                {revealed && isSelected && (
+                {showFeedback && isSelected && (
                   <span
                     className={[
                       "rounded-full px-2 py-0.5 text-xs font-bold",
@@ -80,13 +130,54 @@ export function Checkpoint({
                   </span>
                 )}
               </div>
-              {revealed && isSelected && (
+              {showFeedback && isSelected && (
                 <p className="mt-1 text-sm text-slate-100/90">{option.explanation}</p>
               )}
             </button>
           );
         })}
       </div>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={submit}
+          disabled={selected === null}
+          className={[
+            "rounded-lg border px-3 py-1.5 text-xs font-semibold transition",
+            selected === null
+              ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
+              : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:text-slate-900",
+          ].join(" ")}
+        >
+          {submitLabel}
+        </button>
+        <div className="text-xs font-medium text-slate-600">
+          {selected === null
+            ? helperText.selectPrompt
+            : submitted
+              ? selectedIsCorrect
+                ? correctLabel
+                : incorrectLabel
+              : helperText.readyPrompt}
+        </div>
+      </div>
+      {shouldShowProgress && progress && (
+        <div className="mt-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
+          <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
+            <span>{progress.label}</span>
+            <span>
+              {progress.current} / {progress.total}
+            </span>
+          </div>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-white">
+            <div
+              className="h-full rounded-full bg-brand-500 transition-[width]"
+              style={{ width: `${progressRatio}%` }}
+              aria-hidden
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
