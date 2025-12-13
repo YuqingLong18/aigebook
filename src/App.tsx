@@ -37,6 +37,9 @@ import { HighLesson4_2 } from "./pages/high-4-2";
 import { HighLesson4_3 } from "./pages/high-4-3";
 import { HighLesson4_4 } from "./pages/high-4-4";
 import { HighLesson4_5 } from "./pages/high-4-5";
+import { HighLesson4_6 } from "./pages/high-4-6";
+import { HighLesson4_7 } from "./pages/high-4-7";
+import { HighLesson4_10 } from "./pages/high-4-10";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
@@ -419,7 +422,7 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
     );
   }
 
-  if (chapterNum === 4 && level === "high" && [1, 2, 3, 4, 5].includes(lessonNum)) {
+  if (chapterNum === 4 && level === "high" && [1, 2, 3, 4, 5, 6, 7, 10].includes(lessonNum)) {
     const titles = {
       1: isZh ? "第 4 章 · 第 1 课：和数学家做朋友" : "Chapter 4 · Lesson 1: Making Friends with Mathematicians",
       2: isZh ? "第 4 章 · 第 2 课：模仿蝙蝠的耳朵" : "Chapter 4 · Lesson 2: Mimicking Bat Ears",
@@ -428,6 +431,9 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         ? "第 4 章 · 第 4 课：重构材料微观三维结构"
         : "Chapter 4 · Lesson 4: Reconstructing the Microscopic 3D Structure of Materials",
       5: isZh ? "第 4 章 · 第 5 课：预测化学反应类型" : "Chapter 4 · Lesson 5: Predicting Types of Chemical Reactions",
+      6: isZh ? "第 4 章 · 第 6 课：天文学家的助手" : "Chapter 4 · Lesson 6: Assistant to Astronomers",
+      7: isZh ? "第 4 章 · 第 7 课：人工智能作曲家" : "Chapter 4 · Lesson 7: AI Composer",
+      10: isZh ? "第 4 章 · 第 10 课：走向未来" : "Chapter 4 · Lesson 10: Looking to the Future",
     } as const;
 
     const blurbs = {
@@ -446,21 +452,33 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
       5: isZh
         ? "把反应方程序列化为 SMILES，用 BERT 等模型进行反应类型分类，理解 AI 在化学研究中的价值。"
         : "Serialize reactions as SMILES and classify reaction types with BERT-like models—see AI’s value in chemical research.",
+      6: isZh
+        ? "现代望远镜带来海量观测数据；全卷积网络识别射频干扰，YOLO 自动定位与分类星系，AI 成为天文学助手。"
+        : "Modern telescopes create massive data; fully convolutional nets detect radio interference, YOLO localizes/classifies galaxies—AI as an astronomer’s helper.",
+      7: isZh
+        ? "从莫扎特骰子游戏、Markov 链到 LSTM/Transformer，理解 AI 作曲的演进与 Magenta 等创意工具。"
+        : "From Mozart’s dice and Markov chains to LSTM/Transformers—see AI composition’s evolution and creative tools like Magenta.",
+      10: isZh
+        ? "回顾智能化趋势、第三代 AI 与类脑/光/量子计算前沿，并思考人机共存的治理与伦理。"
+        : "Review the enduring AI wave, third-generation AI plus neuromorphic/optical/quantum frontiers, and consider governance for human–AI coexistence.",
     } as const;
 
     return (
       <div className="space-y-4">
         <SectionBlock
-          title={titles[lessonNum as 1 | 2 | 3 | 4 | 5]}
+          title={titles[lessonNum as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 10]}
           eyebrow={isZh ? "已开放课程" : "Open lesson"}
         >
-          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5]}</p>
+          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 10]}</p>
         </SectionBlock>
         {lessonNum === 1 && <HighLesson4_1 lang={lang} />}
         {lessonNum === 2 && <HighLesson4_2 lang={lang} />}
         {lessonNum === 3 && <HighLesson4_3 lang={lang} />}
         {lessonNum === 4 && <HighLesson4_4 lang={lang} />}
         {lessonNum === 5 && <HighLesson4_5 lang={lang} />}
+        {lessonNum === 6 && <HighLesson4_6 lang={lang} />}
+        {lessonNum === 7 && <HighLesson4_7 lang={lang} />}
+        {lessonNum === 10 && <HighLesson4_10 lang={lang} />}
       </div>
     );
   }
