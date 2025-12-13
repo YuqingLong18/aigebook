@@ -99,6 +99,7 @@ Use a consistent scaffold per subsection:
    - Immediate feedback with concise explanation
    - If wrong: show the relevant snippet/concept reference (not a lecture)
    - Require an explicit **Submit** click after selecting an option; on a correct submission show a per-lesson progress bar `(x / y quizzes passed)` where `y` is the total MCQs on that lesson (all levels: primary/middle/high)
+   - Shuffle the order of options each load to avoid positional bias (no fixed “always first” answers)
 
 5. **Key Takeaways**
    - 2–5 bullet points mirroring the section summary

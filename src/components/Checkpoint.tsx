@@ -28,6 +28,15 @@ type CheckpointProps = {
   };
 };
 
+function shuffle<T>(list: T[]): T[] {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export function Checkpoint({
   tagLabel,
   prompt,
@@ -62,6 +71,24 @@ export function Checkpoint({
     };
   }, [register, unregister, resolvedId]);
 
+  const displayOptions = useMemo(
+    () =>
+      shuffle(
+        options.map((option, index) => ({
+          option,
+          key: `${option.label}-${index}`,
+        })),
+      ),
+    [options],
+  );
+
+  useEffect(() => {
+    // Reset selection when option order changes to avoid mismatched state.
+    setSelected(null);
+    setSubmitted(false);
+    updateStatus("idle");
+  }, [displayOptions]);
+
   const resolvedSubmitLabel = submitLabel ?? progressContext?.ui.submitLabel ?? "Submit";
   const resolvedHelperText = {
     selectPrompt:
@@ -95,7 +122,7 @@ export function Checkpoint({
 
   const submit = () => {
     if (selected === null) return;
-    const nextStatus = options[selected].correct ? "correct" : "incorrect";
+    const nextStatus = displayOptions[selected].option.correct ? "correct" : "incorrect";
     setSubmitted(true);
     updateStatus(nextStatus);
   };
@@ -107,7 +134,7 @@ export function Checkpoint({
   };
 
   const showFeedback = submitted && selected !== null;
-  const selectedIsCorrect = selected !== null && options[selected].correct;
+  const selectedIsCorrect = selected !== null && displayOptions[selected].option.correct;
   const shouldShowProgress = progressToUse && progressToUse.total > 0 && status === "correct";
   const progressRatio = progressToUse && progressToUse.total > 0
     ? Math.min(progressToUse.current / progressToUse.total, 1) * 100
@@ -130,12 +157,12 @@ export function Checkpoint({
         </button>
       </div>
       <div className="mt-3 space-y-2">
-        {options.map((option, index) => {
+        {displayOptions.map(({ option, key }, index) => {
           const isSelected = selected === index;
           const isCorrect = option.correct;
           return (
             <button
-              key={option.label}
+              key={key}
               type="button"
               className={[
                 "w-full rounded-xl border px-3 py-2 text-left transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
