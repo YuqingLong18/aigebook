@@ -32,6 +32,11 @@ import { HighLesson3_7 } from "./pages/high-3-7";
 import { HighLesson3_8 } from "./pages/high-3-8";
 import { HighLesson3_9 } from "./pages/high-3-9";
 import { HighLesson3_10 } from "./pages/high-3-10";
+import { HighLesson4_1 } from "./pages/high-4-1";
+import { HighLesson4_2 } from "./pages/high-4-2";
+import { HighLesson4_3 } from "./pages/high-4-3";
+import { HighLesson4_4 } from "./pages/high-4-4";
+import { HighLesson4_5 } from "./pages/high-4-5";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
@@ -410,6 +415,52 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         {lessonNum === 8 && <HighLesson3_8 lang={lang} />}
         {lessonNum === 9 && <HighLesson3_9 lang={lang} />}
         {lessonNum === 10 && <HighLesson3_10 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (chapterNum === 4 && level === "high" && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const titles = {
+      1: isZh ? "第 4 章 · 第 1 课：和数学家做朋友" : "Chapter 4 · Lesson 1: Making Friends with Mathematicians",
+      2: isZh ? "第 4 章 · 第 2 课：模仿蝙蝠的耳朵" : "Chapter 4 · Lesson 2: Mimicking Bat Ears",
+      3: isZh ? "第 4 章 · 第 3 课：破解蛋白质结构之谜" : "Chapter 4 · Lesson 3: Cracking the Mystery of Protein Structures",
+      4: isZh
+        ? "第 4 章 · 第 4 课：重构材料微观三维结构"
+        : "Chapter 4 · Lesson 4: Reconstructing the Microscopic 3D Structure of Materials",
+      5: isZh ? "第 4 章 · 第 5 课：预测化学反应类型" : "Chapter 4 · Lesson 5: Predicting Types of Chemical Reactions",
+    } as const;
+
+    const blurbs = {
+      1: isZh
+        ? "从定理证明、反例证伪到猜想生成，理解 AI 如何提升数学发现与验证效率，并形成知识发现闭环。"
+        : "From theorem proving to counterexamples and conjecture generation—see how AI boosts mathematical discovery and verification in a knowledge loop.",
+      2: isZh
+        ? "理解人类与蝙蝠的声源定位机制、多普勒效应，以及仿生耳 + 深度学习如何实现高精度定位。"
+        : "Learn human and bat localization cues, the Doppler effect, and how bionic ears plus deep learning achieve high-precision localization.",
+      3: isZh
+        ? "掌握蛋白质结构层级与 Anfinsen 理论，理解 AlphaFold2/3 如何从序列预测结构与相互作用。"
+        : "Master protein structure hierarchy and Anfinsen’s theory, then see how AlphaFold2/3 predicts structure and interactions from sequence.",
+      4: isZh
+        ? "从 2D 切片到 3D 微结构：理解 SliceGAN 如何在缺乏真实 3D 数据时重建材料微观结构。"
+        : "From 2D slices to 3D microstructure—how SliceGAN reconstructs materials without real 3D data.",
+      5: isZh
+        ? "把反应方程序列化为 SMILES，用 BERT 等模型进行反应类型分类，理解 AI 在化学研究中的价值。"
+        : "Serialize reactions as SMILES and classify reaction types with BERT-like models—see AI’s value in chemical research.",
+    } as const;
+
+    return (
+      <div className="space-y-4">
+        <SectionBlock
+          title={titles[lessonNum as 1 | 2 | 3 | 4 | 5]}
+          eyebrow={isZh ? "已开放课程" : "Open lesson"}
+        >
+          <p className="text-sm text-slate-700">{blurbs[lessonNum as 1 | 2 | 3 | 4 | 5]}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <HighLesson4_1 lang={lang} />}
+        {lessonNum === 2 && <HighLesson4_2 lang={lang} />}
+        {lessonNum === 3 && <HighLesson4_3 lang={lang} />}
+        {lessonNum === 4 && <HighLesson4_4 lang={lang} />}
+        {lessonNum === 5 && <HighLesson4_5 lang={lang} />}
       </div>
     );
   }

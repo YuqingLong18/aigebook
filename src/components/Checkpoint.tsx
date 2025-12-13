@@ -9,7 +9,7 @@ type Option = {
 type CheckpointProps = {
   tagLabel: string;
   prompt: string;
-  options: Option[];
+  options: readonly Option[];
   resetLabel: string;
   correctLabel: string;
   incorrectLabel: string;

@@ -1,6 +1,6 @@
 type GuidedStepsProps = {
   title: string;
-  steps: string[];
+  steps: readonly string[];
 };
 
 export function GuidedSteps({ title, steps }: GuidedStepsProps) {
