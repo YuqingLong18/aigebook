@@ -2,6 +2,11 @@ import { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { SectionBlock } from "./components/SectionBlock";
 import { ComingSoon } from "./pages/ComingSoon";
+import { HighLesson1_1 } from "./pages/high-1-1";
+import { HighLesson1_2 } from "./pages/high-1-2";
+import { HighLesson1_3 } from "./pages/high-1-3";
+import { HighLesson1_4 } from "./pages/high-1-4";
+import { HighLesson1_5 } from "./pages/high-1-5";
 import { HighLesson1_6 } from "./pages/high-1-6";
 import { HighLesson2_1 } from "./pages/high-2-1";
 import { HighLesson2_2 } from "./pages/high-2-2";
@@ -143,24 +148,69 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
     );
   }
 
-  if (chapterNum === 1 && lessonNum === 6 && level === "high") {
+  if (chapterNum === 1 && level === "high" && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
     return (
       <div className="space-y-4">
         <SectionBlock
           title={
-            isZh
-              ? "第 1 单元 · 第 6 课：人工智能的开端"
-              : "Unit 1 · Lesson 6: The Beginning of AI"
+            lessonNum === 1
+              ? isZh
+                ? "第 1 单元 · 第 1 课：什么是人工智能"
+                : "Unit 1 · Lesson 1: What is Artificial Intelligence"
+              : lessonNum === 2
+                ? isZh
+                  ? "第 1 单元 · 第 2 课：人类智能的起源"
+                  : "Unit 1 · Lesson 2: Origin of Human Intelligence"
+                : lessonNum === 3
+                  ? isZh
+                    ? "第 1 单元 · 第 3 课：人工智能的起源：数理逻辑"
+                    : "Unit 1 · Lesson 3: Origins of AI: Mathematical Logic"
+                  : lessonNum === 4
+                    ? isZh
+                      ? "第 1 单元 · 第 4 课：人工智能的起源：计算机的诞生"
+                      : "Unit 1 · Lesson 4: Origins of AI: Birth of Computers"
+                    : lessonNum === 5
+                      ? isZh
+                        ? "第 1 单元 · 第 5 课：图灵：人工智能之父"
+                        : "Unit 1 · Lesson 5: Turing: Father of AI"
+                      : isZh
+                        ? "第 1 单元 · 第 6 课：人工智能的开端"
+                        : "Unit 1 · Lesson 6: The Beginning of AI"
           }
           eyebrow={isZh ? "已开放课程" : "Open lesson"}
         >
           <p className="text-sm text-slate-700">
-            {isZh
-              ? "本课聚焦早期 AI 研究与达特茅斯会议，回顾博弈算法、定理证明、早期神经网络等里程碑。"
-              : "This lesson covers early AI research and the Dartmouth Conference, including game algorithms, theorem proving, and early neural networks."}
+            {lessonNum === 1
+              ? isZh
+                ? "概览 AI 定义、与自动化区别、现代特征、应用与影响。"
+                : "Overview of AI definitions, differences from automation, modern traits, applications, and impacts."
+              : lessonNum === 2
+                ? isZh
+                  ? "追溯人类智力的演化、合作与文化累积。"
+                  : "Trace human intelligence evolution, cooperation, and cultural accumulation."
+                : lessonNum === 3
+                  ? isZh
+                    ? "从三段论到布尔代数，探讨逻辑与思维数学化的 AI 根基。"
+                    : "From syllogism to Boolean algebra—the logical roots of AI."
+                  : lessonNum === 4
+                    ? isZh
+                      ? "图灵机、香农电路、存储程序计算机为 AI 提供计算基石。"
+                      : "Turing machine, Shannon circuits, and stored-program computers as computation bedrock for AI."
+                    : lessonNum === 5
+                      ? isZh
+                        ? "图灵的通用机、学习设想与图灵测试的奠基作用。"
+                        : "Turing’s universal machine, learning ideas, and Turing Test foundations."
+                      : isZh
+                        ? "本课聚焦早期 AI 研究与达特茅斯会议。"
+                        : "Early AI research and the Dartmouth Conference."}
           </p>
         </SectionBlock>
-        <HighLesson1_6 lang={lang} />
+        {lessonNum === 1 && <HighLesson1_1 lang={lang} />}
+        {lessonNum === 2 && <HighLesson1_2 lang={lang} />}
+        {lessonNum === 3 && <HighLesson1_3 lang={lang} />}
+        {lessonNum === 4 && <HighLesson1_4 lang={lang} />}
+        {lessonNum === 5 && <HighLesson1_5 lang={lang} />}
+        {lessonNum === 6 && <HighLesson1_6 lang={lang} />}
       </div>
     );
   }
