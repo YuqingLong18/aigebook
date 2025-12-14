@@ -14,6 +14,7 @@ const milestones = [
 export function SelfPlayGrowthDemo({ lang }: Props) {
   const isZh = lang === "zh";
   const [days, setDays] = useState(3);
+  const reset = () => setDays(3);
 
   const estimated = milestones.reduce((prev, curr) => (curr.days <= days ? curr : prev), milestones[0]);
 
@@ -33,9 +34,18 @@ export function SelfPlayGrowthDemo({ lang }: Props) {
               : "Slide training days to estimate Elo, echoing AlphaGo Zero’s rapid gains."}
           </p>
         </div>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-          {isZh ? "端到端自学" : "Self-learning"}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+            {isZh ? "端到端自学" : "Self-learning"}
+          </span>
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+          >
+            {isZh ? "重置" : "Reset"}
+          </button>
+        </div>
       </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">

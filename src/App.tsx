@@ -58,6 +58,17 @@ import { MiddleLesson3_2 } from "./pages/middle-3-2";
 import { MiddleLesson3_3 } from "./pages/middle-3-3";
 import { MiddleLesson3_4 } from "./pages/middle-3-4";
 import { MiddleLesson3_5 } from "./pages/middle-3-5";
+import { MiddleLesson4_1 } from "./pages/middle-4-1";
+import { MiddleLesson4_2 } from "./pages/middle-4-2";
+import { MiddleLesson4_3 } from "./pages/middle-4-3";
+import { MiddleLesson4_4 } from "./pages/middle-4-4";
+import { MiddleLesson4_5 } from "./pages/middle-4-5";
+import { MiddleLesson4_6 } from "./pages/middle-4-6";
+import { MiddleLesson5_1 } from "./pages/middle-5-1";
+import { MiddleLesson5_2 } from "./pages/middle-5-2";
+import { MiddleLesson5_3 } from "./pages/middle-5-3";
+import { MiddleLesson5_4 } from "./pages/middle-5-4";
+import { MiddleLesson5_5 } from "./pages/middle-5-5";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
@@ -223,6 +234,113 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         {lessonNum === 5 && <MiddleLesson1_5 lang={lang} />}
         {lessonNum === 6 && <MiddleLesson1_6 lang={lang} />}
       </div>
+    );
+  }
+
+  if (level === "middle" && chapterNum === 4 && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 4 单元 · 第 1 课：人工智能与游戏",
+        en: "Unit 4 · Lesson 1: AI and Games",
+        blurbZh: "从深蓝到 AlphaGo，再到实时策略，游戏成为 AI 试炼场与技术加速器。",
+        blurbEn: "From Deep Blue to AlphaGo to RTS arenas—games as AI’s proving ground and accelerator.",
+      },
+      2: {
+        zh: "第 4 单元 · 第 2 课：人工智能与语言",
+        en: "Unit 4 · Lesson 2: AI and Language",
+        blurbZh: "语言是知识与思维的载体，大模型让机器理解与生成语言，迈向通用智能。",
+        blurbEn: "Language carries knowledge and thought; large models now understand and generate it, edging toward AGI.",
+      },
+      3: {
+        zh: "第 4 单元 · 第 3 课：人工智能与艺术",
+        en: "Unit 4 · Lesson 3: AI and Art",
+        blurbZh: "AI 诗歌、作曲、绘画的突破与挑战：技术助力创作，也引发原创性与伦理思考。",
+        blurbEn: "AI poetry, music, and painting breakthroughs—new creative power alongside originality and ethics questions.",
+      },
+      4: {
+        zh: "第 4 单元 · 第 4 课：人工智能与天文学",
+        en: "Unit 4 · Lesson 4: AI and Astronomy",
+        blurbZh: "望远镜大数据时代，AI 负责监测、选址、挖掘，助力发现宇宙奥秘。",
+        blurbEn: "In the telescope big-data era, AI monitors, plans, and mines observations to reveal cosmic secrets.",
+      },
+      5: {
+        zh: "第 4 单元 · 第 5 课：人工智能与生物学",
+        en: "Unit 4 · Lesson 5: AI and Biology",
+        blurbZh: "AlphaFold 解决蛋白折叠，ButterflyNet 量化拟态，共同展示 AI + 生物大数据的力量。",
+        blurbEn: "AlphaFold cracks protein folding; ButterflyNet quantifies mimicry—AI plus bio big data in action.",
+      },
+      6: {
+        zh: "第 4 单元 · 第 6 课：人工智能与医学",
+        en: "Unit 4 · Lesson 6: AI and Medicine",
+        blurbZh: "AI 加速疫苗与新药，增强显微与影像，优化诊疗流程，迈向精准与个性化医疗。",
+        blurbEn: "AI speeds vaccines/drugs, enhances microscopes/imaging, and optimizes care workflows toward precision medicine.",
+      },
+    };
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson4_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson4_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson4_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson4_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson4_5 lang={lang} />}
+        {lessonNum === 6 && <MiddleLesson4_6 lang={lang} />}
+      </div>,
+    );
+  }
+
+  if (level === "middle" && chapterNum === 5 && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 5 单元 · 第 1 课：机器人三定律",
+        en: "Unit 5 · Lesson 1: The Three Laws of Robotics",
+        blurbZh: "回顾阿西莫夫的三定律、局限与现代 AI 伦理的延展。",
+        blurbEn: "Review Asimov’s Three Laws, their limits, and extensions to modern AI ethics.",
+      },
+      2: {
+        zh: "第 5 单元 · 第 2 课：信息伪造",
+        en: "Unit 5 · Lesson 2: Information Forgery",
+        blurbZh: "深度伪造与换声技术、滥用案例、检测与多层治理。",
+        blurbEn: "Deepfakes and voice swaps, misuse cases, detection, and multi-layer defense.",
+      },
+      3: {
+        zh: "第 5 单元 · 第 3 课：信息泄露",
+        en: "Unit 5 · Lesson 3: Information Leakage",
+        blurbZh: "生物特征与个人信息泄漏、群体泄漏案例、大模型泄漏风险与防护。",
+        blurbEn: "Biometric/personal data leaks, mass breach cases, and LLM leakage risks with mitigations.",
+      },
+      4: {
+        zh: "第 5 单元 · 第 4 课：信息茧房",
+        en: "Unit 5 · Lesson 4: Information Cocoon",
+        blurbZh: "信息茧房的成因、危害，以及多源信息与批判思维的破茧方法。",
+        blurbEn: "Info cocoon causes/harms and how to break it with diverse sources and critical thinking.",
+      },
+      5: {
+        zh: "第 5 单元 · 第 5 课：人工智能与社会公平",
+        en: "Unit 5 · Lesson 5: AI and Social Fairness",
+        blurbZh: "数据偏见、可及性与垄断滥用带来的不公，以及改进数据、无障碍设计与监管的对策。",
+        blurbEn: "Bias, accessibility gaps, and misuse risks—and responses via better data, inclusive design, and governance.",
+      },
+    };
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson5_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson5_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson5_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson5_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson5_5 lang={lang} />}
+      </div>,
     );
   }
 

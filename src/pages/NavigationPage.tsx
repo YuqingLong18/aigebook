@@ -321,6 +321,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const middleOpenCh1 = [1, 2, 3, 4, 5, 6];
   const middleOpenCh2 = [1, 2, 3, 4, 5];
   const middleOpenCh3 = [1, 2, 3, 4, 5];
+  const middleOpenCh4 = [1, 2, 3, 4, 5, 6];
+  const middleOpenCh5 = [1, 2, 3, 4, 5];
   const middleOpenCh7 = [7];
   const availableLesson =
     (level === "high" &&
@@ -333,6 +335,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
       ((chapter === 1 && lesson && middleOpenCh1.includes(lesson)) ||
         (chapter === 2 && lesson && middleOpenCh2.includes(lesson)) ||
         (chapter === 3 && lesson && middleOpenCh3.includes(lesson)) ||
+        (chapter === 4 && lesson && middleOpenCh4.includes(lesson)) ||
+        (chapter === 5 && lesson && middleOpenCh5.includes(lesson)) ||
         (chapter === 7 && lesson && middleOpenCh7.includes(lesson))));
 
   const availablePath =
@@ -354,6 +358,10 @@ export function NavigationPage({ lang }: NavigationPageProps) {
             ? `/middle/unit/2/lesson/${lesson}`
           : level === "middle" && chapter === 3 && lesson && middleOpenCh3.includes(lesson)
             ? `/middle/unit/3/lesson/${lesson}`
+          : level === "middle" && chapter === 4 && lesson && middleOpenCh4.includes(lesson)
+            ? `/middle/unit/4/lesson/${lesson}`
+          : level === "middle" && chapter === 5 && lesson && middleOpenCh5.includes(lesson)
+            ? `/middle/unit/5/lesson/${lesson}`
           : level === "middle" && chapter === 7 && lesson === 7
             ? "/middle/unit/7/lesson/7"
           : "";

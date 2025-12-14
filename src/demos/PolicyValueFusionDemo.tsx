@@ -20,6 +20,7 @@ const initialMoves: Move[] = [
 export function PolicyValueFusionDemo({ lang }: Props) {
   const isZh = lang === "zh";
   const [policyWeight, setPolicyWeight] = useState(0.5);
+  const reset = () => setPolicyWeight(0.5);
 
   const scored = initialMoves
     .map((m) => ({
@@ -46,9 +47,16 @@ export function PolicyValueFusionDemo({ lang }: Props) {
               : "Adjust policy vs. value weight to see how best move changes."}
           </p>
         </div>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-          AlphaGo
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">AlphaGo</span>
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+          >
+            {isZh ? "重置" : "Reset"}
+          </button>
+        </div>
       </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-3">

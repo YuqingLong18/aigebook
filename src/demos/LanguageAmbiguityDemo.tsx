@@ -38,6 +38,7 @@ const contexts = [
 export function LanguageAmbiguityDemo({ lang }: Props) {
   const isZh = lang === "zh";
   const [selected, setSelected] = useState(contexts[0]);
+  const reset = () => setSelected(contexts[0]);
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -55,9 +56,18 @@ export function LanguageAmbiguityDemo({ lang }: Props) {
               : "Pick a sentence to see how the same word changes meaning. MT must resolve this first."}
           </p>
         </div>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-          {isZh ? "抽象·模糊" : "Abstraction & Ambiguity"}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+            {isZh ? "抽象·模糊" : "Abstraction & Ambiguity"}
+          </span>
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+          >
+            {isZh ? "重置" : "Reset"}
+          </button>
+        </div>
       </div>
 
       <div className="mt-4 grid gap-3 md:grid-cols-3">
