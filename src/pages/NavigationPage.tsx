@@ -317,13 +317,14 @@ export function NavigationPage({ lang }: NavigationPageProps) {
 
   const highOpenLessons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const highOpenCh3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const highOpenCh4 = [1, 2, 3, 4, 5];
+  const highOpenCh4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const middleOpenCh1 = [1, 2, 3, 4, 5, 6];
   const middleOpenCh2 = [1, 2, 3, 4, 5];
   const middleOpenCh3 = [1, 2, 3, 4, 5];
   const middleOpenCh4 = [1, 2, 3, 4, 5, 6];
   const middleOpenCh5 = [1, 2, 3, 4, 5];
-  const middleOpenCh7 = [7];
+  const middleOpenCh6 = [1, 2, 3, 4, 5];
+  const middleOpenCh7 = [1, 2, 3, 4, 5, 6, 7];
   const availableLesson =
     (level === "high" &&
       ((chapter === 2 && lesson && highOpenLessons.includes(lesson)) ||
@@ -337,6 +338,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         (chapter === 3 && lesson && middleOpenCh3.includes(lesson)) ||
         (chapter === 4 && lesson && middleOpenCh4.includes(lesson)) ||
         (chapter === 5 && lesson && middleOpenCh5.includes(lesson)) ||
+        (chapter === 6 && lesson && middleOpenCh6.includes(lesson)) ||
         (chapter === 7 && lesson && middleOpenCh7.includes(lesson))));
 
   const availablePath =
@@ -362,8 +364,10 @@ export function NavigationPage({ lang }: NavigationPageProps) {
             ? `/middle/unit/4/lesson/${lesson}`
           : level === "middle" && chapter === 5 && lesson && middleOpenCh5.includes(lesson)
             ? `/middle/unit/5/lesson/${lesson}`
-          : level === "middle" && chapter === 7 && lesson === 7
-            ? "/middle/unit/7/lesson/7"
+          : level === "middle" && chapter === 6 && lesson && middleOpenCh6.includes(lesson)
+            ? `/middle/unit/6/lesson/${lesson}`
+          : level === "middle" && chapter === 7 && lesson && middleOpenCh7.includes(lesson)
+            ? `/middle/unit/7/lesson/${lesson}`
           : "";
 
   return (
@@ -377,7 +381,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         <div className="mt-3 grid gap-3 md:grid-cols-3">
           {t.levels.map((opt) => {
             const active = level === opt.id;
-            const coming = opt.id !== "high";
+            const coming = opt.id === "primary";
             return (
               <button
                 key={opt.id}
@@ -399,9 +403,13 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                 <p className="text-xs text-slate-500">
                   {opt.id === "high"
                     ? isZh
-                      ? "含 4 章，每章 10 课"
-                      : "4 chapters, 10 lessons each"
-                    : t.coming}
+                      ? "含 4 单元，每单元 10 课"
+                      : "4 units, 10 lessons each"
+                    : opt.id === "middle"
+                      ? isZh
+                        ? "含 7 单元，全部已上线"
+                        : "7 units, all lessons live"
+                      : t.coming}
                 </p>
               </button>
             );
@@ -472,6 +480,9 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                     ((chapter === 1 && middleOpenCh1.includes(lsn.num)) ||
                       (chapter === 2 && middleOpenCh2.includes(lsn.num)) ||
                       (chapter === 3 && middleOpenCh3.includes(lsn.num)) ||
+                      (chapter === 4 && middleOpenCh4.includes(lsn.num)) ||
+                      (chapter === 5 && middleOpenCh5.includes(lsn.num)) ||
+                      (chapter === 6 && middleOpenCh6.includes(lsn.num)) ||
                       (chapter === 7 && middleOpenCh7.includes(lsn.num))));
                 const buttonClass = [
                   "flex h-full flex-col justify-between rounded-xl border px-3 py-2 text-left text-sm transition",
@@ -484,25 +495,33 @@ export function NavigationPage({ lang }: NavigationPageProps) {
 
                 const title = isZh ? lsn.titleZh : lsn.titleEn;
 
-                    if (isAvailable) {
-                      const linkPath =
-                        level === "high" && chapter === 2
-                          ? `/high/ch/2/lesson/${lsn.num}`
-                          : level === "high" && chapter === 1
-                            ? `/high/ch/1/lesson/${lsn.num}`
-                          : level === "high" && chapter === 3
-                            ? `/high/ch/3/lesson/${lsn.num}`
+                if (isAvailable) {
+                  const linkPath =
+                    level === "high" && chapter === 1
+                      ? `/high/ch/1/lesson/${lsn.num}`
+                      : level === "high" && chapter === 2
+                        ? `/high/ch/2/lesson/${lsn.num}`
+                        : level === "high" && chapter === 3
+                          ? `/high/ch/3/lesson/${lsn.num}`
                           : level === "high" && chapter === 4
                             ? `/high/ch/4/lesson/${lsn.num}`
-                          : level === "primary" && chapter === 5 && lsn.num === 6
-                            ? "/primary/unit/5/lesson/6"
-                            : level === "middle" && chapter === 1
-                              ? `/middle/unit/1/lesson/${lsn.num}`
-                              : level === "middle" && chapter === 2
-                                ? `/middle/unit/2/lesson/${lsn.num}`
-                              : level === "middle" && chapter === 3
-                                ? `/middle/unit/3/lesson/${lsn.num}`
-                              : "/middle/unit/7/lesson/7";
+                            : level === "primary" && chapter === 5 && lsn.num === 6
+                              ? "/primary/unit/5/lesson/6"
+                              : level === "middle" && chapter === 1
+                                ? `/middle/unit/1/lesson/${lsn.num}`
+                                : level === "middle" && chapter === 2
+                                  ? `/middle/unit/2/lesson/${lsn.num}`
+                                  : level === "middle" && chapter === 3
+                                    ? `/middle/unit/3/lesson/${lsn.num}`
+                                    : level === "middle" && chapter === 4
+                                      ? `/middle/unit/4/lesson/${lsn.num}`
+                                      : level === "middle" && chapter === 5
+                                        ? `/middle/unit/5/lesson/${lsn.num}`
+                                        : level === "middle" && chapter === 6
+                                          ? `/middle/unit/6/lesson/${lsn.num}`
+                                          : level === "middle" && chapter === 7
+                                            ? `/middle/unit/7/lesson/${lsn.num}`
+                                            : "";
 
                   return (
                     <Link
@@ -556,11 +575,11 @@ const enText = {
   title: "Version Navigation",
   eyebrow: "Start here",
   subtitle: "Choose a school edition and chapter. Default landing is Chinese; toggle is above.",
-  hint: "Open now: High → Unit 1 Lessons 1–10, Unit 2 Lessons 1–10, Unit 3 Lessons 1–10, Unit 4 Lessons 1–5. Primary and Middle units are listed for reference.",
+  hint: "All middle and high lessons are available. Primary will come later.",
   levelPrompt: "Pick a school edition to enter.",
   chapterPrompt: "Select a unit/chapter.",
   lessonPrompt:
-    "Select a lesson. Currently available: High Unit 1 Lessons 1–10, Unit 2 Lessons 1–10, Unit 3 Lessons 1–10, Unit 4 Lessons 1–5. Others will arrive soon.",
+    "Select a lesson to open the page.",
   pathLabel: "You are viewing",
   quickLink: "Direct link to the open lesson:",
   coming: "Coming soon",
@@ -583,10 +602,10 @@ const zhText = {
   title: "版本导航",
   eyebrow: "从这里开始",
   subtitle: "请选择学段与章节。默认显示中文，可通过右上角切换语言。",
-  hint: "已开放：高中版 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课；第 3 单元 第 1-10 课；第 4 单元 第 1-5 课。小学版、初中版已列出目录。",
+  hint: "初中、高中全部课程已上线，小学版将稍后更新。",
   levelPrompt: "选择学段进入对应内容。",
   chapterPrompt: "选择一个单元。",
-  lessonPrompt: "选择课次。当前已开放：高中 第 1 单元 第 1-10 课；第 2 单元 第 1-10 课；第 3 单元 第 1-10 课；第 4 单元 第 1-5 课，其余即将上线。",
+  lessonPrompt: "选择课次进入课程。",
   pathLabel: "当前路径",
   quickLink: "已开放课的直达链接：",
   coming: "内容即将上线",

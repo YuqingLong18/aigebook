@@ -41,7 +41,6 @@ import { HighLesson4_5 } from "./pages/high-4-5";
 import { HighLesson4_6 } from "./pages/high-4-6";
 import { HighLesson4_7 } from "./pages/high-4-7";
 import { HighLesson4_10 } from "./pages/high-4-10";
-import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { MiddleLesson1_1 } from "./pages/middle-1-1";
 import { MiddleLesson1_2 } from "./pages/middle-1-2";
 import { MiddleLesson1_3 } from "./pages/middle-1-3";
@@ -69,6 +68,18 @@ import { MiddleLesson5_2 } from "./pages/middle-5-2";
 import { MiddleLesson5_3 } from "./pages/middle-5-3";
 import { MiddleLesson5_4 } from "./pages/middle-5-4";
 import { MiddleLesson5_5 } from "./pages/middle-5-5";
+import { MiddleLesson6_1 } from "./pages/middle-6-1";
+import { MiddleLesson6_2 } from "./pages/middle-6-2";
+import { MiddleLesson6_3 } from "./pages/middle-6-3";
+import { MiddleLesson6_4 } from "./pages/middle-6-4";
+import { MiddleLesson6_5 } from "./pages/middle-6-5";
+import { MiddleLesson7_1 } from "./pages/middle-7-1";
+import { MiddleLesson7_2 } from "./pages/middle-7-2";
+import { MiddleLesson7_3 } from "./pages/middle-7-3";
+import { MiddleLesson7_4 } from "./pages/middle-7-4";
+import { MiddleLesson7_5 } from "./pages/middle-7-5";
+import { MiddleLesson7_6 } from "./pages/middle-7-6";
+import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
@@ -340,6 +351,120 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         {lessonNum === 3 && <MiddleLesson5_3 lang={lang} />}
         {lessonNum === 4 && <MiddleLesson5_4 lang={lang} />}
         {lessonNum === 5 && <MiddleLesson5_5 lang={lang} />}
+      </div>,
+    );
+  }
+
+  if (level === "middle" && chapterNum === 6 && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 6 单元 · 第 1 课：基于知识的智能",
+        en: "Unit 6 · Lesson 1: Knowledge-based Intelligence",
+        blurbZh: "从公理推理到专家系统，理解知识驱动的智能方法与局限。",
+        blurbEn: "From axioms to expert systems—understand knowledge-driven AI and its limits.",
+      },
+      2: {
+        zh: "第 6 单元 · 第 2 课：基于学习的智能",
+        en: "Unit 6 · Lesson 2: Learning-based Intelligence",
+        blurbZh: "机器学习概念、五要素与诞生故事。",
+        blurbEn: "Machine learning concepts, five elements, and its origin story.",
+      },
+      3: {
+        zh: "第 6 单元 · 第 3 课：监督学习与无监督学习",
+        en: "Unit 6 · Lesson 3: Supervised and Unsupervised Learning",
+        blurbZh: "对比监督/无监督学习的信号来源、流程与典型任务。",
+        blurbEn: "Compare supervised vs. unsupervised signals, workflows, and tasks.",
+      },
+      4: {
+        zh: "第 6 单元 · 第 4 课：强化学习",
+        en: "Unit 6 · Lesson 4: Reinforcement Learning",
+        blurbZh: "基于奖励的学习机制，应用于机器人与游戏。",
+        blurbEn: "Reward-driven learning applied to robots and games.",
+      },
+      5: {
+        zh: "第 6 单元 · 第 5 课：机器学习的学派",
+        en: "Unit 6 · Lesson 5: Schools of Machine Learning",
+        blurbZh: "符号、贝叶斯、连接主义、进化学派的思想与演进。",
+        blurbEn: "Symbolic, Bayesian, connectionist, and evolutionary ideas and trends.",
+      },
+    };
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson6_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson6_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson6_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson6_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson6_5 lang={lang} />}
+      </div>,
+    );
+  }
+
+  if (level === "middle" && chapterNum === 7 && [1, 2, 3, 4, 5, 6, 7].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 7 单元 · 第 1 课：人类神经系统",
+        en: "Unit 7 · Lesson 1: Human Nervous System",
+        blurbZh: "神经系统的组成、发育与生物电传递。",
+        blurbEn: "Composition, development, and bioelectric signaling of the nervous system.",
+      },
+      2: {
+        zh: "第 7 单元 · 第 2 课：人工神经网络的开端",
+        en: "Unit 7 · Lesson 2: Dawn of Artificial Neural Networks",
+        blurbZh: "McCulloch 与 Pitts 的 M-P 神经元模型。",
+        blurbEn: "McCulloch & Pitts and the M-P neuron model.",
+      },
+      3: {
+        zh: "第 7 单元 · 第 3 课：人工神经网络发展史",
+        en: "Unit 7 · Lesson 3: History of Neural Networks",
+        blurbZh: "从感知机到 BP、CNN、RNN，再到深度网络。",
+        blurbEn: "From perceptron to BP, CNN/RNN, and deep networks.",
+      },
+      4: {
+        zh: "第 7 单元 · 第 4 课：深度学习的开端",
+        en: "Unit 7 · Lesson 4: Beginning of Deep Learning",
+        blurbZh: "Hinton 的坚持、分层预训练与大数据学习时代。",
+        blurbEn: "Hinton’s path, layer-wise pretraining, and the big-data era.",
+      },
+      5: {
+        zh: "第 7 单元 · 第 5 课：深度学习基本原理",
+        en: "Unit 7 · Lesson 5: Fundamental Principles of Deep Learning",
+        blurbZh: "层级与序列学习支撑视觉、语言、生成。",
+        blurbEn: "Hierarchy and sequence power vision, language, and generation.",
+      },
+      6: {
+        zh: "第 7 单元 · 第 6 课：深度学习的挑战：对抗样本",
+        en: "Unit 7 · Lesson 6: Deep Learning Challenge: Adversarial Examples",
+        blurbZh: "对抗样本的成因、风险与防护。",
+        blurbEn: "Adversarial examples—causes, risks, and defenses.",
+      },
+      7: {
+        zh: "第 7 单元 · 第 7 课：深度学习的挑战：可解释性",
+        en: "Unit 7 · Lesson 7: Deep Learning Challenge: Interpretability",
+        blurbZh: "深度网络的可解释性与局部/全局解释方式。",
+        blurbEn: "Interpretability of deep nets with local/global explanations.",
+      },
+    };
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <MiddleLesson7_1 lang={lang} />}
+        {lessonNum === 2 && <MiddleLesson7_2 lang={lang} />}
+        {lessonNum === 3 && <MiddleLesson7_3 lang={lang} />}
+        {lessonNum === 4 && <MiddleLesson7_4 lang={lang} />}
+        {lessonNum === 5 && <MiddleLesson7_5 lang={lang} />}
+        {lessonNum === 6 && <MiddleLesson7_6 lang={lang} />}
+        {lessonNum === 7 && <MiddleLesson7_7 lang={lang} />}
       </div>,
     );
   }
