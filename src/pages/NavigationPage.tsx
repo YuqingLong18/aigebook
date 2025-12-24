@@ -133,8 +133,8 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         labelZh: "第 3 单元 人工智能前沿",
         labelEn: "Unit 3: AI Frontiers",
         lessons: [
-          { num: 1, titleZh: "AI 画家", titleEn: "AI Painter" },
-          { num: 2, titleZh: "AI 作曲", titleEn: "AI Composer" },
+          { num: 1, titleZh: "AI 画家", titleEn: "AI Artist" },
+          { num: 2, titleZh: "AI 作曲", titleEn: "AI Composition" },
           { num: 3, titleZh: "AI 诗人", titleEn: "AI Poet" },
           { num: 4, titleZh: "AlphaGo 的故事", titleEn: "Story of AlphaGo" },
           { num: 5, titleZh: "OpenAI 和它的 ChatGPT", titleEn: "OpenAI and ChatGPT" },
@@ -325,13 +325,21 @@ export function NavigationPage({ lang }: NavigationPageProps) {
   const middleOpenCh5 = [1, 2, 3, 4, 5];
   const middleOpenCh6 = [1, 2, 3, 4, 5];
   const middleOpenCh7 = [1, 2, 3, 4, 5, 6, 7];
+  const primaryOpenCh1 = [1, 2, 3, 4];
+  const primaryOpenCh2 = [1, 2, 3, 4, 5, 6];
+  const primaryOpenCh3 = [1, 2, 3, 4, 5, 6, 7];
+  const primaryOpenCh5 = [6];
   const availableLesson =
     (level === "high" &&
       ((chapter === 2 && lesson && highOpenLessons.includes(lesson)) ||
         (chapter === 1 && lesson && highOpenLessons.includes(lesson)) ||
         (chapter === 3 && lesson && highOpenCh3.includes(lesson)) ||
         (chapter === 4 && lesson && highOpenCh4.includes(lesson)))) ||
-    (level === "primary" && chapter === 5 && lesson === 6) ||
+    (level === "primary" &&
+      ((chapter === 1 && lesson && primaryOpenCh1.includes(lesson)) ||
+        (chapter === 2 && lesson && primaryOpenCh2.includes(lesson)) ||
+        (chapter === 3 && lesson && primaryOpenCh3.includes(lesson)) ||
+        (chapter === 5 && lesson && primaryOpenCh5.includes(lesson)))) ||
     (level === "middle" &&
       ((chapter === 1 && lesson && middleOpenCh1.includes(lesson)) ||
         (chapter === 2 && lesson && middleOpenCh2.includes(lesson)) ||
@@ -352,8 +360,14 @@ export function NavigationPage({ lang }: NavigationPageProps) {
             : chapter === 4 && lesson
               ? `/high/ch/4/lesson/${lesson}`
             : ""
-      : level === "primary" && chapter === 5 && lesson === 6
-        ? "/primary/unit/5/lesson/6"
+      : level === "primary" && chapter === 1 && lesson && primaryOpenCh1.includes(lesson)
+        ? `/primary/unit/1/lesson/${lesson}`
+        : level === "primary" && chapter === 2 && lesson && primaryOpenCh2.includes(lesson)
+          ? `/primary/unit/2/lesson/${lesson}`
+          : level === "primary" && chapter === 3 && lesson && primaryOpenCh3.includes(lesson)
+            ? `/primary/unit/3/lesson/${lesson}`
+          : level === "primary" && chapter === 5 && lesson && primaryOpenCh5.includes(lesson)
+            ? "/primary/unit/5/lesson/6"
         : level === "middle" && chapter === 1 && lesson && middleOpenCh1.includes(lesson)
           ? `/middle/unit/1/lesson/${lesson}`
           : level === "middle" && chapter === 2 && lesson && middleOpenCh2.includes(lesson)
@@ -381,7 +395,6 @@ export function NavigationPage({ lang }: NavigationPageProps) {
         <div className="mt-3 grid gap-3 md:grid-cols-3">
           {t.levels.map((opt) => {
             const active = level === opt.id;
-            const coming = opt.id === "primary";
             return (
               <button
                 key={opt.id}
@@ -409,7 +422,7 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                       ? isZh
                         ? "含 7 单元，全部已上线"
                         : "7 units, all lessons live"
-                      : t.coming}
+                      : t.primaryHint}
                 </p>
               </button>
             );
@@ -475,7 +488,11 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                   (level === "high" && chapter === 1 && highOpenLessons.includes(lsn.num)) ||
                   (level === "high" && chapter === 3 && highOpenCh3.includes(lsn.num)) ||
                   (level === "high" && chapter === 4 && highOpenCh4.includes(lsn.num)) ||
-                  (level === "primary" && chapter === 5 && lsn.num === 6) ||
+                  (level === "primary" &&
+                    ((chapter === 1 && primaryOpenCh1.includes(lsn.num)) ||
+                      (chapter === 2 && primaryOpenCh2.includes(lsn.num)) ||
+                      (chapter === 3 && primaryOpenCh3.includes(lsn.num)) ||
+                      (chapter === 5 && primaryOpenCh5.includes(lsn.num)))) ||
                   (level === "middle" &&
                     ((chapter === 1 && middleOpenCh1.includes(lsn.num)) ||
                       (chapter === 2 && middleOpenCh2.includes(lsn.num)) ||
@@ -503,25 +520,31 @@ export function NavigationPage({ lang }: NavigationPageProps) {
                         ? `/high/ch/2/lesson/${lsn.num}`
                         : level === "high" && chapter === 3
                           ? `/high/ch/3/lesson/${lsn.num}`
-                          : level === "high" && chapter === 4
-                            ? `/high/ch/4/lesson/${lsn.num}`
-                            : level === "primary" && chapter === 5 && lsn.num === 6
-                              ? "/primary/unit/5/lesson/6"
-                              : level === "middle" && chapter === 1
-                                ? `/middle/unit/1/lesson/${lsn.num}`
-                                : level === "middle" && chapter === 2
-                                  ? `/middle/unit/2/lesson/${lsn.num}`
-                                  : level === "middle" && chapter === 3
-                                    ? `/middle/unit/3/lesson/${lsn.num}`
-                                    : level === "middle" && chapter === 4
-                                      ? `/middle/unit/4/lesson/${lsn.num}`
-                                      : level === "middle" && chapter === 5
-                                        ? `/middle/unit/5/lesson/${lsn.num}`
-                                        : level === "middle" && chapter === 6
-                                          ? `/middle/unit/6/lesson/${lsn.num}`
-                                          : level === "middle" && chapter === 7
-                                            ? `/middle/unit/7/lesson/${lsn.num}`
-                                            : "";
+                            : level === "high" && chapter === 4
+                              ? `/high/ch/4/lesson/${lsn.num}`
+                            : level === "primary" && chapter === 1
+                              ? `/primary/unit/1/lesson/${lsn.num}`
+                              : level === "primary" && chapter === 2
+                                ? `/primary/unit/2/lesson/${lsn.num}`
+                                : level === "primary" && chapter === 3
+                                  ? `/primary/unit/3/lesson/${lsn.num}`
+                                : level === "primary" && chapter === 5 && lsn.num === 6
+                                  ? "/primary/unit/5/lesson/6"
+                                : level === "middle" && chapter === 1
+                                  ? `/middle/unit/1/lesson/${lsn.num}`
+                                  : level === "middle" && chapter === 2
+                                    ? `/middle/unit/2/lesson/${lsn.num}`
+                                    : level === "middle" && chapter === 3
+                                      ? `/middle/unit/3/lesson/${lsn.num}`
+                                      : level === "middle" && chapter === 4
+                                        ? `/middle/unit/4/lesson/${lsn.num}`
+                                        : level === "middle" && chapter === 5
+                                          ? `/middle/unit/5/lesson/${lsn.num}`
+                                          : level === "middle" && chapter === 6
+                                            ? `/middle/unit/6/lesson/${lsn.num}`
+                                            : level === "middle" && chapter === 7
+                                              ? `/middle/unit/7/lesson/${lsn.num}`
+                                              : "";
 
                   return (
                     <Link
@@ -575,7 +598,7 @@ const enText = {
   title: "Version Navigation",
   eyebrow: "Start here",
   subtitle: "Choose a school edition and chapter. Default landing is Chinese; toggle is above.",
-  hint: "All middle and high lessons are available. Primary will come later.",
+  hint: "Middle and high lessons are available. Primary Units 1-3 are now open.",
   levelPrompt: "Pick a school edition to enter.",
   chapterPrompt: "Select a unit/chapter.",
   lessonPrompt:
@@ -583,6 +606,7 @@ const enText = {
   pathLabel: "You are viewing",
   quickLink: "Direct link to the open lesson:",
   coming: "Coming soon",
+  primaryHint: "Units 1-3 are live; more coming soon.",
   levelComing: "Content for this level is coming soon.",
   soon: "Soon",
   levels: [
@@ -602,13 +626,14 @@ const zhText = {
   title: "版本导航",
   eyebrow: "从这里开始",
   subtitle: "请选择学段与章节。默认显示中文，可通过右上角切换语言。",
-  hint: "初中、高中全部课程已上线，小学版将稍后更新。",
+  hint: "初中、高中全部课程已上线，小学第 1-3 单元已开放。",
   levelPrompt: "选择学段进入对应内容。",
   chapterPrompt: "选择一个单元。",
   lessonPrompt: "选择课次进入课程。",
   pathLabel: "当前路径",
   quickLink: "已开放课的直达链接：",
   coming: "内容即将上线",
+  primaryHint: "第 1-3 单元已上线，其余即将开放。",
   levelComing: "该学段内容即将上线。",
   soon: "即将上线",
   levels: [

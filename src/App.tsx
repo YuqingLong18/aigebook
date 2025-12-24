@@ -81,6 +81,23 @@ import { MiddleLesson7_5 } from "./pages/middle-7-5";
 import { MiddleLesson7_6 } from "./pages/middle-7-6";
 import { MiddleLesson7_7 } from "./pages/middle-7-7";
 import { NavigationPage } from "./pages/NavigationPage";
+import { PrimaryLesson1_1 } from "./pages/primary-1-1";
+import { PrimaryLesson1_2 } from "./pages/primary-1-2";
+import { PrimaryLesson1_3 } from "./pages/primary-1-3";
+import { PrimaryLesson1_4 } from "./pages/primary-1-4";
+import { PrimaryLesson2_1 } from "./pages/primary-2-1";
+import { PrimaryLesson2_2 } from "./pages/primary-2-2";
+import { PrimaryLesson2_3 } from "./pages/primary-2-3";
+import { PrimaryLesson2_4 } from "./pages/primary-2-4";
+import { PrimaryLesson2_5 } from "./pages/primary-2-5";
+import { PrimaryLesson2_6 } from "./pages/primary-2-6";
+import { PrimaryLesson3_1 } from "./pages/primary-3-1";
+import { PrimaryLesson3_2 } from "./pages/primary-3-2";
+import { PrimaryLesson3_3 } from "./pages/primary-3-3";
+import { PrimaryLesson3_4 } from "./pages/primary-3-4";
+import { PrimaryLesson3_5 } from "./pages/primary-3-5";
+import { PrimaryLesson3_6 } from "./pages/primary-3-6";
+import { PrimaryLesson3_7 } from "./pages/primary-3-7";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
 
 function App() {
@@ -170,6 +187,176 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
   const wrap = (content: JSX.Element) => (
     <LessonCheckpointProvider lang={lang}>{content}</LessonCheckpointProvider>
   );
+
+  if (level === "primary" && chapterNum === 1 && [1, 2, 3, 4].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 1 单元 · 第 1 课：偃师的故事",
+        en: "Unit 1 · Lesson 1: The Story of Yan Shi",
+        blurbZh: "从机关人传说看古人对智能机器的梦想与工匠精神。",
+        blurbEn: "A legendary puppet story that reveals the dream of intelligent machines and craftsmanship.",
+      },
+      2: {
+        zh: "第 1 单元 · 第 2 课：贾兹里的机械乐队",
+        en: "Unit 1 · Lesson 2: Al-Jazari’s Mechanical Band",
+        blurbZh: "认识贾兹里与他的著作，理解可复现设计的价值。",
+        blurbEn: "Meet Al-Jazari and see why reproducible design matters.",
+      },
+      3: {
+        zh: "第 1 单元 · 第 3 课：电影中的人工智能",
+        en: "Unit 1 · Lesson 3: Artificial Intelligence in Movies",
+        blurbZh: "通过瓦力与贝麦斯，思考人与智能机器的关系。",
+        blurbEn: "Through WALL·E and Baymax, explore human-robot harmony.",
+      },
+      4: {
+        zh: "第 1 单元 · 第 4 课：什么是人工智能",
+        en: "Unit 1 · Lesson 4: What Is Artificial Intelligence?",
+        blurbZh: "用电饭煲的例子理解自动化与 AI 的区别。",
+        blurbEn: "Use the rice cooker example to compare automation and AI.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <PrimaryLesson1_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson1_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson1_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson1_4 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "primary" && chapterNum === 2 && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 2 单元 · 第 1 课：高铁检票员",
+        en: "Unit 2 · Lesson 1: High-speed Rail Ticket Checker",
+        blurbZh: "火车票从纸票到刷脸，AI 让出行更高效。",
+        blurbEn: "From paper tickets to face scans—AI speeds up travel.",
+      },
+      2: {
+        zh: "第 2 单元 · 第 2 课：电子交警",
+        en: "Unit 2 · Lesson 2: Traffic Enforcement Cameras",
+        blurbZh: "AI 识别违章与协同设备，让道路更安全。",
+        blurbEn: "AI detects violations and improves road safety.",
+      },
+      3: {
+        zh: "第 2 单元 · 第 3 课：美颜相机",
+        en: "Unit 2 · Lesson 3: Beauty Cameras",
+        blurbZh: "从修图到 AI 美颜，学会理性看待滤镜。",
+        blurbEn: "From editing to AI filters—use them wisely.",
+      },
+      4: {
+        zh: "第 2 单元 · 第 4 课：扫地机器人",
+        en: "Unit 2 · Lesson 4: Robot Vacuums",
+        blurbZh: "导航与视觉让机器人更聪明。",
+        blurbEn: "Mapping and vision make vacuums smarter.",
+      },
+      5: {
+        zh: "第 2 单元 · 第 5 课：自动驾驶",
+        en: "Unit 2 · Lesson 5: Autonomous Driving",
+        blurbZh: "从早期引导到现代 AI，理解技术与风险。",
+        blurbEn: "From early guidance to modern AI—tech and risks.",
+      },
+      6: {
+        zh: "第 2 单元 · 第 6 课：推荐系统",
+        en: "Unit 2 · Lesson 6: Recommender Systems",
+        blurbZh: "理解推荐与信息茧房，学会批判思考。",
+        blurbEn: "Understand recommendations and avoid cocoons.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <PrimaryLesson2_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson2_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson2_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson2_4 lang={lang} />}
+        {lessonNum === 5 && <PrimaryLesson2_5 lang={lang} />}
+        {lessonNum === 6 && <PrimaryLesson2_6 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "primary" && chapterNum === 3 && [1, 2, 3, 4, 5, 6, 7].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 3 单元 · 第 1 课：AI 画家",
+        en: "Unit 3 · Lesson 1: AI Artist",
+        blurbZh: "理解图像如何被编码，体验 AI 的生成与风格迁移。",
+        blurbEn: "See how images are encoded and how AI generates and transfers styles.",
+      },
+      2: {
+        zh: "第 3 单元 · 第 2 课：AI 作曲",
+        en: "Unit 3 · Lesson 2: AI Composition",
+        blurbZh: "从骰子作曲到深度学习，理解 AI 如何写音乐。",
+        blurbEn: "From dice games to deep learning, see how AI writes music.",
+      },
+      3: {
+        zh: "第 3 单元 · 第 3 课：AI 诗人",
+        en: "Unit 3 · Lesson 3: AI Poetry",
+        blurbZh: "认识格律诗规则，理解 AI 诗歌的优势与不足。",
+        blurbEn: "Learn regulated verse rules and the strengths and limits of AI poetry.",
+      },
+      4: {
+        zh: "第 3 单元 · 第 4 课：AlphaGo 的故事",
+        en: "Unit 3 · Lesson 4: The Story of AlphaGo",
+        blurbZh: "回顾 AlphaGo 的关键比赛与自我对弈突破。",
+        blurbEn: "Review AlphaGo's key matches and self-play breakthrough.",
+      },
+      5: {
+        zh: "第 3 单元 · 第 5 课：OpenAI 和它的 ChatGPT",
+        en: "Unit 3 · Lesson 5: OpenAI and ChatGPT",
+        blurbZh: "了解 OpenAI 的发展与 ChatGPT 的对话能力。",
+        blurbEn: "Meet OpenAI's story and ChatGPT's conversation skills.",
+      },
+      6: {
+        zh: "第 3 单元 · 第 6 课：Sora 的故事",
+        en: "Unit 3 · Lesson 6: The Story of Sora",
+        blurbZh: "探索视频生成原理与应用场景，思考风险。",
+        blurbEn: "Explore video generation, applications, and risks.",
+      },
+      7: {
+        zh: "第 3 单元 · 第 7 课：AI 天气预报员",
+        en: "Unit 3 · Lesson 7: AI Weather Forecaster",
+        blurbZh: "从古代谚语到 AI 预测，理解数据的重要性。",
+        blurbEn: "From old sayings to AI forecasts, see why data matters.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <PrimaryLesson3_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson3_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson3_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson3_4 lang={lang} />}
+        {lessonNum === 5 && <PrimaryLesson3_5 lang={lang} />}
+        {lessonNum === 6 && <PrimaryLesson3_6 lang={lang} />}
+        {lessonNum === 7 && <PrimaryLesson3_7 lang={lang} />}
+      </div>
+    );
+  }
 
   if (level === "primary" && chapterNum === 5 && lessonNum === 6) {
     return wrap(
