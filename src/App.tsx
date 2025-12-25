@@ -98,7 +98,23 @@ import { PrimaryLesson3_4 } from "./pages/primary-3-4";
 import { PrimaryLesson3_5 } from "./pages/primary-3-5";
 import { PrimaryLesson3_6 } from "./pages/primary-3-6";
 import { PrimaryLesson3_7 } from "./pages/primary-3-7";
+import { PrimaryLesson4_1 } from "./pages/primary-4-1";
+import { PrimaryLesson4_2 } from "./pages/primary-4-2";
+import { PrimaryLesson4_3 } from "./pages/primary-4-3";
+import { PrimaryLesson4_4 } from "./pages/primary-4-4";
+import { PrimaryLesson4_5 } from "./pages/primary-4-5";
+import { PrimaryLesson4_6 } from "./pages/primary-4-6";
+import { PrimaryLesson5_1 } from "./pages/primary-5-1";
+import { PrimaryLesson5_2 } from "./pages/primary-5-2";
+import { PrimaryLesson5_3 } from "./pages/primary-5-3";
+import { PrimaryLesson5_4 } from "./pages/primary-5-4";
+import { PrimaryLesson5_5 } from "./pages/primary-5-5";
 import { PrimaryLesson5_6 } from "./pages/primary-5-6";
+import { PrimaryLesson6_1 } from "./pages/primary-6-1";
+import { PrimaryLesson6_2 } from "./pages/primary-6-2";
+import { PrimaryLesson6_3 } from "./pages/primary-6-3";
+import { PrimaryLesson6_4 } from "./pages/primary-6-4";
+import { PrimaryLesson6_5 } from "./pages/primary-6-5";
 
 function App() {
   const [lang, setLang] = useState<"en" | "zh">("zh");
@@ -358,20 +374,172 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
     );
   }
 
-  if (level === "primary" && chapterNum === 5 && lessonNum === 6) {
+  if (level === "primary" && chapterNum === 4 && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 4 单元 · 第 1 课：亚里士多德的故事",
+        en: "Unit 4 · Lesson 1: Story of Aristotle",
+        blurbZh: "追随古希腊三贤，理解逻辑对 AI 起源的意义。",
+        blurbEn: "Follow the Greek philosophers and see why logic matters for AI's origins.",
+      },
+      2: {
+        zh: "第 4 单元 · 第 2 课：布尔的故事",
+        en: "Unit 4 · Lesson 2: Story of Boole",
+        blurbZh: "用符号表达思维，走向可计算的逻辑。",
+        blurbEn: "See how symbolic logic turned thinking into computation.",
+      },
+      3: {
+        zh: "第 4 单元 · 第 3 课：图灵和图灵机",
+        en: "Unit 4 · Lesson 3: Turing and the Turing Machine",
+        blurbZh: "回顾图灵的一生与图灵机的原型意义。",
+        blurbEn: "Review Turing's life and the model that inspired computers.",
+      },
+      4: {
+        zh: "第 4 单元 · 第 4 课：计算机的诞生",
+        en: "Unit 4 · Lesson 4: Birth of the Computer",
+        blurbZh: "从算盘到存储程序，理解现代计算机的结构。",
+        blurbEn: "From abacus to stored-program architecture, see how computers were born.",
+      },
+      5: {
+        zh: "第 4 单元 · 第 5 课：机器智能的最初设想",
+        en: "Unit 4 · Lesson 5: Early Notions of Machine Intelligence",
+        blurbZh: "了解图灵的学习、神经网络与进化设想。",
+        blurbEn: "Explore Turing's ideas on learning, neural networks, and evolution.",
+      },
+      6: {
+        zh: "第 4 单元 · 第 6 课：达特茅斯会议",
+        en: "Unit 4 · Lesson 6: Dartmouth Conference",
+        blurbZh: "见证 AI 学科的诞生与早期研究热情。",
+        blurbEn: "Witness the birth of AI as a field and the pioneers' excitement.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
     return wrap(
       <div className="space-y-4">
-        <SectionBlock
-          title={isZh ? "第 5 单元 · 第 6 课：走向未来" : "Unit 5 · Lesson 6: Moving Toward the Future"}
-          eyebrow={isZh ? "已开放课程" : "Open lesson"}
-        >
-          <p className="text-sm text-slate-700">
-            {isZh
-              ? "面向小学生的未来展望：人工智能的发展、通用智能、与科学共进与共存。"
-              : "Future-focused for primary learners: AI’s development, general intelligence, cross-discipline impact, and living alongside AI."}
-          </p>
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
         </SectionBlock>
-        <PrimaryLesson5_6 lang={lang} />
+        {lessonNum === 1 && <PrimaryLesson4_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson4_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson4_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson4_4 lang={lang} />}
+        {lessonNum === 5 && <PrimaryLesson4_5 lang={lang} />}
+        {lessonNum === 6 && <PrimaryLesson4_6 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "primary" && chapterNum === 5 && [1, 2, 3, 4, 5, 6].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 5 单元 · 第 1 课：吴文俊的故事",
+        en: "Unit 5 · Lesson 1: Story of Wu Wenjun",
+        blurbZh: "从数学零分到大师之路，理解吴方法与教育贡献。",
+        blurbEn: "From a zero in math to mastery—Wu's method and education impact.",
+      },
+      2: {
+        zh: "第 5 单元 · 第 2 课：费根鲍姆与专家系统",
+        en: "Unit 5 · Lesson 2: Feigenbaum and Expert Systems",
+        blurbZh: "了解 AI 寒冬与知识工程的突破。",
+        blurbEn: "See the AI winter and the knowledge engineering breakthrough.",
+      },
+      3: {
+        zh: "第 5 单元 · 第 3 课：深蓝：成就巅峰",
+        en: "Unit 5 · Lesson 3: Deep Blue: Reaching the Summit",
+        blurbZh: "回顾深蓝对战卡斯帕罗夫的经典比赛。",
+        blurbEn: "Revisit Deep Blue vs. Kasparov and chess search power.",
+      },
+      4: {
+        zh: "第 5 单元 · 第 4 课：深度学习兴起",
+        en: "Unit 5 · Lesson 4: The Rise of Deep Learning",
+        blurbZh: "理解神经网络与深度学习的崛起。",
+        blurbEn: "Understand neural networks and the deep learning revolution.",
+      },
+      5: {
+        zh: "第 5 单元 · 第 5 课：大模型时代",
+        en: "Unit 5 · Lesson 5: The Era of Large Models",
+        blurbZh: "探究 ChatGPT 的诞生与模型、数据、算力。",
+        blurbEn: "Explore ChatGPT's rise and the model-data-compute triad.",
+      },
+      6: {
+        zh: "第 5 单元 · 第 6 课：走向未来",
+        en: "Unit 5 · Lesson 6: Moving Toward the Future",
+        blurbZh: "展望 AI 未来与人机共处之道。",
+        blurbEn: "Look ahead at AI trends and human-AI coexistence.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <PrimaryLesson5_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson5_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson5_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson5_4 lang={lang} />}
+        {lessonNum === 5 && <PrimaryLesson5_5 lang={lang} />}
+        {lessonNum === 6 && <PrimaryLesson5_6 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "primary" && chapterNum === 6 && [1, 2, 3, 4, 5].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 6 单元 · 第 1 课：认识计算机",
+        en: "Unit 6 · Lesson 1: Understanding Computers",
+        blurbZh: "认识硬件、软件与计算机的基本结构。",
+        blurbEn: "Meet hardware, software, and the basic structure of computers.",
+      },
+      2: {
+        zh: "第 6 单元 · 第 2 课：认识计算机程序",
+        en: "Unit 6 · Lesson 2: Understanding Computer Programs",
+        blurbZh: "了解程序、编程语言与程序执行流程。",
+        blurbEn: "Learn what programs are, how languages work, and how programs run.",
+      },
+      3: {
+        zh: "第 6 单元 · 第 3 课：什么是算法",
+        en: "Unit 6 · Lesson 3: What Is an Algorithm",
+        blurbZh: "通过故事区分算法与程序。",
+        blurbEn: "Use the story to separate algorithms from programs.",
+      },
+      4: {
+        zh: "第 6 单元 · 第 4 课：知识与智能",
+        en: "Unit 6 · Lesson 4: Knowledge and Intelligence",
+        blurbZh: "认识卡特尔与流体/晶体智力。",
+        blurbEn: "Meet Cattell and the two kinds of intelligence.",
+      },
+      5: {
+        zh: "第 6 单元 · 第 5 课：不会学习的机器不是好机器",
+        en: "Unit 6 · Lesson 5: A Machine That Cannot Learn Is Not a Good Machine",
+        blurbZh: "了解从知识驱动到机器学习的转变与风险。",
+        blurbEn: "See the shift to machine learning and its risks.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <PrimaryLesson6_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson6_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson6_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson6_4 lang={lang} />}
+        {lessonNum === 5 && <PrimaryLesson6_5 lang={lang} />}
       </div>
     );
   }

@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Checkpoint } from "../components/Checkpoint";
+import { FigureCard } from "../components/FigureCard";
 import { GuidedSteps } from "../components/GuidedSteps";
 import { InfoCard } from "../components/InfoCard";
 import { LessonToc } from "../components/LessonToc";
@@ -20,27 +21,15 @@ export function PrimaryLesson5_6({ lang }: LessonProps) {
   };
 
   const t = content[lang];
-
-  const [futureIdea, setFutureIdea] = useState(0);
-
-  const futureIdeas = useMemo(
-    () =>
-      t.futureIdeas.map((idea, idx) => ({
-        ...idea,
-        active: idx === futureIdea,
-      })),
-    [futureIdea, t.futureIdeas],
-  );
-
   const toc = [
-    { id: "learning-objectives", label: isZh ? "学习目标" : "Learning Objectives" },
-    { id: "intro", label: isZh ? "故事开头" : "Story Start" },
-    { id: "no-end", label: isZh ? "1. 没有终点" : "1. No Predicted End Point" },
-    { id: "beyond", label: isZh ? "2. 超越人类" : "2. Beyond Humans" },
-    { id: "disciplines", label: isZh ? "3. 走进各学科" : "3. Into Other Disciplines" },
-    { id: "coexist", label: isZh ? "4. 与 AI 和平相处" : "4. Living with AI" },
-    { id: "thought", label: isZh ? "思考" : "Think About It" },
-    { id: "summary", label: isZh ? "小结" : "Summary" },
+    { id: "learning-objectives", label: t.learningObjectivesTitle },
+    { id: "intro", label: t.introTitle },
+    { id: "no-end", label: t.noEndTitle },
+    { id: "beyond", label: t.beyondTitle },
+    { id: "disciplines", label: t.disciplinesTitle },
+    { id: "coexist", label: t.coexistTitle },
+    { id: "food", label: t.foodTitle },
+    { id: "summary", label: t.summaryTitle },
   ];
 
   return (
@@ -57,15 +46,29 @@ export function PrimaryLesson5_6({ lang }: LessonProps) {
         </SectionBlock>
 
         <SectionBlock id="intro" title={t.introTitle} eyebrow={t.introEyebrow}>
-          <p className="text-sm leading-relaxed text-slate-700">{t.intro}</p>
+          <p className="text-sm leading-relaxed text-slate-700">{t.introText}</p>
         </SectionBlock>
 
         <SectionBlock id="no-end" title={t.noEndTitle} eyebrow={t.noEndEyebrow}>
-          <InfoCard title={t.noEndCard}>
-            {t.noEndParas.map((para) => (
-              <p key={para}>{para}</p>
-            ))}
+          <InfoCard title={t.noEndConceptTitle}>
+            <ul className="space-y-1 text-sm text-slate-700">
+              {t.noEndConceptLines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
           </InfoCard>
+          {t.noEndParas.map((para) => (
+            <p key={para} className="text-sm leading-relaxed text-slate-700">
+              {para}
+            </p>
+          ))}
+          <EverydayAIDemo
+            lang={lang}
+            title={t.noEndDemo.title}
+            goal={t.noEndDemo.goal}
+            resetLabel={ui.reset}
+            tasks={t.noEndDemo.tasks}
+          />
           <GuidedSteps title={ui.guidedTitle} steps={t.noEndSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
@@ -77,19 +80,25 @@ export function PrimaryLesson5_6({ lang }: LessonProps) {
           />
         </SectionBlock>
 
-        <SectionBlock id="beyond" title={t.beyondTitle}>
-          <p className="text-sm leading-relaxed text-slate-700">{t.beyondIntro}</p>
-          <div className="grid gap-3 md:grid-cols-2">
-            {t.beyondCards.map((card) => (
-              <div
-                key={card.title}
-                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm ring-1 ring-slate-100"
-              >
-                <p className="text-sm font-semibold text-slate-900">{card.title}</p>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">{card.desc}</p>
-              </div>
-            ))}
-          </div>
+        <SectionBlock id="beyond" title={t.beyondTitle} eyebrow={t.beyondEyebrow}>
+          <InfoCard title={t.beyondConceptTitle}>
+            <ul className="space-y-1 text-sm text-slate-700">
+              {t.beyondConceptLines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </InfoCard>
+          {t.beyondParas.map((para) => (
+            <p key={para} className="text-sm leading-relaxed text-slate-700">
+              {para}
+            </p>
+          ))}
+          <AGISpectrumDemo
+            lang={lang}
+            title={t.beyondDemo.title}
+            goal={t.beyondDemo.goal}
+            resetLabel={ui.reset}
+          />
           <GuidedSteps title={ui.guidedTitle} steps={t.beyondSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
@@ -101,44 +110,62 @@ export function PrimaryLesson5_6({ lang }: LessonProps) {
           />
         </SectionBlock>
 
-        <SectionBlock id="disciplines" title={t.disciplinesTitle}>
-          <p className="text-sm leading-relaxed text-slate-700">{t.disciplinesIntro}</p>
-          <div className="grid gap-3 md:grid-cols-2">
-            {futureIdeas.map((idea) => (
-              <button
-                key={idea.title}
-                type="button"
-                onClick={() => setFutureIdea(futureIdeas.indexOf(idea))}
-                className={[
-                  "rounded-2xl border px-4 py-3 text-left transition",
-                  idea.active
-                    ? "border-emerald-500 bg-emerald-50"
-                    : "border-slate-200 bg-white hover:border-slate-300",
-                ].join(" ")}
-              >
-                <p className="text-sm font-semibold text-slate-900">{idea.title}</p>
-                <p className="mt-1 text-xs text-slate-600">{idea.desc}</p>
-              </button>
-            ))}
-          </div>
-          <GuidedSteps title={ui.guidedTitle} steps={t.disciplineSteps} />
+        <SectionBlock id="disciplines" title={t.disciplinesTitle} eyebrow={t.disciplinesEyebrow}>
+          <InfoCard title={t.disciplinesConceptTitle}>
+            <ul className="space-y-1 text-sm text-slate-700">
+              {t.disciplinesConceptLines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </InfoCard>
+          {t.disciplinesParas.map((para) => (
+            <p key={para} className="text-sm leading-relaxed text-slate-700">
+              {para}
+            </p>
+          ))}
+          <FigureCard
+            label={t.disciplinesFigure.label}
+            caption={t.disciplinesFigure.caption}
+            placeholder={t.disciplinesFigure.placeholder}
+          />
+          <DisciplineImpactDemo
+            lang={lang}
+            title={t.disciplinesDemo.title}
+            goal={t.disciplinesDemo.goal}
+            resetLabel={ui.reset}
+            impacts={t.disciplinesDemo.impacts}
+          />
+          <GuidedSteps title={ui.guidedTitle} steps={t.disciplinesSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
-            prompt={t.disciplineCheckpoint.prompt}
-            options={t.disciplineCheckpoint.options}
+            prompt={t.disciplinesCheckpoint.prompt}
+            options={t.disciplinesCheckpoint.options}
             resetLabel={ui.reset}
             correctLabel={ui.correctLabel}
             incorrectLabel={ui.incorrectLabel}
           />
         </SectionBlock>
 
-        <SectionBlock id="coexist" title={t.coexistTitle}>
-          <p className="text-sm leading-relaxed text-slate-700">{t.coexistIntro}</p>
-          <InfoCard title={t.coexistCard}>
-            {t.coexistList.map((item) => (
-              <p key={item}>{item}</p>
-            ))}
+        <SectionBlock id="coexist" title={t.coexistTitle} eyebrow={t.coexistEyebrow}>
+          <InfoCard title={t.coexistConceptTitle}>
+            <ul className="space-y-1 text-sm text-slate-700">
+              {t.coexistConceptLines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
           </InfoCard>
+          {t.coexistParas.map((para) => (
+            <p key={para} className="text-sm leading-relaxed text-slate-700">
+              {para}
+            </p>
+          ))}
+          <RiskBenefitDemo
+            lang={lang}
+            title={t.coexistDemo.title}
+            goal={t.coexistDemo.goal}
+            resetLabel={ui.reset}
+            scenarios={t.coexistDemo.scenarios}
+          />
           <GuidedSteps title={ui.guidedTitle} steps={t.coexistSteps} />
           <Checkpoint
             tagLabel={ui.checkpointTag}
@@ -150,8 +177,24 @@ export function PrimaryLesson5_6({ lang }: LessonProps) {
           />
         </SectionBlock>
 
-        <SectionBlock id="thought" title={t.thoughtTitle} eyebrow={t.thoughtEyebrow}>
-          <p className="text-sm leading-relaxed text-slate-700">{t.thoughtPrompt}</p>
+        <SectionBlock id="food" title={t.foodTitle} eyebrow={t.foodEyebrow}>
+          <p className="text-sm leading-relaxed text-slate-700">{t.foodPrompt}</p>
+          <FutureRoleDemo
+            lang={lang}
+            title={t.foodDemo.title}
+            goal={t.foodDemo.goal}
+            resetLabel={ui.reset}
+            roles={t.foodDemo.roles}
+          />
+          <GuidedSteps title={ui.guidedTitle} steps={t.foodSteps} />
+          <Checkpoint
+            tagLabel={ui.checkpointTag}
+            prompt={t.foodCheckpoint.prompt}
+            options={t.foodCheckpoint.options}
+            resetLabel={ui.reset}
+            correctLabel={ui.correctLabel}
+            incorrectLabel={ui.incorrectLabel}
+          />
         </SectionBlock>
 
         <SectionBlock id="summary" title={t.summaryTitle} eyebrow={t.summaryEyebrow}>
@@ -166,295 +209,967 @@ export function PrimaryLesson5_6({ lang }: LessonProps) {
   );
 }
 
+type TaskCard = {
+  key: string;
+  label: string;
+  detail: string;
+};
+
+function EverydayAIDemo({
+  lang,
+  title,
+  goal,
+  resetLabel,
+  tasks,
+}: {
+  lang: "en" | "zh";
+  title: string;
+  goal: string;
+  resetLabel: string;
+  tasks: TaskCard[];
+}) {
+  const isZh = lang === "zh";
+  const [active, setActive] = useState(tasks[0]?.key ?? "");
+  const current = tasks.find((task) => task.key === active) ?? tasks[0];
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+            {isZh ? "互动演示" : "Interactive Demo"}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{title}</p>
+          <p className="mt-1 text-xs text-slate-600">{goal}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setActive(tasks[0]?.key ?? "")}
+          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+        >
+          {resetLabel}
+        </button>
+      </div>
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {tasks.map((task) => (
+          <button
+            key={task.key}
+            type="button"
+            onClick={() => setActive(task.key)}
+            className={[
+              "rounded-full border px-3 py-1 text-xs font-semibold transition",
+              task.key === active
+                ? "border-brand-500 bg-brand-50 text-brand-700"
+                : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {task.label}
+          </button>
+        ))}
+      </div>
+
+      {current && (
+        <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            {isZh ? "AI 表现" : "AI capability"}
+          </p>
+          <p className="mt-1 text-sm">{current.detail}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AGISpectrumDemo({
+  lang,
+  title,
+  goal,
+  resetLabel,
+}: {
+  lang: "en" | "zh";
+  title: string;
+  goal: string;
+  resetLabel: string;
+}) {
+  const isZh = lang === "zh";
+  const [level, setLevel] = useState(40);
+
+  const label =
+    level < 40
+      ? isZh
+        ? "窄智能"
+        : "Narrow AI"
+      : level < 70
+        ? isZh
+          ? "通用智能雏形"
+          : "Toward general AI"
+        : isZh
+          ? "更强的通用智能"
+          : "Stronger general intelligence";
+
+  const reset = () => setLevel(40);
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+            {isZh ? "互动演示" : "Interactive Demo"}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{title}</p>
+          <p className="mt-1 text-xs text-slate-600">{goal}</p>
+        </div>
+        <button
+          type="button"
+          onClick={reset}
+          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+        >
+          {resetLabel}
+        </button>
+      </div>
+
+      <div className="mt-3 grid gap-4 md:grid-cols-2">
+        <label className="block text-sm font-semibold text-slate-700">
+          {isZh ? "智能水平" : "Intelligence level"}
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={level}
+            onChange={(e) => setLevel(Number(e.target.value))}
+            className="mt-1 w-full accent-brand-500"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={level}
+          />
+          <span className="text-xs text-slate-500">{level}</span>
+        </label>
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            {isZh ? "阶段" : "Stage"}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{label}</p>
+          <p className="mt-2 text-xs text-slate-600">
+            {isZh
+              ? "大模型让智能从窄域走向更通用。"
+              : "Large models move AI toward more general abilities."}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type DisciplineImpact = {
+  key: string;
+  title: string;
+  detail: string;
+};
+
+function DisciplineImpactDemo({
+  lang,
+  title,
+  goal,
+  resetLabel,
+  impacts,
+}: {
+  lang: "en" | "zh";
+  title: string;
+  goal: string;
+  resetLabel: string;
+  impacts: DisciplineImpact[];
+}) {
+  const isZh = lang === "zh";
+  const [active, setActive] = useState(impacts[0]?.key ?? "");
+  const current = impacts.find((impact) => impact.key === active) ?? impacts[0];
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+            {isZh ? "互动演示" : "Interactive Demo"}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{title}</p>
+          <p className="mt-1 text-xs text-slate-600">{goal}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setActive(impacts[0]?.key ?? "")}
+          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+        >
+          {resetLabel}
+        </button>
+      </div>
+
+      <div className="mt-3 grid gap-2 md:grid-cols-3">
+        {impacts.map((impact) => (
+          <button
+            key={impact.key}
+            type="button"
+            onClick={() => setActive(impact.key)}
+            className={[
+              "rounded-xl border px-3 py-2 text-left text-xs font-semibold transition",
+              impact.key === active
+                ? "border-slate-900 bg-slate-900 text-white"
+                : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {impact.title}
+          </button>
+        ))}
+      </div>
+
+      {current && (
+        <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            {isZh ? "突破" : "Impact"}
+          </p>
+          <p className="mt-1 text-sm">{current.detail}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+type RiskScenario = {
+  key: string;
+  title: string;
+  benefit: string;
+  risk: string;
+};
+
+function RiskBenefitDemo({
+  lang,
+  title,
+  goal,
+  resetLabel,
+  scenarios,
+}: {
+  lang: "en" | "zh";
+  title: string;
+  goal: string;
+  resetLabel: string;
+  scenarios: RiskScenario[];
+}) {
+  const isZh = lang === "zh";
+  const [active, setActive] = useState(scenarios[0]?.key ?? "");
+  const current = scenarios.find((scenario) => scenario.key === active) ?? scenarios[0];
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+            {isZh ? "互动演示" : "Interactive Demo"}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{title}</p>
+          <p className="mt-1 text-xs text-slate-600">{goal}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setActive(scenarios[0]?.key ?? "")}
+          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+        >
+          {resetLabel}
+        </button>
+      </div>
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {scenarios.map((scenario) => (
+          <button
+            key={scenario.key}
+            type="button"
+            onClick={() => setActive(scenario.key)}
+            className={[
+              "rounded-full border px-3 py-1 text-xs font-semibold transition",
+              scenario.key === active
+                ? "border-brand-500 bg-brand-50 text-brand-700"
+                : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {scenario.title}
+          </button>
+        ))}
+      </div>
+
+      {current && (
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800">
+            <p className="text-xs font-semibold uppercase tracking-wide">{isZh ? "优势" : "Benefit"}</p>
+            <p className="mt-1 text-sm">{current.benefit}</p>
+          </div>
+          <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800">
+            <p className="text-xs font-semibold uppercase tracking-wide">{isZh ? "风险" : "Risk"}</p>
+            <p className="mt-1 text-sm">{current.risk}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+type RoleOption = {
+  key: string;
+  label: string;
+  response: string;
+};
+
+function FutureRoleDemo({
+  lang,
+  title,
+  goal,
+  resetLabel,
+  roles,
+}: {
+  lang: "en" | "zh";
+  title: string;
+  goal: string;
+  resetLabel: string;
+  roles: RoleOption[];
+}) {
+  const isZh = lang === "zh";
+  const [active, setActive] = useState(roles[0]?.key ?? "");
+  const current = roles.find((role) => role.key === active) ?? roles[0];
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+            {isZh ? "互动演示" : "Interactive Demo"}
+          </p>
+          <p className="mt-1 text-sm font-semibold text-slate-900">{title}</p>
+          <p className="mt-1 text-xs text-slate-600">{goal}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setActive(roles[0]?.key ?? "")}
+          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+        >
+          {resetLabel}
+        </button>
+      </div>
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {roles.map((role) => (
+          <button
+            key={role.key}
+            type="button"
+            onClick={() => setActive(role.key)}
+            className={[
+              "rounded-full border px-3 py-1 text-xs font-semibold transition",
+              role.key === active
+                ? "border-brand-500 bg-brand-50 text-brand-700"
+                : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            ].join(" ")}
+          >
+            {role.label}
+          </button>
+        ))}
+      </div>
+
+      {current && (
+        <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            {isZh ? "思考" : "Reflection"}
+          </p>
+          <p className="mt-1 text-sm">{current.response}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const content = {
   en: {
     learningObjectivesTitle: "Learning Objectives",
     learningObjectives: [
-      "Understand future trends of AI.",
-      "Learn what Artificial General Intelligence (AGI) means and why it is powerful.",
-      "Think about AI’s goals and how we live together with AI.",
+      "Understand future trends in AI.",
+      "Learn about AGI and its capabilities.",
+      "Reflect on how humans should live alongside AI.",
     ],
-    introTitle: "Where are we going?",
-    introEyebrow: "Story start",
-    intro:
-      "AI has grown for almost 70 years. We are at a new crossroads. Let’s peek at the road ahead and how we can be ready.",
+    introTitle: "Story Start",
+    introEyebrow: "Opening",
+    introText:
+      "AI has grown for nearly 70 years with peaks and downturns. We are now at a new crossroads.",
     noEndTitle: "1. No Predicted End Point",
-    noEndEyebrow: "AI keeps moving",
-    noEndCard: "AI is happening now",
-    noEndParas: [
-      "AI writes, paints, plans trips, and helps daily. Artists, musicians, and writers use it as a tool.",
-      "If the 1956 AI pioneers saw today, they would be amazed. AI can match or beat humans in some tasks, and we don’t know the final stop.",
+    noEndEyebrow: "AI everywhere",
+    noEndConceptTitle: "Concept Card",
+    noEndConceptLines: [
+      "AI writes reports and helps daily life.",
+      "Artists and musicians already use AI tools.",
+      "No one can predict the final endpoint.",
     ],
+    noEndParas: [
+      "Large language model apps can summarize notes, plan trips, and polish essays.",
+      "If the 1956 pioneers saw today, they would be amazed by AI's progress.",
+    ],
+    noEndDemo: {
+      title: "Everyday AI",
+      goal: "See what AI can already do around us.",
+      tasks: [
+        {
+          key: "writing",
+          label: "Writing",
+          detail: "Drafts essays, summaries, and reports quickly.",
+        },
+        {
+          key: "music",
+          label: "Music",
+          detail: "Helps compose melodies and generate ideas.",
+        },
+        {
+          key: "planning",
+          label: "Planning",
+          detail: "Suggests travel plans and schedules.",
+        },
+      ],
+    },
     noEndSteps: [
-      "Name one AI tool you’ve seen (chatbot, drawing tool, planner).",
-      "What surprised you most about what AI can do?",
-      "Imagine one new job AI might help with.",
+      "Pick a daily AI task.",
+      "Describe how it helps people.",
+      "Discuss what still needs humans.",
     ],
     noEndCheckpoint: {
-      prompt: "Why can’t we see an end point for AI yet?",
+      prompt: "Why is there no predicted end point for AI?",
       options: [
         {
-          label: "AI keeps learning and improving, so its abilities keep growing.",
+          label: "AI keeps improving and no one knows its final limit.",
           correct: true,
-          explanation: "AI progress is ongoing; we can’t see the final limit yet.",
+          explanation: "Progress is ongoing and future ability is uncertain.",
         },
         {
-          label: "AI must stop after 70 years.",
+          label: "AI already stopped developing.",
           correct: false,
-          explanation: "There is no fixed stop date.",
+          explanation: "AI is still advancing rapidly.",
         },
         {
-          label: "AI can only do one thing forever.",
+          label: "AI only works for one task.",
           correct: false,
-          explanation: "Modern AI handles many tasks, not just one.",
+          explanation: "AI works across many tasks today.",
         },
       ],
     },
     beyondTitle: "2. Intelligence Beyond Humans",
-    beyondIntro:
-      "Large models can solve many tasks with one system. AI may outperform most people, and someday even top experts, in many areas.",
-    beyondCards: [
-      {
-        title: "From narrow to general",
-        desc: "Older AI did one job; newer AI can handle many tasks with one model.",
-      },
-      {
-        title: "Tools in the real world",
-        desc: "AI can control drones or robots, learning from the world to improve.",
-      },
+    beyondEyebrow: "Toward AGI",
+    beyondConceptTitle: "Concept Card",
+    beyondConceptLines: [
+      "Narrow AI handled single tasks.",
+      "Large models bring more general abilities.",
+      "AI may surpass humans in many areas.",
     ],
+    beyondParas: [
+      "Large models reduce the need for separate systems for each task.",
+      "With more data and better algorithms, AI's abilities will keep growing.",
+      "AI can also control tools like drones and learn from real-world interaction.",
+    ],
+    beyondDemo: {
+      title: "AGI Spectrum",
+      goal: "Slide from narrow AI toward general intelligence.",
+    },
     beyondSteps: [
-      "Think of a task where AI already beats humans (e.g., some puzzles, fast math).",
-      "Think of a task where humans are still better (e.g., empathy).",
+      "Adjust the intelligence slider.",
+      "Read the stage label.",
+      "Explain the difference between narrow and general AI.",
     ],
     beyondCheckpoint: {
-      prompt: "What is a sign that AI is becoming more general?",
+      prompt: "What changed with large language models?",
       options: [
         {
-          label: "One model can handle many different tasks.",
+          label: "AI became more general and multi-task capable.",
           correct: true,
-          explanation: "General intelligence means wide ability with one system.",
+          explanation: "Large models handle broader tasks with one system.",
         },
         {
-          label: "It must only play chess.",
+          label: "AI stopped learning from data.",
           correct: false,
-          explanation: "That would be narrow intelligence.",
+          explanation: "Large models depend on massive data.",
         },
         {
-          label: "It never uses tools or sensors.",
+          label: "AI only works for translation now.",
           correct: false,
-          explanation: "General systems can use tools and data sources.",
+          explanation: "Large models cover many tasks beyond translation.",
         },
       ],
     },
     disciplinesTitle: "3. Entering Other Disciplines",
-    disciplinesIntro:
-      "AI is helping chemistry, math, astronomy, physics, and more. AlphaFold predicted protein structures and sped up science.",
-    futureIdeas: [
-      { title: "Biology boost", desc: "Predict protein shapes to speed medicine." },
-      { title: "Math helper", desc: "Suggest patterns, check proofs." },
-      { title: "Space scout", desc: "Sort images, find interesting signals." },
-      { title: "Engineer buddy", desc: "Simulate designs faster." },
+    disciplinesEyebrow: "AI + science",
+    disciplinesConceptTitle: "Concept Card",
+    disciplinesConceptLines: [
+      "AI is integrating with many scientific fields.",
+      "AlphaFold predicted protein structures quickly.",
+      "Cross-discipline impact may exceed ChatGPT or Sora.",
     ],
-    disciplineSteps: [
-      "Pick a subject you like (math, art, sports).",
-      "Imagine one way AI could help that subject.",
+    disciplinesParas: [
+      "AlphaFold reduced years of experiments to minutes, transforming biology and medicine.",
+      "AI now supports breakthroughs in physics, astronomy, engineering, and more.",
     ],
-    disciplineCheckpoint: {
-      prompt: "Why did AlphaFold matter?",
+    disciplinesFigure: {
+      label: "Figure 5-17",
+      caption: "AlphaFold predicting protein structure.",
+      placeholder: "Illustration placeholder",
+    },
+    disciplinesDemo: {
+      title: "Discipline Impact",
+      goal: "Explore how AI supports other fields.",
+      impacts: [
+        {
+          key: "biology",
+          title: "Biology",
+          detail: "AlphaFold predicts protein structures rapidly.",
+        },
+        {
+          key: "astronomy",
+          title: "Astronomy",
+          detail: "AI helps analyze large telescope data.",
+        },
+        {
+          key: "engineering",
+          title: "Engineering",
+          detail: "AI optimizes complex designs faster.",
+        },
+      ],
+    },
+    disciplinesSteps: [
+      "Pick a discipline.",
+      "Describe the AI impact.",
+      "Explain why integration matters.",
+    ],
+    disciplinesCheckpoint: {
+      prompt: "Why is AlphaFold important?",
       options: [
         {
-          label: "It predicted protein structures, speeding up biology and medicine.",
+          label: "It predicts protein structures quickly, transforming biology.",
           correct: true,
-          explanation: "This changed how fast scientists can work in biochemistry.",
+          explanation: "It reduced years of experiments to minutes.",
         },
         {
-          label: "It was just a drawing app.",
+          label: "It only writes poems.",
           correct: false,
-          explanation: "AlphaFold was about protein prediction.",
+          explanation: "It focuses on protein structures.",
         },
         {
-          label: "It only told jokes.",
+          label: "It stopped research progress.",
           correct: false,
-          explanation: "It was a scientific model, not a chatbot for jokes.",
+          explanation: "It accelerated research progress.",
         },
       ],
     },
     coexistTitle: "4. Peaceful Coexistence with AI",
-    coexistIntro:
-      "AI brings benefits and risks. We need to use it wisely, check facts, and keep people safe.",
-    coexistCard: "Safe and smart AI use",
-    coexistList: [
-      "Check facts: AI can make mistakes.",
-      "Use for good: avoid harmful uses like fake info or dangerous weapons.",
-      "Balance: enjoy AI’s help but stay thoughtful and kind.",
+    coexistEyebrow: "Risks and benefits",
+    coexistConceptTitle: "Concept Card",
+    coexistConceptLines: [
+      "AI can spread misinformation.",
+      "Autonomous weapons raise safety concerns.",
+      "We must learn to use AI wisely.",
     ],
-    coexistSteps: [
-      "Name one good use of AI for your class.",
-      "Name one risk and how to reduce it.",
+    coexistParas: [
+      "Large models sometimes generate incorrect information, making filtering harder.",
+      "AI weapons and autonomous systems create new safety risks.",
+      "Learning to coexist with AI is essential for modern citizens.",
     ],
-    coexistCheckpoint: {
-      prompt: "How do we stay safe with AI?",
-      options: [
+    coexistDemo: {
+      title: "Balance Benefits and Risks",
+      goal: "Compare AI's advantages and risks.",
+      scenarios: [
         {
-          label: "Check information and avoid harmful uses.",
-          correct: true,
-          explanation: "We must verify and use AI responsibly.",
+          key: "news",
+          title: "Information",
+          benefit: "AI can summarize news quickly.",
+          risk: "It may also spread misinformation.",
         },
         {
-          label: "Trust every answer blindly.",
-          correct: false,
-          explanation: "We should verify AI outputs.",
+          key: "weapons",
+          title: "Autonomy",
+          benefit: "AI can assist in dangerous tasks.",
+          risk: "Autonomous weapons may threaten safety.",
         },
         {
-          label: "Let AI decide everything for us.",
-          correct: false,
-          explanation: "Humans stay in charge and think critically.",
+          key: "tools",
+          title: "Everyday tools",
+          benefit: "AI boosts productivity and creativity.",
+          risk: "Overreliance may weaken critical thinking.",
         },
       ],
     },
-    thoughtTitle: "Think About It",
-    thoughtEyebrow: "Food for thought",
-    thoughtPrompt:
-      "If AI reaches scientist-level intelligence, how should humans and AI share the work of discovery?",
-    summaryTitle: "Lesson Summary",
-    summaryEyebrow: "Key points",
+    coexistSteps: [
+      "Pick a scenario.",
+      "Compare benefit and risk.",
+      "Explain how to use AI safely.",
+    ],
+    coexistCheckpoint: {
+      prompt: "What is a key skill for living with AI?",
+      options: [
+        {
+          label: "Using AI's strengths while avoiding its dangers.",
+          correct: true,
+          explanation: "Balanced use is essential.",
+        },
+        {
+          label: "Ignoring AI completely.",
+          correct: false,
+          explanation: "AI is already part of daily life.",
+        },
+        {
+          label: "Letting AI make every decision.",
+          correct: false,
+          explanation: "Humans must stay responsible.",
+        },
+      ],
+    },
+    foodTitle: "Food for Thought",
+    foodEyebrow: "Future role",
+    foodPrompt:
+      "If AI discovers new laws of nature, what role should human scientists play?",
+    foodDemo: {
+      title: "Human Role",
+      goal: "Consider how humans can contribute alongside AI.",
+      roles: [
+        {
+          key: "guide",
+          label: "Guide",
+          response: "Humans can set goals and ethics for AI discovery.",
+        },
+        {
+          key: "collab",
+          label: "Collaborator",
+          response: "Humans can interpret results and build new theories.",
+        },
+        {
+          key: "creator",
+          label: "Creator",
+          response: "Humans can design new questions and directions.",
+        },
+      ],
+    },
+    foodSteps: [
+      "Pick a possible role.",
+      "Explain why it matters.",
+      "Discuss how humans and AI can co-create.",
+    ],
+    foodCheckpoint: {
+      prompt: "What is a healthy way to view AI's future?",
+      options: [
+        {
+          label: "Work with AI while keeping human values and responsibility.",
+          correct: true,
+          explanation: "Coexistence requires balance and ethics.",
+        },
+        {
+          label: "Stop using AI altogether.",
+          correct: false,
+          explanation: "AI is already part of society.",
+        },
+        {
+          label: "Let AI replace all humans.",
+          correct: false,
+          explanation: "Humans still provide goals and values.",
+        },
+      ],
+    },
+    summaryTitle: "Key Takeaways",
+    summaryEyebrow: "Summary",
     summaryPoints: [
-      "AI progress is fast, and the finish line is unknown.",
-      "General AI can handle many tasks; tool use makes it stronger.",
-      "AI boosts science and many subjects (e.g., AlphaFold in biology).",
-      "We should use AI wisely, balancing benefits and risks.",
+      "AI continues to advance with no clear endpoint.",
+      "Large models push AI toward more general abilities.",
+      "AI is transforming many scientific disciplines.",
+      "We must balance benefits and risks to coexist with AI.",
     ],
   },
   zh: {
     learningObjectivesTitle: "学习目标",
     learningObjectives: [
-      "认识人工智能的未来趋势。",
-      "了解“通用人工智能（AGI）”和它的强大能力。",
-      "思考 AI 的终极目标，以及我们该如何与它共处。",
+      "了解 AI 未来发展趋势。",
+      "理解通用人工智能及其能力。",
+      "思考人类如何与 AI 共处。",
     ],
-    introTitle: "我们要去哪儿？",
-    introEyebrow: "故事开头",
-    intro: "人工智能发展将近 70 年。我们正站在新路口，看看未来可能是什么样子，以及我们如何做好准备。",
-    noEndTitle: "1. 没有预测的终点",
-    noEndEyebrow: "AI 不停前进",
-    noEndCard: "AI 现在就在身边",
+    introTitle: "故事开头",
+    introEyebrow: "开场",
+    introText: "人工智能发展近 70 年，经历起伏，如今再度站在关键路口。",
+    noEndTitle: "1. 没有终点",
+    noEndEyebrow: "AI 无处不在",
+    noEndConceptTitle: "概念卡片",
+    noEndConceptLines: [
+      "AI 能写报告、润色文章。",
+      "艺术家与音乐人已开始使用 AI。",
+      "未来的终点无人可预测。",
+    ],
     noEndParas: [
-      "AI 会写作、作画、规划行程，成为艺术家、音乐人、写作者的工具。",
-      "如果 1956 年的先驱看到今天，会很惊讶。AI 在一些任务上能达到或超过人类，我们还看不到终点。",
+      "大模型应用能总结会议、规划行程、润色写作。",
+      "如果 1956 年的学者看到今天，会十分震撼。",
     ],
-    noEndSteps: ["说出一个你见过的 AI 工具。", "哪件 AI 功能让你最惊讶？", "想象 AI 还能帮助什么新工作。"],
-    noEndCheckpoint: {
-      prompt: "为什么我们还看不到 AI 的终点？",
-      options: [
+    noEndDemo: {
+      title: "日常 AI",
+      goal: "看看 AI 已经能做什么。",
+      tasks: [
         {
-          label: "AI 持续学习变强，能力在不断增长。",
-          correct: true,
-          explanation: "AI 仍在进步，没有固定终点。",
+          key: "writing",
+          label: "写作",
+          detail: "快速生成摘要、报告和作文。",
         },
         {
-          label: "AI 发展到 70 年就会自动停止。",
-          correct: false,
-          explanation: "没有固定的停止时间。",
+          key: "music",
+          label: "音乐",
+          detail: "辅助作曲与创意灵感。",
         },
         {
-          label: "AI 永远只能做一件事。",
-          correct: false,
-          explanation: "现代 AI 能处理多种任务。",
+          key: "planning",
+          label: "规划",
+          detail: "提供旅行计划与日程建议。",
         },
       ],
     },
-    beyondTitle: "2. 超越人类",
-    beyondIntro: "大模型能用一个系统完成多种任务。AI 可能超越大多数人类，甚至有一天超过顶尖专家。",
-    beyondCards: [
-      { title: "从“单一”到“多能”", desc: "早期 AI 做单一工作；新 AI 能用一个模型处理多项任务。" },
-      { title: "会用工具的 AI", desc: "AI 可以控制无人机或机器人，从真实世界中学习变强。" },
+    noEndSteps: [
+      "选择一个任务。",
+      "描述 AI 如何帮助人们。",
+      "讨论哪些仍需要人类。",
     ],
-    beyondSteps: ["想一个 AI 已经很强的任务。", "想一个人类暂时更擅长的任务。"],
-    beyondCheckpoint: {
-      prompt: "什么现象说明 AI 越来越通用？",
+    noEndCheckpoint: {
+      prompt: "为什么无法预测 AI 的终点？",
       options: [
         {
-          label: "一个模型可以完成很多不同的任务。",
+          label: "AI 还在持续进步，未来未知。",
           correct: true,
-          explanation: "通用智能意味着一个系统处理多种任务。",
+          explanation: "能力仍在增长。",
         },
         {
-          label: "它只能下棋。",
+          label: "AI 已经停止发展。",
           correct: false,
-          explanation: "那是“窄”智能。",
+          explanation: "AI 仍在快速进步。",
         },
         {
-          label: "它从不使用工具或传感器。",
+          label: "AI 只能做一件事。",
           correct: false,
-          explanation: "通用系统可以用工具和数据源。",
+          explanation: "AI 已能处理多种任务。",
+        },
+      ],
+    },
+    beyondTitle: "2. 智能超越人类",
+    beyondEyebrow: "走向通用",
+    beyondConceptTitle: "概念卡片",
+    beyondConceptLines: [
+      "过去的 AI 只能做单一任务。",
+      "大模型带来更通用能力。",
+      "AI 可能超过人类多项能力。",
+    ],
+    beyondParas: [
+      "大模型减少了对多个专用模型的依赖。",
+      "随着数据和算法提升，AI 能力继续增长。",
+      "AI 还能控制工具，如无人机并从现实学习。",
+    ],
+    beyondDemo: {
+      title: "AGI 光谱",
+      goal: "从窄智能走向通用智能。",
+    },
+    beyondSteps: [
+      "调整智能滑块。",
+      "观察阶段变化。",
+      "解释窄智能与通用智能差异。",
+    ],
+    beyondCheckpoint: {
+      prompt: "大模型带来的变化是什么？",
+      options: [
+        {
+          label: "AI 变得更通用、多任务。",
+          correct: true,
+          explanation: "大模型可执行多种任务。",
+        },
+        {
+          label: "AI 不再需要数据。",
+          correct: false,
+          explanation: "数据仍是核心。",
+        },
+        {
+          label: "AI 只剩翻译功能。",
+          correct: false,
+          explanation: "大模型覆盖多种任务。",
         },
       ],
     },
     disciplinesTitle: "3. 走进各学科",
-    disciplinesIntro: "AI 正帮助化学、数学、天文、物理等。AlphaFold 预测蛋白质结构，加快了科研。",
-    futureIdeas: [
-      { title: "生物学助力", desc: "预测蛋白结构，帮助药物研发。" },
-      { title: "数学好帮手", desc: "提示规律，检查证明。" },
-      { title: "太空侦察", desc: "整理图片，发现有趣信号。" },
-      { title: "工程小搭档", desc: "更快模拟设计。" },
+    disciplinesEyebrow: "跨学科",
+    disciplinesConceptTitle: "概念卡片",
+    disciplinesConceptLines: [
+      "AI 与科学学科深度融合。",
+      "AlphaFold 改变了生物学。",
+      "影响可能超过 ChatGPT。",
     ],
-    disciplineSteps: ["选一个你喜欢的学科。", "想想 AI 如何帮助它。"],
-    disciplineCheckpoint: {
-      prompt: "AlphaFold 为何重要？",
-      options: [
+    disciplinesParas: [
+      "AlphaFold 将蛋白质结构预测从多年缩短到数分钟。",
+      "AI 正在推动物理、天文、工程等领域进步。",
+    ],
+    disciplinesFigure: {
+      label: "图 5-17",
+      caption: "AlphaFold 预测蛋白质结构。",
+      placeholder: "插图占位",
+    },
+    disciplinesDemo: {
+      title: "学科影响",
+      goal: "看看 AI 如何推动各学科发展。",
+      impacts: [
         {
-          label: "它预测蛋白质结构，加快了生物和医学研究。",
-          correct: true,
-          explanation: "它改变了科研速度。",
+          key: "biology",
+          title: "生物学",
+          detail: "AlphaFold 快速预测蛋白质结构。",
         },
         {
-          label: "它只是一个绘画应用。",
-          correct: false,
-          explanation: "AlphaFold 是蛋白质预测模型。",
+          key: "astronomy",
+          title: "天文学",
+          detail: "AI 分析海量望远镜数据。",
         },
         {
-          label: "它只会讲笑话。",
-          correct: false,
-          explanation: "它是科学模型，不是聊天逗乐工具。",
+          key: "engineering",
+          title: "工程",
+          detail: "AI 优化复杂设计方案。",
         },
       ],
     },
-    coexistTitle: "4. 与 AI 和平相处",
-    coexistIntro: "AI 有好处也有风险。我们要智慧使用、核实信息，保护安全。",
-    coexistCard: "安全、聪明地用 AI",
-    coexistList: ["核对事实：AI 会出错。", "用于善：避免假信息或危险用途。", "平衡：享受帮助但保持思考与善意。"],
-    coexistSteps: ["说一个 AI 在你课堂的好用法。", "说一个风险和减少它的方法。"],
+    disciplinesSteps: [
+      "选择一个学科。",
+      "描述 AI 影响。",
+      "说明跨学科意义。",
+    ],
+    disciplinesCheckpoint: {
+      prompt: "AlphaFold 的重要性是什么？",
+      options: [
+        {
+          label: "快速预测蛋白质结构，推动生物学。",
+          correct: true,
+          explanation: "它大幅加速科研。",
+        },
+        {
+          label: "只会写诗。",
+          correct: false,
+          explanation: "它用于蛋白质结构预测。",
+        },
+        {
+          label: "阻碍科研进展。",
+          correct: false,
+          explanation: "它加速科研。",
+        },
+      ],
+    },
+    coexistTitle: "4. 与 AI 和平共处",
+    coexistEyebrow: "风险与收益",
+    coexistConceptTitle: "概念卡片",
+    coexistConceptLines: [
+      "AI 可能传播错误信息。",
+      "自动武器带来安全隐患。",
+      "要学会合理使用 AI。",
+    ],
+    coexistParas: [
+      "大模型有时会生成错误信息，影响判断。",
+      "AI 武器的出现带来安全风险。",
+      "学会利用优势、规避风险是关键。",
+    ],
+    coexistDemo: {
+      title: "权衡收益与风险",
+      goal: "比较 AI 的优势与隐患。",
+      scenarios: [
+        {
+          key: "news",
+          title: "信息",
+          benefit: "快速总结新闻与资料。",
+          risk: "可能传播错误信息。",
+        },
+        {
+          key: "weapons",
+          title: "自动化",
+          benefit: "执行危险任务更安全。",
+          risk: "自主武器可能威胁安全。",
+        },
+        {
+          key: "tools",
+          title: "日常工具",
+          benefit: "提高效率与创造力。",
+          risk: "过度依赖削弱思考。",
+        },
+      ],
+    },
+    coexistSteps: [
+      "选择一个情境。",
+      "比较优势与风险。",
+      "说明如何安全使用 AI。",
+    ],
     coexistCheckpoint: {
-      prompt: "如何更安全地用 AI？",
+      prompt: "与 AI 共处的关键能力是什么？",
       options: [
         {
-          label: "核对信息，避免有害用途。",
+          label: "发挥 AI 优势并规避风险。",
           correct: true,
-          explanation: "我们要验证并负责任地使用。",
+          explanation: "需要理性与责任。",
         },
         {
-          label: "盲目信任每个答案。",
+          label: "完全忽视 AI。",
           correct: false,
-          explanation: "需要核对输出。",
+          explanation: "AI 已融入生活。",
         },
         {
-          label: "让 AI 替我们决定一切。",
+          label: "让 AI 决定一切。",
           correct: false,
-          explanation: "人类要保持思考和决策。",
+          explanation: "人类仍需负责。",
         },
       ],
     },
-    thoughtTitle: "思考题",
-    thoughtEyebrow: "延伸思考",
-    thoughtPrompt: "如果 AI 达到科学家水平，人类和 AI 应该如何分工合作？",
-    summaryTitle: "本课小结",
-    summaryEyebrow: "要点",
+    foodTitle: "想一想",
+    foodEyebrow: "科学家的角色",
+    foodPrompt:
+      "如果 AI 能发现自然新规律，人类科学家该扮演什么角色？",
+    foodDemo: {
+      title: "人类角色",
+      goal: "思考人类与 AI 的合作方式。",
+      roles: [
+        {
+          key: "guide",
+          label: "引导者",
+          response: "人类制定目标与价值方向。",
+        },
+        {
+          key: "collab",
+          label: "合作者",
+          response: "人类解释结果并建立新理论。",
+        },
+        {
+          key: "creator",
+          label: "创造者",
+          response: "人类提出新的问题与探索方向。",
+        },
+      ],
+    },
+    foodSteps: [
+      "选择一个角色。",
+      "说明它的意义。",
+      "讨论人机共创的未来。",
+    ],
+    foodCheckpoint: {
+      prompt: "如何更好地面对 AI 未来？",
+      options: [
+        {
+          label: "与 AI 合作，同时坚持人类价值与责任。",
+          correct: true,
+          explanation: "共存需要平衡与伦理。",
+        },
+        {
+          label: "完全不用 AI。",
+          correct: false,
+          explanation: "AI 已进入社会。",
+        },
+        {
+          label: "让 AI 取代所有人。",
+          correct: false,
+          explanation: "人类仍需定义价值与方向。",
+        },
+      ],
+    },
+    summaryTitle: "要点回顾",
+    summaryEyebrow: "总结",
     summaryPoints: [
-      "AI 发展迅速，终点未知。",
-      "通用 AI 可以处理多任务，会用工具更强大。",
-      "AI 正在帮助各学科，例如 AlphaFold 在生物领域的贡献。",
-      "使用 AI 要兼顾好处与风险。",
+      "AI 持续前进，没有明确终点。",
+      "大模型推动 AI 走向更通用能力。",
+      "AI 正在改变多学科发展。",
+      "我们需要平衡风险与收益，共处共进。",
     ],
   },
 };
