@@ -115,6 +115,16 @@ import { PrimaryLesson6_2 } from "./pages/primary-6-2";
 import { PrimaryLesson6_3 } from "./pages/primary-6-3";
 import { PrimaryLesson6_4 } from "./pages/primary-6-4";
 import { PrimaryLesson6_5 } from "./pages/primary-6-5";
+import { PrimaryLesson7_1 } from "./pages/primary-7-1";
+import { PrimaryLesson7_2 } from "./pages/primary-7-2";
+import { PrimaryLesson7_3 } from "./pages/primary-7-3";
+import { PrimaryLesson7_4 } from "./pages/primary-7-4";
+import { PrimaryLesson7_5 } from "./pages/primary-7-5";
+import { PrimaryLesson7_6 } from "./pages/primary-7-6";
+import { PrimaryLesson7_7 } from "./pages/primary-7-7";
+import { PrimaryLesson7_8 } from "./pages/primary-7-8";
+import { PrimaryLesson7_9 } from "./pages/primary-7-9";
+import { PrimaryLesson7_10 } from "./pages/primary-7-10";
 
 function App() {
   const [lang, setLang] = useState<"en" | "zh">("zh");
@@ -540,6 +550,93 @@ function LessonRouter({ lang, level = "high" }: LessonRouterProps) {
         {lessonNum === 3 && <PrimaryLesson6_3 lang={lang} />}
         {lessonNum === 4 && <PrimaryLesson6_4 lang={lang} />}
         {lessonNum === 5 && <PrimaryLesson6_5 lang={lang} />}
+      </div>
+    );
+  }
+
+  if (level === "primary" && chapterNum === 7 && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(lessonNum)) {
+    const titles: Record<number, { zh: string; en: string; blurbZh: string; blurbEn: string }> = {
+      1: {
+        zh: "第 7 单元 · 第 1 课：皮茨和他的神经元模型",
+        en: "Unit 7 · Lesson 1: Pitts and His Neuron Model",
+        blurbZh: "认识皮茨与麦卡洛克的神经元模型故事。",
+        blurbEn: "Meet Pitts and McCulloch and their neuron model.",
+      },
+      2: {
+        zh: "第 7 单元 · 第 2 课：感知器：会学习的神经网络",
+        en: "Unit 7 · Lesson 2: Perceptron: A Learning Neural Network",
+        blurbZh: "了解罗森布拉特与感知器的学习机制。",
+        blurbEn: "Learn Rosenblatt’s perceptron and how it learns.",
+      },
+      3: {
+        zh: "第 7 单元 · 第 3 课：杰弗里·辛顿的故事",
+        en: "Unit 7 · Lesson 3: Story of Geoffrey Hinton",
+        blurbZh: "追随辛顿的学术道路与深度学习突破。",
+        blurbEn: "Follow Hinton’s journey and deep learning breakthroughs.",
+      },
+      4: {
+        zh: "第 7 单元 · 第 4 课：李飞飞与 ImageNet 数据集",
+        en: "Unit 7 · Lesson 4: Fei-Fei Li and ImageNet Dataset",
+        blurbZh: "了解 ImageNet 的诞生与影响。",
+        blurbEn: "See how ImageNet was built and why it mattered.",
+      },
+      5: {
+        zh: "第 7 单元 · 第 5 课：GPU：从游戏到人工智能",
+        en: "Unit 7 · Lesson 5: GPU: From Gaming to AI",
+        blurbZh: "理解 GPU 如何推动 AI 算力革命。",
+        blurbEn: "Understand how GPUs powered the AI compute boom.",
+      },
+      6: {
+        zh: "第 7 单元 · 第 6 课：解析 AlphaGo",
+        en: "Unit 7 · Lesson 6: Understanding AlphaGo",
+        blurbZh: "探索围棋难度与 AlphaGo 的原理。",
+        blurbEn: "Explore Go’s difficulty and AlphaGo’s core ideas.",
+      },
+      7: {
+        zh: "第 7 单元 · 第 7 课：探索大语言模型",
+        en: "Unit 7 · Lesson 7: Exploring Large Language Models",
+        blurbZh: "从词语接龙到 ChatGPT 的秘密。",
+        blurbEn: "From word chains to the secrets of ChatGPT.",
+      },
+      8: {
+        zh: "第 7 单元 · 第 8 课：深度学习挑战：难以理解的智能",
+        en: "Unit 7 · Lesson 8: Deep Learning Challenge: Hard-to-Explain Intelligence",
+        blurbZh: "认识黑箱问题与可解释性研究。",
+        blurbEn: "Understand the black-box issue and interpretability.",
+      },
+      9: {
+        zh: "第 7 单元 · 第 9 课：深度学习挑战：对抗样本",
+        en: "Unit 7 · Lesson 9: Deep Learning Challenge: Adversarial Examples",
+        blurbZh: "了解对抗样本与安全风险。",
+        blurbEn: "Learn adversarial examples and security risks.",
+      },
+      10: {
+        zh: "第 7 单元 · 第 10 课：深度学习挑战：超级智能体",
+        en: "Unit 7 · Lesson 10: Deep Learning Challenge: Super Intelligent Agents",
+        blurbZh: "思考超级智能体的潜力与风险。",
+        blurbEn: "Reflect on superintelligent agents and their risks.",
+      },
+    };
+
+    const title = isZh ? titles[lessonNum].zh : titles[lessonNum].en;
+    const eyebrow = isZh ? "已开放课程" : "Open lesson";
+    const blurb = isZh ? titles[lessonNum].blurbZh : titles[lessonNum].blurbEn;
+
+    return wrap(
+      <div className="space-y-4">
+        <SectionBlock title={title} eyebrow={eyebrow}>
+          <p className="text-sm text-slate-700">{blurb}</p>
+        </SectionBlock>
+        {lessonNum === 1 && <PrimaryLesson7_1 lang={lang} />}
+        {lessonNum === 2 && <PrimaryLesson7_2 lang={lang} />}
+        {lessonNum === 3 && <PrimaryLesson7_3 lang={lang} />}
+        {lessonNum === 4 && <PrimaryLesson7_4 lang={lang} />}
+        {lessonNum === 5 && <PrimaryLesson7_5 lang={lang} />}
+        {lessonNum === 6 && <PrimaryLesson7_6 lang={lang} />}
+        {lessonNum === 7 && <PrimaryLesson7_7 lang={lang} />}
+        {lessonNum === 8 && <PrimaryLesson7_8 lang={lang} />}
+        {lessonNum === 9 && <PrimaryLesson7_9 lang={lang} />}
+        {lessonNum === 10 && <PrimaryLesson7_10 lang={lang} />}
       </div>
     );
   }

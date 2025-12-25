@@ -47,6 +47,7 @@ const attacks: Attack[] = [
 export function SpoofingRiskDemo({ lang }: Props) {
   const isZh = lang === "zh";
   const [selected, setSelected] = useState<Attack>(attacks[0]);
+  const reset = () => setSelected(attacks[0]);
 
   return (
     <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 shadow-sm">
@@ -64,9 +65,19 @@ export function SpoofingRiskDemo({ lang }: Props) {
               : "Pick an attack type to see risks and matching defenses."}
           </p>
         </div>
-        <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-amber-700">
-          {isZh ? "隐私与安全" : "Privacy & Security"}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-amber-700">
+            {isZh ? "隐私与安全" : "Privacy & Security"}
+          </span>
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-full border border-amber-200 bg-white px-3 py-1 text-xs font-semibold text-amber-700 transition hover:border-amber-300"
+            aria-label={isZh ? "重置" : "Reset"}
+          >
+            {isZh ? "重置" : "Reset"}
+          </button>
+        </div>
       </div>
 
       <div className="mt-4 grid gap-3 md:grid-cols-3">
